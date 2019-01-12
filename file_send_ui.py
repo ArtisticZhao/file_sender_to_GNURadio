@@ -34,7 +34,7 @@ class Ui_Dialog(object):
         self.server_button.setGeometry(QtCore.QRect(290, 70, 101, 27))
         self.server_button.setObjectName("server_button")
         self.label_3 = QtWidgets.QLabel(Dialog)
-        self.label_3.setGeometry(QtCore.QRect(150, 74, 51, 17))
+        self.label_3.setGeometry(QtCore.QRect(150, 75, 51, 17))
         self.label_3.setObjectName("label_3")
         self.server_status = QtWidgets.QLabel(Dialog)
         self.server_status.setGeometry(QtCore.QRect(200, 74, 81, 20))
