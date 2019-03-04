@@ -1,0 +1,52 @@
+# depslib dependency file v1.0
+1551339352 source:/home/bg2dgr/code/C/tx_file/client.c
+	<stdio.h>
+	<stdlib.h>
+	<errno.h>
+	<string.h>
+	<sys/types.h>
+	<netinet/in.h>
+	<sys/socket.h>
+	<sys/wait.h>
+
+1551080056 source:/home/bg2dgr/code/C/tx_file/crc32.c
+	"crc32.h"
+	"ftp.h"
+	<stdint.h>
+	<stdio.h>
+
+1547217064 /home/bg2dgr/code/C/tx_file/crc32.h
+	<stdint.h>
+
+1551685168 /home/bg2dgr/code/C/tx_file/ftp.h
+	<stdint.h>
+
+1551689508 source:/home/bg2dgr/code/C/tx_file/ftp.c
+	"ftp.h"
+	"crc32.h"
+	<stdio.h>
+	<inttypes.h>
+	<unistd.h>
+	<sys/types.h>
+	<sys/stat.h>
+	<fcntl.h>
+	<stdlib.h>
+	<string.h>
+	<errno.h>
+	"c_socket.h"
+
+1551685132 source:/home/bg2dgr/code/C/tx_file/main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
+1551689819 source:/home/bg2dgr/code/C/tx_file/c_socket.c
+	"c_socket.h"
+	<stdio.h>
+	<stdlib.h>
+	<sys/socket.h>
+	<netinet/in.h>
+	<arpa/inet.h>
+
+1551685254 /home/bg2dgr/code/C/tx_file/c_socket.h
+

@@ -27,7 +27,6 @@ class MainWindow(QtWidgets.QWidget):
         sys.stdout = EmittingStream(textWritten=self.normal_output_written)
 
         # button functions
-
         self.ui.open_file_button.clicked.connect(
             lambda: functions.open_file(self))
         self.ui.server_button.clicked.connect(self.start_stop_server)
