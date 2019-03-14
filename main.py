@@ -11,6 +11,7 @@ from file_send_ui import Ui_Dialog
 
 import functions
 from tcp_core import tcp_server
+from call_c_lib import Call_C_Lib_Task
 
 
 class MainWindow(QtWidgets.QWidget):
@@ -18,6 +19,7 @@ class MainWindow(QtWidgets.QWidget):
         QtWidgets.QWidget.__init__(self, parent)
         # objects
         self.tcp_server = None
+        self.sender_lib_thread = None
 
         # setup UI
         self.ui = Ui_Dialog()
@@ -30,6 +32,7 @@ class MainWindow(QtWidgets.QWidget):
         self.ui.open_file_button.clicked.connect(
             lambda: functions.open_file(self))
         self.ui.server_button.clicked.connect(self.start_stop_server)
+        self.ui.send_button.clicked.connect(self.sending)
 
     def refresh_status(self, str):
         self.ui.server_status.setText(str)
@@ -51,6 +54,28 @@ class MainWindow(QtWidgets.QWidget):
             self.ui.server_button.setText("Start Server")
             self.ui.server_button.setEnabled(True)
 
+    def sending(self, parameter_list):
+        # do input check
+
+        # call lib
+        if self.sender_lib_thread is None:
+            self.sender_lib_thread = Call_C_Lib_Task(
+                self.ui.file_path.text(), int(self.ui.sender_port.text()),
+                int(self.ui.file_num.text()))
+            self.sender_lib_thread.start()
+
+            self.ui.send_button.setText("cancel")
+        else:
+            if self.sender_lib_thread.is_alive():
+                print("running! to kill it!!!")
+                self.sender_lib_thread.libc.close_socketfd()
+                while self.sender_lib_thread.is_alive():
+                    continue
+                self.ui.send_button.setText("send")
+                self.sender_lib_thread = None
+            else:
+                print("not running")
+
     def normal_output_written(self, text):
         """ Initial output console length and buffer.
         """
@@ -68,21 +93,6 @@ class MainWindow(QtWidgets.QWidget):
         self.ui.log_area.setText(str_buf)
         textCursor.setPosition(length)
         self.ui.log_area.setTextCursor(textCursor)
-
-
-# class Signal(QtCore.QObject):
-#     server_refresh_Signal = pyqtSignal(str)
-
-#     def __init__(self):
-#         self.parent = None
-
-#     def set_parent(self, obj):
-#         self.parent = obj
-
-#     def set_connection(self):
-#         self.server_refresh_Signal.connect(self.parent.refresh_status)
-
-# signals = Signal()
 
 
 class EmittingStream(QtCore.QObject):

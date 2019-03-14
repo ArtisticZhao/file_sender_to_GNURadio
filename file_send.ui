@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>400</width>
-    <height>300</height>
+    <height>279</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,7 +17,7 @@
    <property name="geometry">
     <rect>
      <x>320</x>
-     <y>30</y>
+     <y>20</y>
      <width>71</width>
      <height>27</height>
     </rect>
@@ -30,7 +30,7 @@
    <property name="geometry">
     <rect>
      <x>52</x>
-     <y>30</y>
+     <y>20</y>
      <width>261</width>
      <height>27</height>
     </rect>
@@ -40,7 +40,7 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>34</y>
+     <y>24</y>
      <width>66</width>
      <height>17</height>
     </rect>
@@ -53,9 +53,9 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>160</y>
+     <y>170</y>
      <width>381</width>
-     <height>121</height>
+     <height>101</height>
     </rect>
    </property>
   </widget>
@@ -63,7 +63,7 @@
    <property name="geometry">
     <rect>
      <x>80</x>
-     <y>70</y>
+     <y>96</y>
      <width>51</width>
      <height>27</height>
     </rect>
@@ -73,7 +73,7 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>74</y>
+     <y>100</y>
      <width>66</width>
      <height>17</height>
     </rect>
@@ -86,7 +86,7 @@
    <property name="geometry">
     <rect>
      <x>290</x>
-     <y>70</y>
+     <y>96</y>
      <width>101</width>
      <height>27</height>
     </rect>
@@ -99,7 +99,7 @@
    <property name="geometry">
     <rect>
      <x>150</x>
-     <y>75</y>
+     <y>101</y>
      <width>51</width>
      <height>17</height>
     </rect>
@@ -112,7 +112,7 @@
    <property name="geometry">
     <rect>
      <x>200</x>
-     <y>74</y>
+     <y>100</y>
      <width>81</width>
      <height>20</height>
     </rect>
@@ -125,8 +125,8 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>120</y>
-     <width>301</width>
+     <y>133</y>
+     <width>381</width>
      <height>23</height>
     </rect>
    </property>
@@ -141,13 +141,71 @@
    <property name="geometry">
     <rect>
      <x>320</x>
-     <y>117</y>
+     <y>60</y>
      <width>71</width>
      <height>27</height>
     </rect>
    </property>
    <property name="text">
     <string>Send...</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_4">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>64</y>
+     <width>91</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Sender Port</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="sender_port">
+   <property name="geometry">
+    <rect>
+     <x>100</x>
+     <y>60</y>
+     <width>51</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="placeholderText">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_5">
+   <property name="geometry">
+    <rect>
+     <x>160</x>
+     <y>64</y>
+     <width>91</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>File Number</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="file_num">
+   <property name="geometry">
+    <rect>
+     <x>260</x>
+     <y>60</y>
+     <width>51</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="placeholderText">
+    <string/>
    </property>
   </widget>
  </widget>
