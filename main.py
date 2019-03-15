@@ -7,6 +7,8 @@
 import sys
 
 from PyQt5 import QtWidgets, QtCore
+from PyQt5.QtCore import QTimer
+
 from file_send_ui import Ui_Dialog
 
 import functions
@@ -24,7 +26,14 @@ class MainWindow(QtWidgets.QWidget):
         # setup UI
         self.ui = Ui_Dialog()
         self.ui.setupUi(self)
-
+        # 设置禁止更改窗口大小
+        self.setFixedSize(self.width(), self.height())
+        # 设置只显示关闭按钮
+        self.setWindowFlags(QtCore.Qt.WindowCloseButtonHint)
+        # a timer to update status
+        self.timer = QTimer(self)  # 初始化一个定时器
+        self.timer.timeout.connect(self.timer_click)  # 计时结束调用operate()方法
+        self.timer.start(500)  # 设置计时间隔500ms并启动
         # Setup console output, emmit stdout
         sys.stdout = EmittingStream(textWritten=self.normal_output_written)
 
@@ -33,6 +42,13 @@ class MainWindow(QtWidgets.QWidget):
             lambda: functions.open_file(self))
         self.ui.server_button.clicked.connect(self.start_stop_server)
         self.ui.send_button.clicked.connect(self.sending)
+
+    def timer_click(self):
+        # if thread run out:
+        if self.sender_lib_thread is not None:
+            if not self.sender_lib_thread.is_alive():
+                self.ui.send_button.setText("send")
+                self.sender_lib_thread = None
 
     def refresh_status(self, str):
         self.ui.server_status.setText(str)
