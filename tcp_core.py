@@ -1,11 +1,13 @@
 # coding:utf-8
-from socketserver import BaseRequestHandler, TCPServer
+from socketserver import BaseRequestHandler, ThreadingTCPServer
 import socket
 import threading
 import time
 
 client_socket = []
 shutdown_flag = [False]
+
+socketer_dict = dict()
 
 
 class SeverHandler(BaseRequestHandler):
@@ -15,15 +17,18 @@ class SeverHandler(BaseRequestHandler):
     def handle(self):
         print('Got connection from', self.client_address, end=' \n')
         close = 0
+        socketer_dict[self.client_address] = self.request
         while not close and not shutdown_flag[0]:
             msg = self.request.recv(8192)
-            print("[message]", end=' ')
-            print(msg)
             if not msg:
                 break
             if b'bye' in msg:
                 close = 1
-            self.request.send("receive success\n".encode('utf-8'))
+            # self.request.send("receive success\n".encode('utf-8'))
+            # 转发
+            for key in socketer_dict.keys():
+                if key is not self.client_address:
+                    socketer_dict[key].send(msg)
 
     def finish(self):
         print("client is disconnect!")
@@ -37,7 +42,7 @@ class tcp_server(threading.Thread):
         self.port = port
 
     def run(self):
-        self.serv = TCPServer(
+        self.serv = ThreadingTCPServer(
             ('', self.port), SeverHandler, bind_and_activate=False)
         self.serv.socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR,
                                     True)
