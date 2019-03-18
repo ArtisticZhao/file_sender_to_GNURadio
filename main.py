@@ -20,7 +20,8 @@ class MainWindow(QtWidgets.QWidget):
     def __init__(self, parent=None):
         QtWidgets.QWidget.__init__(self, parent)
         # objects
-        self.tcp_server = None
+        self.hcr_tcp_server = None
+        self.grc_tcp_server = None
         self.sender_lib_thread = None
 
         # setup UI
@@ -57,15 +58,25 @@ class MainWindow(QtWidgets.QWidget):
         if (self.ui.server_button.text() == 'Start Server'):
             # 启动server
             self.ui.server_button.setDisabled(True)
-            self.tcp_server = tcp_server(int(self.ui.server_port.text()))
-            self.tcp_server.start()
-            print("start tcp server at port: " + self.ui.server_port.text())
+            # hcr server start!
+            self.hcr_tcp_server = tcp_server(
+                int(self.ui.sender_port.text()), 'hcr')
+            self.hcr_tcp_server.start()
+            print("start [hcr] tcp server at port: " +
+                  self.ui.sender_port.text())
+            # grc server start!
+            self.grc_tcp_server = tcp_server(
+                int(self.ui.server_port.text()), 'grc')
+            self.grc_tcp_server.start()
+            print("start [grc] tcp server at port: " +
+                  self.ui.server_port.text())
             self.ui.server_button.setText("Stop Server")
             self.ui.server_button.setEnabled(True)
         else:
             # stop server
             self.ui.server_button.setDisabled(True)
-            self.tcp_server.shutdown()
+            self.hcr_tcp_server.shutdown()
+            self.grc_tcp_server.shutdown()
             print("tcp server shutdown")
             self.ui.server_button.setText("Start Server")
             self.ui.server_button.setEnabled(True)
