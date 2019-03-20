@@ -28,7 +28,7 @@ class HCR_Handler(BaseRequestHandler):
             if b'bye' in msg:
                 close = 1
             # encode KISS
-            msg = self.kiss_encoder.encode(msg)
+            # msg = self.kiss_encoder.encode(msg)
             # self.request.send("receive success\n".encode('utf-8'))
             # 转发
             socketer_dict['to_GRC'].send(msg)
@@ -49,16 +49,18 @@ class GRC_Handler(BaseRequestHandler):
         socketer_dict['to_GRC'] = self.request
         while not close and not shutdown_flag[0]:
             msg = self.request.recv(8192)
+
             if not msg:
                 break
             if b'bye' in msg:
                 close = 1
             # decode KISS
-            msg = self.kiss_decoder.AppendStream(msg)
-
+            smsg = self.kiss_decoder.AppendStream(msg)
+            print(smsg)
             # self.request.send("receive success\n".encode('utf-8'))
             # 转发
-            socketer_dict['to_HCR'].send(msg)
+            if smsg is not None:
+                socketer_dict['to_HCR'].send(smsg)
 
     def finish(self):
         print("client is disconnect!")

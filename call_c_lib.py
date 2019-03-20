@@ -36,7 +36,7 @@ class Call_C_Lib_Task(threading.Thread):
 
     def run(self):
         work_path = os.getcwd()
-        self.libc = cdll.LoadLibrary(os.path.join(work_path, "senderlib.so"))
+        self.libc = cdll.LoadLibrary(os.path.join(work_path, "upload_lib.so"))
         try:
             self.libc.lib_entry(
                 c_char_p(bytes(self.path, 'utf8')), self.port, self.file_no)
