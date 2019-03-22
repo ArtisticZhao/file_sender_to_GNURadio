@@ -56,7 +56,7 @@ class GRC_Handler(BaseRequestHandler):
                 close = 1
             # decode KISS
             smsg = self.kiss_decoder.AppendStream(msg)
-            print(smsg)
+            # print(smsg)
             # self.request.send("receive success\n".encode('utf-8'))
             # 转发
             if smsg is not None:
