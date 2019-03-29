@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
+    <width>437</width>
     <height>279</height>
    </rect>
   </property>
@@ -16,7 +16,7 @@
   <widget class="QPushButton" name="open_file_button">
    <property name="geometry">
     <rect>
-     <x>320</x>
+     <x>350</x>
      <y>20</y>
      <width>71</width>
      <height>27</height>
@@ -31,7 +31,7 @@
     <rect>
      <x>52</x>
      <y>20</y>
-     <width>261</width>
+     <width>291</width>
      <height>27</height>
     </rect>
    </property>
@@ -54,7 +54,7 @@
     <rect>
      <x>10</x>
      <y>170</y>
-     <width>381</width>
+     <width>411</width>
      <height>101</height>
     </rect>
    </property>
@@ -62,7 +62,7 @@
   <widget class="QLineEdit" name="server_port">
    <property name="geometry">
     <rect>
-     <x>80</x>
+     <x>90</x>
      <y>96</y>
      <width>51</width>
      <height>27</height>
@@ -85,7 +85,7 @@
   <widget class="QPushButton" name="server_button">
    <property name="geometry">
     <rect>
-     <x>290</x>
+     <x>320</x>
      <y>96</y>
      <width>101</width>
      <height>27</height>
@@ -111,7 +111,7 @@
   <widget class="QLabel" name="server_status">
    <property name="geometry">
     <rect>
-     <x>200</x>
+     <x>210</x>
      <y>100</y>
      <width>81</width>
      <height>20</height>
@@ -126,7 +126,7 @@
     <rect>
      <x>10</x>
      <y>133</y>
-     <width>381</width>
+     <width>411</width>
      <height>23</height>
     </rect>
    </property>
@@ -140,7 +140,7 @@
   <widget class="QPushButton" name="send_button">
    <property name="geometry">
     <rect>
-     <x>320</x>
+     <x>350</x>
      <y>60</y>
      <width>71</width>
      <height>27</height>
@@ -155,7 +155,7 @@
     <rect>
      <x>10</x>
      <y>64</y>
-     <width>91</width>
+     <width>81</width>
      <height>17</height>
     </rect>
    </property>
@@ -166,7 +166,7 @@
   <widget class="QLineEdit" name="sender_port">
    <property name="geometry">
     <rect>
-     <x>100</x>
+     <x>90</x>
      <y>60</y>
      <width>51</width>
      <height>27</height>
@@ -182,20 +182,49 @@
   <widget class="QLabel" name="label_5">
    <property name="geometry">
     <rect>
-     <x>160</x>
+     <x>150</x>
      <y>64</y>
-     <width>91</width>
+     <width>51</width>
      <height>17</height>
     </rect>
    </property>
    <property name="text">
-    <string>File Number</string>
+    <string>File No.</string>
    </property>
   </widget>
   <widget class="QLineEdit" name="file_num">
    <property name="geometry">
     <rect>
-     <x>260</x>
+     <x>200</x>
+     <y>60</y>
+     <width>51</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="placeholderText">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_6">
+   <property name="geometry">
+    <rect>
+     <x>250</x>
+     <y>64</y>
+     <width>51</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Delay:</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="delay_us">
+   <property name="geometry">
+    <rect>
+     <x>292</x>
      <y>60</y>
      <width>51</width>
      <height>27</height>

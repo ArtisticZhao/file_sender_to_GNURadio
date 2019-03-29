@@ -88,7 +88,7 @@ class MainWindow(QtWidgets.QWidget):
         if self.sender_lib_thread is None:
             self.sender_lib_thread = Call_C_Lib_Task(
                 self.ui.file_path.text(), int(self.ui.sender_port.text()),
-                int(self.ui.file_num.text()))
+                int(self.ui.file_num.text()), int(self.ui.delay_us.text()))
             self.sender_lib_thread.start()
 
             self.ui.send_button.setText("cancel")

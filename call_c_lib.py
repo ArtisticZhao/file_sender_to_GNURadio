@@ -27,11 +27,12 @@ def stop_thread(thread):
 
 
 class Call_C_Lib_Task(threading.Thread):
-    def __init__(self, path, port, file_no):
+    def __init__(self, path, port, file_no, d_time):
         super().__init__()
         self.path = path
         self.port = port
         self.file_no = file_no
+        self.d_time = d_time
         self.libc = None
 
     def run(self):
@@ -39,7 +40,8 @@ class Call_C_Lib_Task(threading.Thread):
         self.libc = cdll.LoadLibrary(os.path.join(work_path, "upload_lib.so"))
         try:
             self.libc.lib_entry(
-                c_char_p(bytes(self.path, 'utf8')), self.port, self.file_no)
+                c_char_p(bytes(self.path, 'utf8')), self.port, self.file_no,
+                self.d_time)
         except Exception as e:
             print(e)
 
@@ -52,4 +54,5 @@ class Call_C_Lib_Task(threading.Thread):
 if __name__ == "__main__":
     libc = cdll.LoadLibrary("/home/bg2dgr/code/C/upload/testlib.so")
     libc.lib_entry(
-        c_char_p(bytes("/home/bg2dgr/Downloads/rec.zip", 'utf8')), 1500, 20)
+        c_char_p(bytes("/home/bg2dgr/Downloads/rec.zip", 'utf8')), 1500, 20,
+        50000)
