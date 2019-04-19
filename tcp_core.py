@@ -10,9 +10,18 @@ client_socket = []
 shutdown_flag = [False]  # TODO may cause some errors!!! Where stop server!
 
 socketer_dict = dict()
+'''
+流程说明:
+如果给GNU Radio发消息(消息源可能是"HCR"或者是"软件前面板"), 需要加入打帧器队列当中,
+GRC_Handler的send函数必须由打帧器触发
+'''
 
 
 class HCR_Handler(BaseRequestHandler):
+    '''
+    监听胡学姐
+    '''
+
     def setup(self):
         client_socket.append(self.request)  # 保存套接字socket
         self.kiss_encoder = KISS_Encoder_One_Frame()
@@ -39,6 +48,10 @@ class HCR_Handler(BaseRequestHandler):
 
 
 class GRC_Handler(BaseRequestHandler):
+    '''
+    监听GNU Radio
+    '''
+
     def setup(self):
         client_socket.append(self.request)  # 保存套接字socket
         self.kiss_decoder = KISS_Decoder()
@@ -49,7 +62,6 @@ class GRC_Handler(BaseRequestHandler):
         socketer_dict['to_GRC'] = self.request
         while not close and not shutdown_flag[0]:
             msg = self.request.recv(8192)
-
             if not msg:
                 break
             if b'bye' in msg:
