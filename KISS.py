@@ -51,7 +51,6 @@ class KISS_frame(Thread):
                     time.sleep(0.01)  # 等待10ms
                     self.timer_count += 1
                     if (self.timer_count == 20):
-                        print("time out")
                         self.force_full_buf()
                         self.sender_send()
                         self.timer_count = 0  # 清空计数器

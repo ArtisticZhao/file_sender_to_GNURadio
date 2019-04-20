@@ -24,19 +24,21 @@ class HCR_Handler(BaseRequestHandler):
     '''
 
     def setup(self):
+        # 这个timeout的设置非常有必要, 能够解决不能退出线程的问题
+        self.request.settimeout(1)
         client_socket.append(self.request)  # 保存套接字socket
         self.kiss_encoder = KISS_Encoder_One_Frame()
 
     def handle(self):
         print('[HCR] Got connection from', self.client_address, end=' \n')
-        close = 0
         socketer_dict['to_HCR'] = self.request
-        while not close and not shutdown_flag[0]:
-            msg = self.request.recv(8192)
+        while not shutdown_flag[0]:
+            try:
+                msg = self.request.recv(8192)
+            except socket.timeout:
+                continue
             if not msg:
                 break
-            if b'bye' in msg:
-                close = 1
             # encode KISS
             # msg = self.kiss_encoder.encode(msg)
             # self.request.send("receive success\n".encode('utf-8'))
@@ -56,22 +58,27 @@ class GRC_Handler(BaseRequestHandler):
     '''
 
     def setup(self):
+        # 这个timeout的设置非常有必要, 能够解决不能退出线程的问题
+        self.request.settimeout(1)
         client_socket.append(self.request)  # 保存套接字socket
         self.kiss_decoder = KISS_Decoder()
+
+        # 打帧器
         self.KISS_frame = KISS_frame()
         self.KISS_frame.set_sender(self.request)
         self.KISS_frame.start()
 
     def handle(self):
         print('[GRC] Got connection from', self.client_address, end=' \n')
-        close = 0
+
         socketer_dict['to_GRC'] = self.request
-        while not close and not shutdown_flag[0]:
-            msg = self.request.recv(8192)
+        while not shutdown_flag[0]:
+            try:
+                msg = self.request.recv(8192)
+            except socket.timeout:
+                continue
             if not msg:
                 break
-            if b'bye' in msg:
-                close = 1
             # decode KISS
             smsg = self.kiss_decoder.AppendStream(msg)
             # print(smsg)
@@ -79,6 +86,8 @@ class GRC_Handler(BaseRequestHandler):
             # 转发给HCR
             if smsg is not None:
                 socketer_dict['to_HCR'].send(smsg)
+        # 结束打帧器线程
+        self.KISS_frame.shutdown()
 
     def finish(self):
         print("client is disconnect!")
@@ -96,17 +105,22 @@ class tcp_server(threading.Thread):
         if self.mode == 'grc':
             self.serv = ThreadingTCPServer(
                 ('', self.port), GRC_Handler, bind_and_activate=False)
+            self.serv.socket.settimeout(0.1)  # 设置超时, 以便能够退出线程
             self.serv.socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR,
-                                        True)
+                                        True)  # 设置端口重用, 以便异常socket断开后的重建
+
         elif self.mode == 'hcr':
             self.serv = ThreadingTCPServer(
                 ('', self.port), HCR_Handler, bind_and_activate=False)
+            self.serv.socket.settimeout(0.1)  # 设置超时, 以便能够退出线程
             self.serv.socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR,
-                                        True)
+                                        True)  # 设置端口重用, 以便异常socket断开后的重建
+
         else:
             print("error")
             return
         # Bind and activate
+        self.setName("tcp_server " + self.mode)
         self.serv.server_bind()
         self.serv.server_activate()
         self.serv.serve_forever()
