@@ -5,6 +5,7 @@ import threading
 import time
 
 from KISS import KISS_Decoder, KISS_Encoder_One_Frame
+from KISS import KISS_encode_queue, KISS_frame
 
 client_socket = []
 shutdown_flag = [False]  # TODO may cause some errors!!! Where stop server!
@@ -39,8 +40,10 @@ class HCR_Handler(BaseRequestHandler):
             # encode KISS
             # msg = self.kiss_encoder.encode(msg)
             # self.request.send("receive success\n".encode('utf-8'))
-            # 转发
-            socketer_dict['to_GRC'].send(msg)
+            # 通知打帧器
+            for each in msg:
+                KISS_encode_queue.put(each)
+            # socketer_dict['to_GRC'].send(msg)
 
     def finish(self):
         print("client is disconnect!")
@@ -55,6 +58,9 @@ class GRC_Handler(BaseRequestHandler):
     def setup(self):
         client_socket.append(self.request)  # 保存套接字socket
         self.kiss_decoder = KISS_Decoder()
+        self.KISS_frame = KISS_frame()
+        self.KISS_frame.set_sender(self.request)
+        self.KISS_frame.start()
 
     def handle(self):
         print('[GRC] Got connection from', self.client_address, end=' \n')
@@ -70,7 +76,7 @@ class GRC_Handler(BaseRequestHandler):
             smsg = self.kiss_decoder.AppendStream(msg)
             # print(smsg)
             # self.request.send("receive success\n".encode('utf-8'))
-            # 转发
+            # 转发给HCR
             if smsg is not None:
                 socketer_dict['to_HCR'].send(smsg)
 

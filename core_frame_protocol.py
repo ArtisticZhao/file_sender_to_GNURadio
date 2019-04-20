@@ -44,6 +44,13 @@ class AOS_Frame(object):
                       self.__RS_code)
         return frame_data
 
+    def set_data_area(self, b_data):
+        assert isinstance(b_data, bytes), \
+            "type ERROR at: AOS_Frame.set_data_area"
+        assert len(b_data) == 208, \
+            "len ERROR at: AOS_Frame.set_data_area"
+        self.__data = b_data
+
 
 class Up_Link(object):
     pass

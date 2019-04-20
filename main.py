@@ -111,9 +111,7 @@ class MainWindow(QtWidgets.QWidget):
         str_buf = str_buf + text
         length = len(str_buf)
 
-        maxLength = 6000
-        if (length > maxLength):
-            str_buf = str()  # 清空
+        # TODO 清空
 
         self.ui.log_area.setText(str_buf)
         textCursor = self.ui.log_area.textCursor()

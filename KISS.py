@@ -5,12 +5,112 @@ KISS 协议 数据包以C0开头 ，以C0结尾
 当数据中有C0时， 以 DB DC替换
 当数据中有DB时， 以 DB DD替换
 '''
+import queue
+import time
 from copy import deepcopy
+from threading import Thread
+from core_frame_protocol import AOS_Frame
+KISS_encode_queue = queue.Queue()
 
 KISS_FEND = ord('\xC0')  # 192
 KISS_FESC = ord('\xDB')  # 219
 KISS_TFEND = ord('\xDC')  # 220
 KISS_TFESC = ord('\xDD')  # 221
+
+
+class KISS_frame(Thread):
+    def __init__(self):
+        super().__init__()
+        print('KISS_frame_in')
+        self.__shutdown = False
+        self.b_data = b'\xC0'  # 起始一个标识符
+        self.sender = None
+        self.temp = None
+        self.timer_count = 0  # 定时器计数, 当数据不来的时候就等来10ms, 并加1, 达到值之后强行发送
+
+    def set_sender(self, sender):
+        self.sender = sender
+
+    def run(self):
+        while not self.__shutdown:
+            if not KISS_encode_queue.empty():
+                self.timer_count = 0  # 清空计数器
+                # 得到一个新Byte
+                b = KISS_encode_queue.get()
+                # 判断是否需要转换
+                if b == 0xC0:
+                    b = b'\xDB\xDC'
+                elif b == 0xDB:
+                    b = b'\xDB\xDD'
+                else:
+                    b = bytes([b])  # convert to bytes
+                # 插入到发送队列中
+                self.put_in_buf(b)
+            else:
+                if len(self.b_data) > 1:  # 缓冲区中有数据
+                    time.sleep(0.01)  # 等待10ms
+                    self.timer_count += 1
+                    if (self.timer_count == 20):
+                        print("time out")
+                        self.force_full_buf()
+                        self.sender_send()
+                        self.timer_count = 0  # 清空计数器
+
+    def put_in_buf(self, b_data):
+        '''
+        插入数据到self.b_data, 如果满了就打包发送
+        '''
+        assert isinstance(b_data, bytes),\
+            "not bytes! at: KISS_frame.put_in_buf"
+        assert len(b_data) == 0 or len(b_data) == 1,\
+            "len ERROR at: KISS_frame.put_in_buf"
+        '''
+        这里分的情况:
+            1.如皋余下的地方可以放入b_data则放入
+            2.如果余下的位置不足把当前的数据帧中(data区最大长度208字节), 则放入可以放入的部分, 并发送
+        '''
+        if (208 - len(self.b_data) > len(b_data)):
+            self.b_data += b_data
+        elif (208 - len(self.b_data)) == 1:
+            self.b_data += b_data[:1]  # 截取第一字节
+            self.temp = b_data[1:]  # 截取第二字节
+        else:
+            raise NameError("some strange ERROR at: KISS_frame.put_in_buf")
+
+        if (len(self.b_data) == 208):
+            # 满包发送
+            self.sender_send()
+
+    def sender_send(self):
+        assert len(self.b_data) == 208, "len ERROR at sender_send"
+        # 满包发送 TODO 帧头如何生成
+        aos_f = AOS_Frame()
+        aos_f.set_data_area(self.b_data)
+        self.sender.send(aos_f.gen_frame())
+
+        # 新的缓存区
+        self.b_data = b'\xC0'
+        if self.temp is not None:
+            self.b_data += self.temp
+            self.temp = None
+
+    def force_full_buf(self):
+        '''
+        当一包长度不足208yte 用C0填充满并发送
+        '''
+        if len(self.b_data) < 208:
+            while True:
+                self.b_data += b'\xC0'
+                if len(self.b_data) == 208:
+                    break
+        else:
+            raise NameError("some strange ERROR :KISS_frame.put_in_buf")
+
+    def shutdown(self):
+        '''
+        停止该线程
+        '''
+        self.__shutdown = True
 
 
 class KISS_Decoder():
