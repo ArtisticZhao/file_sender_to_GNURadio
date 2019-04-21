@@ -24,7 +24,7 @@ class KISS_frame(Thread):
     def __init__(self):
         super().__init__()
         self.__shutdown = False
-        self.b_data = b'\xC0'  # 起始一个标识符
+        self.b_data = b''  # 起始一个标识符
         self.sender = None
         self.temp = None
         self.timer_count = 0  # 定时器计数, 当数据不来的时候就等来10ms, 并加1, 达到值之后强行发送
@@ -48,7 +48,7 @@ class KISS_frame(Thread):
                 # 插入到发送队列中
                 self.put_in_buf(b)
             else:
-                if len(self.b_data) > 1:  # 缓冲区中有数据
+                if len(self.b_data) > 0:  # 缓冲区中有数据
                     time.sleep(0.01)  # 等待10ms
                     self.timer_count += 1
                     if (self.timer_count == 20):
@@ -94,7 +94,7 @@ class KISS_frame(Thread):
         self.sender.send(k.encode(aos_f.gen_frame()))
 
         # 新的缓存区
-        self.b_data = b'\xC0'
+        self.b_data = b''
         if self.temp is not None:
             self.b_data += self.temp
             self.temp = None
