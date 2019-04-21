@@ -4,6 +4,7 @@
 '''
 from PyQt5.QtWidgets import QFileDialog
 from zlib import crc32
+from shared import settings
 
 
 def open_file(parent):
@@ -19,3 +20,13 @@ def open_file(parent):
         crc_code = crc32(f.read())
     parent.ui.file_num.setText(str(crc_code))
     parent.ui.file_path.setText(file_path)  # 更新显示信息
+
+
+def change_channel(parent):
+    # load settings
+    # mode
+    if parent.ui.comboBox.currentText() == 'A FTP':
+        settings['virtual_channel_id'] = 3
+    elif parent.ui.comboBox.currentText() == 'B FTP':
+        settings['virtual_channel_id'] = 4
+    print("debug: virtual_channel_id= " + str(settings['virtual_channel_id']))

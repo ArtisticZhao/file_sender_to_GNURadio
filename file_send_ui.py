@@ -74,8 +74,6 @@ class Ui_Dialog(object):
         self.comboBox.setObjectName("comboBox")
         self.comboBox.addItem("")
         self.comboBox.addItem("")
-        self.comboBox.addItem("")
-        self.comboBox.setItemText(2, "")
         self.label_7 = QtWidgets.QLabel(Dialog)
         self.label_7.setGeometry(QtCore.QRect(10, 55, 41, 17))
         self.label_7.setObjectName("label_7")
@@ -99,7 +97,7 @@ class Ui_Dialog(object):
         self.label_5.setText(_translate("Dialog", "File No."))
         self.label_6.setText(_translate("Dialog", "Delay:"))
         self.delay_us.setText(_translate("Dialog", "20000"))
-        self.comboBox.setItemText(0, _translate("Dialog", "A FTP"))
-        self.comboBox.setItemText(1, _translate("Dialog", "B FTP"))
+        self.comboBox.setItemText(0, _translate("Dialog", "B FTP"))
+        self.comboBox.setItemText(1, _translate("Dialog", "A FTP"))
         self.label_7.setText(_translate("Dialog", "Mode"))
 

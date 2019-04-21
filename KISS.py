@@ -38,13 +38,13 @@ class KISS_frame(Thread):
                 self.timer_count = 0  # 清空计数器
                 # 得到一个新Byte
                 b = KISS_encode_queue.get()
-                # 判断是否需要转换
+                '''# 判断是否需要转换
                 if b == 0xC0:
                     b = b'\xDB\xDC'
                 elif b == 0xDB:
                     b = b'\xDB\xDD'
-                else:
-                    b = bytes([b])  # convert to bytes
+                else:'''
+                b = bytes([b])  # convert to bytes
                 # 插入到发送队列中
                 self.put_in_buf(b)
             else:
@@ -83,13 +83,15 @@ class KISS_frame(Thread):
 
     def sender_send(self):
         assert len(self.b_data) == 208, "len ERROR at sender_send"
-        # 满包发送 TODO 帧头如何生成
+        # 满包发送
         aos_f = AOS_Frame()
         aos_f.gen_frame_header(b'\x30', settings['virtual_channel_id'],
                                settings['virtual_channel_count'], '0b0')
         settings['virtual_channel_count'] += 1
         aos_f.set_data_area(self.b_data)
-        self.sender.send(aos_f.gen_frame())
+        # 发前KISS
+        k = KISS_Encoder_One_Frame()
+        self.sender.send(k.encode(aos_f.gen_frame()))
 
         # 新的缓存区
         self.b_data = b'\xC0'

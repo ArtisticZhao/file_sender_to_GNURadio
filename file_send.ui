@@ -251,17 +251,12 @@
    </property>
    <item>
     <property name="text">
-     <string>A FTP</string>
-    </property>
-   </item>
-   <item>
-    <property name="text">
      <string>B FTP</string>
     </property>
    </item>
    <item>
     <property name="text">
-     <string/>
+     <string>A FTP</string>
     </property>
    </item>
   </widget>

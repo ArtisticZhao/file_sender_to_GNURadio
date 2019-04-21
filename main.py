@@ -44,6 +44,8 @@ class MainWindow(QtWidgets.QWidget):
             lambda: functions.open_file(self))
         self.ui.server_button.clicked.connect(self.start_stop_server)
         self.ui.send_button.clicked.connect(self.sending)
+        self.ui.comboBox.currentTextChanged.connect(
+            lambda: functions.change_channel(self))
 
     def timer_click(self):
         # if thread run out:
@@ -59,10 +61,7 @@ class MainWindow(QtWidgets.QWidget):
         if (self.ui.server_button.text() == 'Start Server'):
             # load settings
             # mode
-            if self.ui.comboBox.currentText() == 'A FTP':
-                settings['virtual_channel_id'] = 3
-            elif self.ui.comboBox.currentText() == 'B FTP':
-                settings['virtual_channel_id'] = 4
+            functions.change_channel(self)  # update mode
             print("debug: virtual_channel_id= " +
                   str(settings['virtual_channel_id']))
             # 启动server

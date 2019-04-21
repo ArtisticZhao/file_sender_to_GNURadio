@@ -67,13 +67,13 @@ class AOS_Frame(object):
             "len ERROR at: AOS_Frame.decode_header"
         bit_header = BitArray(b_header)
         f_header = dict()
-        f_header['version'] = BitArray(bin=bit_header.bin[0:2]).uiut
-        f_header['craft_id'] = BitArray(bin=bit_header.bin[2:8]).uiut
+        f_header['version'] = BitArray(bin=bit_header.bin[0:2]).uint
+        f_header['craft_id'] = BitArray(bin=bit_header.bin[2:8]).uint
         f_header['virtual_channel_id'] = BitArray(
-            bin=bit_header.bin[8:14]).uiut
+            bin=bit_header.bin[8:14]).uint
         f_header['virtual_channel_count'] = BitArray(
-            bin=bit_header.bin[14:38]).uiut
-        f_header['is_encrypt'] = BitArray(bin=bit_header.bin[40:41]).uiut
+            bin=bit_header.bin[14:38]).uint
+        f_header['is_encrypt'] = BitArray(bin=bit_header.bin[40:41]).uint
         return f_header
 
 
