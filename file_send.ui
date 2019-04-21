@@ -234,7 +234,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>50</string>
+    <string>20000</string>
    </property>
    <property name="placeholderText">
     <string/>

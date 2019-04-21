@@ -98,7 +98,7 @@ class Ui_Dialog(object):
         self.sender_port.setText(_translate("Dialog", "5234"))
         self.label_5.setText(_translate("Dialog", "File No."))
         self.label_6.setText(_translate("Dialog", "Delay:"))
-        self.delay_us.setText(_translate("Dialog", "50"))
+        self.delay_us.setText(_translate("Dialog", "20000"))
         self.comboBox.setItemText(0, _translate("Dialog", "A FTP"))
         self.comboBox.setItemText(1, _translate("Dialog", "B FTP"))
         self.label_7.setText(_translate("Dialog", "Mode"))
