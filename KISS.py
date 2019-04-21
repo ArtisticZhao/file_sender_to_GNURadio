@@ -62,7 +62,7 @@ class KISS_frame(Thread):
         '''
         assert isinstance(b_data, bytes),\
             "not bytes! at: KISS_frame.put_in_buf"
-        assert len(b_data) == 0 or len(b_data) == 1,\
+        assert len(b_data) == 2 or len(b_data) == 1,\
             "len ERROR at: KISS_frame.put_in_buf"
         '''
         这里分的情况:
