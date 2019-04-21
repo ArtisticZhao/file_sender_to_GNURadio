@@ -14,6 +14,7 @@ from file_send_ui import Ui_Dialog
 import functions
 from tcp_core import tcp_server
 from call_c_lib import Call_C_Lib_Task
+from shared import settings
 
 
 class MainWindow(QtWidgets.QWidget):
@@ -56,6 +57,14 @@ class MainWindow(QtWidgets.QWidget):
 
     def start_stop_server(self):
         if (self.ui.server_button.text() == 'Start Server'):
+            # load settings
+            # mode
+            if self.ui.comboBox.currentText() == 'A FTP':
+                settings['virtual_channel_id'] = 3
+            elif self.ui.comboBox.currentText() == 'B FTP':
+                settings['virtual_channel_id'] = 4
+            print("debug: virtual_channel_id= " +
+                  str(settings['virtual_channel_id']))
             # 启动server
             self.ui.server_button.setDisabled(True)
             # hcr server start!

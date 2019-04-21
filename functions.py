@@ -3,6 +3,7 @@
 定义按钮等功能
 '''
 from PyQt5.QtWidgets import QFileDialog
+from zlib import crc32
 
 
 def open_file(parent):
@@ -14,5 +15,7 @@ def open_file(parent):
     print('openfile: ' + file_path)
     # with open(file_path, 'rb') as opened_file:
     #     slice(opened_file, 20, 0xc0)
-
+    with open(file_path, 'rb') as f:
+        crc_code = crc32(f.read())
+    parent.ui.file_num.setText(str(crc_code))
     parent.ui.file_path.setText(file_path)  # 更新显示信息

@@ -5,7 +5,8 @@ import threading
 import time
 
 from KISS import KISS_Decoder, KISS_Encoder_One_Frame
-from KISS import KISS_encode_queue, KISS_frame
+from KISS import KISS_frame, AOS_Frame
+from shared import KISS_encode_queue
 
 client_socket = []
 shutdown_flag = [False]  # TODO may cause some errors!!! Where stop server!
@@ -41,7 +42,6 @@ class HCR_Handler(BaseRequestHandler):
                 break
             # encode KISS
             # msg = self.kiss_encoder.encode(msg)
-            # self.request.send("receive success\n".encode('utf-8'))
             # 通知打帧器
             for each in msg:
                 KISS_encode_queue.put(each)
@@ -68,6 +68,9 @@ class GRC_Handler(BaseRequestHandler):
         self.KISS_frame.set_sender(self.request)
         self.KISS_frame.start()
 
+        # 解帧器
+        self.KISS_frame_decode = AOS_Frame()
+
     def handle(self):
         print('[GRC] Got connection from', self.client_address, end=' \n')
 
@@ -79,17 +82,18 @@ class GRC_Handler(BaseRequestHandler):
                 continue
             if not msg:
                 break
-            # decode KISS
-            smsg = self.kiss_decoder.AppendStream(msg)
+            # 解析帧格式
+            f_frame = self.KISS_frame_decode.decode_frame(msg)
+            # 处理KISS
+            smsg = self.kiss_decoder.AppendStream(f_frame['data'])
             # print(smsg)
-            # self.request.send("receive success\n".encode('utf-8'))
             # 转发给HCR
             if smsg is not None:
                 socketer_dict['to_HCR'].send(smsg)
-        # 结束打帧器线程
-        self.KISS_frame.shutdown()
 
     def finish(self):
+        # 结束打帧器线程
+        self.KISS_frame.shutdown()
         print("client is disconnect!")
         client_socket.remove(self.request)
 

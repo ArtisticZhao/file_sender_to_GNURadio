@@ -9,10 +9,8 @@ from bitstring import BitArray
 class AOS_Frame(object):
     def __init__(self):
         # 初始化一个帧
-        self.__sync_code = b'\x1A\xCF\xFC\x1D'
         self.__frame_header = bytes(6)
         self.__data = bytes(208)
-        self.__RS_code = bytes(32)
 
     def gen_frame_header(self, craft_id, virtual_channel_id,
                          virtual_channel_count, is_encrypt):
@@ -40,8 +38,7 @@ class AOS_Frame(object):
     def gen_frame(self):
         # 得到整个帧
         frame_data = bytes()
-        frame_data = (self.__sync_code + self.__frame_header + self.__data +
-                      self.__RS_code)
+        frame_data = (self.__frame_header + self.__data)
         return frame_data
 
     def set_data_area(self, b_data):
@@ -50,6 +47,32 @@ class AOS_Frame(object):
         assert len(b_data) == 208, \
             "len ERROR at: AOS_Frame.set_data_area"
         self.__data = b_data
+
+    def decode_frame(self, b_data):
+        assert isinstance(b_data, bytes), \
+            "type ERROR at: AOS_Frame.decode_frame"
+        assert len(b_data) == 214, \
+            "len ERROR at: AOS_Frame.decode_frame"
+        f_data = dict()
+        f_data['frame_header'] = self.decode_header(b_data[0:6])
+        f_data['data'] = b_data[6:214]
+        return f_data
+
+    def decode_header(self, b_header):
+        assert isinstance(b_header, bytes), \
+            "type ERROR at: AOS_Frame.decode_header"
+        assert len(b_header) == 6, \
+            "len ERROR at: AOS_Frame.decode_header"
+        bit_header = BitArray(b_header)
+        f_header = dict()
+        f_header['version'] = BitArray(bin=bit_header.bin[0:2]).uiut
+        f_header['craft_id'] = BitArray(bin=bit_header.bin[2:8]).uiut
+        f_header['virtual_channel_id'] = BitArray(
+            bin=bit_header.bin[8:14]).uiut
+        f_header['virtual_channel_count'] = BitArray(
+            bin=bit_header.bin[14:38]).uiut
+        f_header['is_encrypt'] = BitArray(bin=bit_header.bin[40:41]).uiut
+        return f_header
 
 
 class Up_Link(object):

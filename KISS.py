@@ -5,12 +5,14 @@ KISS 协议 数据包以C0开头 ，以C0结尾
 当数据中有C0时， 以 DB DC替换
 当数据中有DB时， 以 DB DD替换
 '''
-import queue
+
 import time
 from copy import deepcopy
 from threading import Thread
 from core_frame_protocol import AOS_Frame
-KISS_encode_queue = queue.Queue()
+
+from shared import KISS_encode_queue
+from shared import settings
 
 KISS_FEND = ord('\xC0')  # 192
 KISS_FESC = ord('\xDB')  # 219
@@ -21,7 +23,6 @@ KISS_TFESC = ord('\xDD')  # 221
 class KISS_frame(Thread):
     def __init__(self):
         super().__init__()
-        print('KISS_frame_in')
         self.__shutdown = False
         self.b_data = b'\xC0'  # 起始一个标识符
         self.sender = None
@@ -84,6 +85,9 @@ class KISS_frame(Thread):
         assert len(self.b_data) == 208, "len ERROR at sender_send"
         # 满包发送 TODO 帧头如何生成
         aos_f = AOS_Frame()
+        aos_f.gen_frame_header(b'\x30', str(settings['virtual_channel_id']),
+                               str(settings['virtual_channel_count']), str(0))
+        settings['virtual_channel_count'] += 1
         aos_f.set_data_area(self.b_data)
         self.sender.send(aos_f.gen_frame())
 
