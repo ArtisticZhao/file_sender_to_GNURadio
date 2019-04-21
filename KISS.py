@@ -85,8 +85,8 @@ class KISS_frame(Thread):
         assert len(self.b_data) == 208, "len ERROR at sender_send"
         # 满包发送 TODO 帧头如何生成
         aos_f = AOS_Frame()
-        aos_f.gen_frame_header(b'\x30', str(settings['virtual_channel_id']),
-                               str(settings['virtual_channel_count']), str(0))
+        aos_f.gen_frame_header(b'\x30', settings['virtual_channel_id'],
+                               settings['virtual_channel_count'], '0b0')
         settings['virtual_channel_count'] += 1
         aos_f.set_data_area(self.b_data)
         self.sender.send(aos_f.gen_frame())

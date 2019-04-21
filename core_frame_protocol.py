@@ -22,8 +22,10 @@ class AOS_Frame(object):
         h_is_encrypt = BitArray(1)
 
         h_craft_id.overwrite(craft_id, 0)
-        h_virtual_channel_id.overwrite(virtual_channel_id, 0)
-        h_virtual_channel_count.overwrite(virtual_channel_count, 0)
+        h_virtual_channel_id.overwrite(
+            BitArray(uint=virtual_channel_id, length=6), 0)
+        h_virtual_channel_count.overwrite(
+            BitArray(uint=virtual_channel_count, length=24), 0)
         h_is_encrypt.overwrite(is_encrypt, 0)
         header = BitArray()
         header.append('0b00')
