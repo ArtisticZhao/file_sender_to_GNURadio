@@ -12,6 +12,7 @@ from PyQt5.QtCore import QTimer
 from file_send_ui import Ui_Dialog
 
 import functions
+
 from tcp_core import tcp_server
 from call_c_lib import Call_C_Lib_Task
 from shared import settings
@@ -44,8 +45,12 @@ class MainWindow(QtWidgets.QWidget):
             lambda: functions.open_file(self))
         self.ui.server_button.clicked.connect(self.start_stop_server)
         self.ui.send_button.clicked.connect(self.sending)
+
+        # checkbox functions
         self.ui.comboBox.currentTextChanged.connect(
             lambda: functions.change_channel(self))
+        self.ui.cmd_channel.currentTextChanged.connect(
+            lambda: functions.cmd_change_channel(self))
 
     def timer_click(self):
         # if thread run out:

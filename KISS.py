@@ -7,12 +7,14 @@ KISS 协议 数据包以C0开头 ，以C0结尾
 '''
 
 import time
+import queue
 from copy import deepcopy
 from threading import Thread
+
 from core_frame_protocol import AOS_Frame
 
 from shared import KISS_encode_queue
-from shared import settings
+from shared import settings, counters
 
 KISS_FEND = ord('\xC0')  # 192
 KISS_FESC = ord('\xDB')  # 219
@@ -28,9 +30,29 @@ class KISS_frame(Thread):
         self.sender = None
         self.temp = None
         self.timer_count = 0  # 定时器计数, 当数据不来的时候就等来10ms, 并加1, 达到值之后强行发送
+        self.cmd_queue = queue.Queue()
 
     def set_sender(self, sender):
+        # 设置发送器
         self.sender = sender
+
+    def presend_cmd(self, b_data):
+        '''
+        准备发送命令, 将命令放入队列中, 带文件传输的空闲时期发送
+        '''
+        if self.__shutdown is True:
+            # 文件没有发送, 直接发送指令
+            aos_frame = AOS_Frame()
+            aos_frame.gen_frame_header(
+                settings['craft_id'], settings['cmd_channel_id'],
+                counters[settings['cmd_channel_id']], '0b0')
+            counters[settings['cmd_channel_id']] += 1  # 计数器自加
+            # 发前KISS
+            k = KISS_Encoder_One_Frame()
+            self.sender.send(k.encode(aos_frame.gen_frame()))
+        else:
+            # 文件正在发送
+            pass
 
     def run(self):
         while not self.__shutdown:
@@ -85,9 +107,10 @@ class KISS_frame(Thread):
         assert len(self.b_data) == 208, "len ERROR at sender_send"
         # 满包发送
         aos_f = AOS_Frame()
-        aos_f.gen_frame_header(b'\x30', settings['virtual_channel_id'],
-                               settings['virtual_channel_count'], '0b0')
-        settings['virtual_channel_count'] += 1
+        aos_f.gen_frame_header(settings['craft_id'],
+                               settings['virtual_channel_id'],
+                               counters[settings['virtual_channel_id']], '0b0')
+        counters[settings['virtual_channel_id']] += 1
         aos_f.set_data_area(self.b_data)
         # 发前KISS
         k = KISS_Encoder_One_Frame()

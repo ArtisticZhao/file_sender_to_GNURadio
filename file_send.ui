@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>437</width>
-    <height>310</height>
+    <width>658</width>
+    <height>540</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -55,7 +55,7 @@
      <x>10</x>
      <y>190</y>
      <width>411</width>
-     <height>101</height>
+     <height>87</height>
     </rect>
    </property>
   </widget>
@@ -272,6 +272,757 @@
    <property name="text">
     <string>Mode</string>
    </property>
+  </widget>
+  <widget class="QPushButton" name="reset_sys_btn">
+   <property name="geometry">
+    <rect>
+     <x>580</x>
+     <y>20</y>
+     <width>71</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>本机复位</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="set_mode_btn">
+   <property name="geometry">
+    <rect>
+     <x>580</x>
+     <y>50</y>
+     <width>71</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>设置模式</string>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="comboBox_mode">
+   <property name="geometry">
+    <rect>
+     <x>437</x>
+     <y>50</y>
+     <width>141</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <item>
+    <property name="text">
+     <string>缓存模式</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>实时转发模式</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>数据注入模式</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QLineEdit" name="Seed">
+   <property name="geometry">
+    <rect>
+     <x>440</x>
+     <y>190</y>
+     <width>141</width>
+     <height>27</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="set_seed_btn">
+   <property name="geometry">
+    <rect>
+     <x>580</x>
+     <y>190</y>
+     <width>71</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Set Seed</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="set_file_no_btn">
+   <property name="geometry">
+    <rect>
+     <x>580</x>
+     <y>80</y>
+     <width>71</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>设置文件</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="file_path_3">
+   <property name="geometry">
+    <rect>
+     <x>540</x>
+     <y>80</y>
+     <width>41</width>
+     <height>27</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_8">
+   <property name="geometry">
+    <rect>
+     <x>440</x>
+     <y>84</y>
+     <width>71</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>文件序号</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="file_path_4">
+   <property name="geometry">
+    <rect>
+     <x>540</x>
+     <y>106</y>
+     <width>41</width>
+     <height>27</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="del_file_btn">
+   <property name="geometry">
+    <rect>
+     <x>580</x>
+     <y>106</y>
+     <width>71</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>删除文件</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_9">
+   <property name="geometry">
+    <rect>
+     <x>440</x>
+     <y>110</y>
+     <width>71</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>文件序号</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="set_nid_btn">
+   <property name="geometry">
+    <rect>
+     <x>580</x>
+     <y>130</y>
+     <width>71</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>设置nid</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_10">
+   <property name="geometry">
+    <rect>
+     <x>440</x>
+     <y>134</y>
+     <width>71</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>目标nid</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="file_path_5">
+   <property name="geometry">
+    <rect>
+     <x>540</x>
+     <y>130</y>
+     <width>41</width>
+     <height>27</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="FTP_start_btn">
+   <property name="geometry">
+    <rect>
+     <x>440</x>
+     <y>160</y>
+     <width>101</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>FTP开始传输</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="FTP_stop_btn">
+   <property name="geometry">
+    <rect>
+     <x>550</x>
+     <y>160</y>
+     <width>101</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>FTP结束传输</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="set_seed_btn_2">
+   <property name="geometry">
+    <rect>
+     <x>580</x>
+     <y>250</y>
+     <width>71</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>下传工参</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="set_seed_btn_3">
+   <property name="geometry">
+    <rect>
+     <x>440</x>
+     <y>250</y>
+     <width>121</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>切换天线至本机</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="Seed_2">
+   <property name="geometry">
+    <rect>
+     <x>440</x>
+     <y>220</y>
+     <width>131</width>
+     <height>27</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="set_seed_btn_4">
+   <property name="geometry">
+    <rect>
+     <x>570</x>
+     <y>220</y>
+     <width>81</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>下传文件块</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_11">
+   <property name="geometry">
+    <rect>
+     <x>440</x>
+     <y>25</y>
+     <width>71</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>指令信道</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_12">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>290</y>
+     <width>101</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>本机工参 01H</string>
+   </property>
+  </widget>
+  <widget class="QTableWidget" name="tableWidget">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>310</y>
+     <width>641</width>
+     <height>192</height>
+    </rect>
+   </property>
+   <attribute name="horizontalHeaderVisible">
+    <bool>false</bool>
+   </attribute>
+   <attribute name="verticalHeaderVisible">
+    <bool>false</bool>
+   </attribute>
+   <row>
+    <property name="text">
+     <string>1</string>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string>2</string>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string>3</string>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string>4</string>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string>5</string>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string>6</string>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string>7</string>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string>8</string>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string>9</string>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string>10</string>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string>11</string>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string>12</string>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string>13</string>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string>14</string>
+    </property>
+   </row>
+   <column>
+    <property name="text">
+     <string>1</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>2</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>3</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>4</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>5</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>6</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>7</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>8</string>
+    </property>
+   </column>
+   <item row="0" column="0">
+    <property name="text">
+     <string>配置状态</string>
+    </property>
+   </item>
+   <item row="0" column="2">
+    <property name="text">
+     <string>数字信号强度指示1</string>
+    </property>
+   </item>
+   <item row="0" column="4">
+    <property name="text">
+     <string>RF接收包计数</string>
+    </property>
+   </item>
+   <item row="0" column="6">
+    <property name="text">
+     <string>当前发送文件序号</string>
+    </property>
+   </item>
+   <item row="1" column="0">
+    <property name="text">
+     <string>工作模式</string>
+    </property>
+   </item>
+   <item row="1" column="2">
+    <property name="text">
+     <string>数字信号强度指示2</string>
+    </property>
+   </item>
+   <item row="1" column="4">
+    <property name="text">
+     <string>RF接收错误包计数</string>
+    </property>
+   </item>
+   <item row="1" column="6">
+    <property name="text">
+     <string>当前发送文件长度</string>
+    </property>
+   </item>
+   <item row="2" column="0">
+    <property name="text">
+     <string>通道状态标识1</string>
+    </property>
+   </item>
+   <item row="2" column="2">
+    <property name="text">
+     <string>模拟信号强度指示</string>
+    </property>
+   </item>
+   <item row="2" column="4">
+    <property name="text">
+     <string>RF接收执行错误计数</string>
+    </property>
+   </item>
+   <item row="2" column="6">
+    <property name="text">
+     <string>当前发送文件校验值</string>
+    </property>
+   </item>
+   <item row="3" column="0">
+    <property name="text">
+     <string>通道状态标识2</string>
+    </property>
+   </item>
+   <item row="3" column="2">
+    <property name="text">
+     <string>PCB温度1</string>
+    </property>
+   </item>
+   <item row="3" column="4">
+    <property name="text">
+     <string>RF接收纠错失败计数</string>
+    </property>
+   </item>
+   <item row="3" column="6">
+    <property name="text">
+     <string>FTP发送数据块大小</string>
+    </property>
+   </item>
+   <item row="4" column="0">
+    <property name="text">
+     <string>通道状态标识3</string>
+    </property>
+   </item>
+   <item row="4" column="2">
+    <property name="text">
+     <string>PCB温度2</string>
+    </property>
+   </item>
+   <item row="4" column="4">
+    <property name="text">
+     <string>RF最近一条指令</string>
+    </property>
+   </item>
+   <item row="4" column="6">
+    <property name="text">
+     <string>FTP发送成功包数</string>
+    </property>
+   </item>
+   <item row="5" column="0">
+    <property name="text">
+     <string>通道状态标识4</string>
+    </property>
+   </item>
+   <item row="5" column="2">
+    <property name="text">
+     <string>保留</string>
+    </property>
+   </item>
+   <item row="5" column="4">
+    <property name="text">
+     <string>RF指令执行情况</string>
+    </property>
+   </item>
+   <item row="5" column="6">
+    <property name="text">
+     <string>FTP发送缺失包数</string>
+    </property>
+   </item>
+   <item row="6" column="0">
+    <property name="text">
+     <string>+5V接收电流</string>
+    </property>
+   </item>
+   <item row="6" column="2">
+    <property name="text">
+     <string>CAN发送包计数</string>
+    </property>
+   </item>
+   <item row="6" column="4">
+    <property name="text">
+     <string>保留</string>
+    </property>
+   </item>
+   <item row="6" column="6">
+    <property name="text">
+     <string>读取数据包计数</string>
+    </property>
+   </item>
+   <item row="7" column="0">
+    <property name="text">
+     <string>+5V接收电压</string>
+    </property>
+   </item>
+   <item row="7" column="2">
+    <property name="text">
+     <string>CAN接收包计数</string>
+    </property>
+   </item>
+   <item row="7" column="4">
+    <property name="text">
+     <string>FTP当前接收文件序号
+</string>
+    </property>
+   </item>
+   <item row="7" column="6">
+    <property name="text">
+     <string>注入数据计数</string>
+    </property>
+   </item>
+   <item row="8" column="0">
+    <property name="text">
+     <string>+5V发射电流</string>
+    </property>
+   </item>
+   <item row="8" column="2">
+    <property name="text">
+     <string>CAN错误包计数</string>
+    </property>
+   </item>
+   <item row="8" column="4">
+    <property name="text">
+     <string>FTP当前接收文件长度</string>
+    </property>
+   </item>
+   <item row="8" column="6">
+    <property name="text">
+     <string>复位计数</string>
+    </property>
+   </item>
+   <item row="9" column="0">
+    <property name="text">
+     <string>+5V发射电压</string>
+    </property>
+   </item>
+   <item row="9" column="2">
+    <property name="text">
+     <string>CAN执行错误计数</string>
+    </property>
+   </item>
+   <item row="9" column="4">
+    <property name="text">
+     <string>FTP当前接收文件校验值</string>
+    </property>
+   </item>
+   <item row="9" column="6">
+    <property name="text">
+     <string>复位标识</string>
+    </property>
+   </item>
+   <item row="10" column="0">
+    <property name="text">
+     <string>+3.3V电流</string>
+    </property>
+   </item>
+   <item row="10" column="2">
+    <property name="text">
+     <string>CAN最近一条指令</string>
+    </property>
+   </item>
+   <item row="10" column="4">
+    <property name="text">
+     <string>FTP接收数据块大小</string>
+    </property>
+   </item>
+   <item row="10" column="6">
+    <property name="text">
+     <string>系统状态标识</string>
+    </property>
+   </item>
+   <item row="11" column="0">
+    <property name="text">
+     <string>+3.3V电压</string>
+    </property>
+   </item>
+   <item row="11" column="2">
+    <property name="text">
+     <string>CAN指令执行情况</string>
+    </property>
+   </item>
+   <item row="11" column="4">
+    <property name="text">
+     <string>FTP接收成功包数</string>
+    </property>
+   </item>
+   <item row="11" column="6">
+    <property name="text">
+     <string>ARM运行时间</string>
+    </property>
+   </item>
+   <item row="12" column="0">
+    <property name="text">
+     <string>接收频偏1</string>
+    </property>
+   </item>
+   <item row="12" column="2">
+    <property name="text">
+     <string>RF发送包计数</string>
+    </property>
+   </item>
+   <item row="12" column="4">
+    <property name="text">
+     <string>FTP接收缺失包数</string>
+    </property>
+   </item>
+   <item row="12" column="6">
+    <property name="text">
+     <string>AVR运行时间</string>
+    </property>
+   </item>
+   <item row="13" column="0">
+    <property name="text">
+     <string>接收频偏2</string>
+    </property>
+   </item>
+   <item row="13" column="2">
+    <property name="text">
+     <string>RF发送抛弃包计数</string>
+    </property>
+   </item>
+   <item row="13" column="4">
+    <property name="text">
+     <string>目标CAN节点地址</string>
+    </property>
+   </item>
+   <item row="13" column="6">
+    <property name="text">
+     <string>保留</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QCheckBox" name="checkBox">
+   <property name="geometry">
+    <rect>
+     <x>130</x>
+     <y>290</y>
+     <width>201</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>显示最新一包并实时更新</string>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="comboBox_recv_time">
+   <property name="geometry">
+    <rect>
+     <x>410</x>
+     <y>284</y>
+     <width>181</width>
+     <height>27</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_13">
+   <property name="geometry">
+    <rect>
+     <x>340</x>
+     <y>290</y>
+     <width>71</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>接收时间</string>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="cmd_channel">
+   <property name="geometry">
+    <rect>
+     <x>500</x>
+     <y>20</y>
+     <width>78</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <item>
+    <property name="text">
+     <string>AB机均执行</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>A机指令</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>B机指令</string>
+    </property>
+   </item>
   </widget>
  </widget>
  <resources/>

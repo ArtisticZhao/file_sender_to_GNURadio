@@ -8,6 +8,8 @@ from KISS import KISS_Decoder, KISS_Encoder_One_Frame
 from KISS import KISS_frame, AOS_Frame
 from shared import KISS_encode_queue
 
+kiss_frame = KISS_frame()
+
 client_socket = []
 shutdown_flag = [False]  # TODO may cause some errors!!! Where stop server!
 
@@ -64,7 +66,7 @@ class GRC_Handler(BaseRequestHandler):
         self.kiss_decoder = KISS_Decoder()
 
         # 打帧器
-        self.KISS_frame = KISS_frame()
+        self.KISS_frame = kiss_frame
         self.KISS_frame.set_sender(self.request)
         self.KISS_frame.start()
 
@@ -84,12 +86,17 @@ class GRC_Handler(BaseRequestHandler):
                 break
             # 解析帧格式
             f_frame = self.KISS_frame_decode.decode_frame(msg)
-            # 处理KISS
-            smsg = self.kiss_decoder.AppendStream(f_frame['data'])
-            # print(smsg)
-            # 转发给HCR
-            if smsg is not None:
-                socketer_dict['to_HCR'].send(smsg)
+            # 如果是胡学姐的包
+            if (f_frame['frame_header']['virtual_channel_id'] == 3
+                    or f_frame['frame_header']['virtual_channel_id'] == 4):
+                # 处理KISS
+                smsg = self.kiss_decoder.AppendStream(f_frame['data'])
+                # print(smsg)
+                # 转发给HCR
+                if smsg is not None:
+                    socketer_dict['to_HCR'].send(smsg)
+            else:
+                print('[DEBUG] not for HCR')
 
     def finish(self):
         # 结束打帧器线程
