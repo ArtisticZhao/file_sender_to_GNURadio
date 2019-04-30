@@ -3,6 +3,7 @@ from socketserver import BaseRequestHandler, ThreadingTCPServer
 import socket
 import threading
 import time
+import json
 
 from KISS import KISS_Decoder, KISS_Encoder_One_Frame
 from KISS import KISS_frame, AOS_Frame
@@ -97,6 +98,10 @@ class GRC_Handler(BaseRequestHandler):
                     socketer_dict['to_HCR'].send(smsg)
             else:
                 print('[DEBUG] not for HCR')
+                print("[DEBUG] 原始数据 ---------->")
+                print(" ".join(["{:02x}".format(x) for x in msg]))
+                print("[DEBUG] 解析头 ------------>")
+                print(json.dumps(f_frame['frame_header'], indent=2))
 
     def finish(self):
         # 结束打帧器线程
