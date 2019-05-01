@@ -69,7 +69,10 @@ class GRC_Handler(BaseRequestHandler):
         # 打帧器
         self.KISS_frame = kiss_frame
         self.KISS_frame.set_sender(self.request)
-        self.KISS_frame.start()
+        if not self.KISS_frame.is_alive:
+            self.KISS_frame.start()
+        else:
+            print('[DEBUG] KISS frame is running!')
 
         # 解帧器
         self.KISS_frame_decode = AOS_Frame()
