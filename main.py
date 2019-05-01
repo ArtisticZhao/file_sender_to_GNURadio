@@ -12,6 +12,7 @@ from PyQt5.QtCore import QTimer
 from file_send_ui import Ui_Dialog
 
 import functions
+import cmd_function
 
 from tcp_core import tcp_server
 from call_c_lib import Call_C_Lib_Task
@@ -45,6 +46,8 @@ class MainWindow(QtWidgets.QWidget):
             lambda: functions.open_file(self))
         self.ui.server_button.clicked.connect(self.start_stop_server)
         self.ui.send_button.clicked.connect(self.sending)
+        self.ui.reset_sys_btn.clicked.connect(
+            lambda: cmd_function.cmd_reset(self))
 
         # checkbox functions
         self.ui.comboBox.currentTextChanged.connect(

@@ -40,27 +40,23 @@ class KISS_frame(Thread):
         '''
         准备发送命令, 将命令放入队列中, 带文件传输的空闲时期发送
         '''
-        if self.__shutdown is True:
-            # 文件没有发送, 直接发送指令
-            aos_frame = AOS_Frame()
-            aos_frame.gen_frame_header(
-                settings['craft_id'], settings['cmd_channel_id'],
-                counters[settings['cmd_channel_id']], '0b0')
-            counters[settings['cmd_channel_id']] += 1  # 计数器自加
-            # 发前KISS
-            k = KISS_Encoder_One_Frame()
-            send_data = k.encode(aos_frame.gen_frame())
-            if len(send_data) < 208:
-                while True:
-                    send_data += b'\xC0'
-                    if len(send_data) == 208:
-                        break
-                assert len(
-                    send_data) == 208, "len error in KISS_frame.presend_cmd"
-                self.sender.send(send_data)
-        else:
-            # 文件正在发送
-            pass
+        # 文件没有发送, 直接发送指令
+        aos_frame = AOS_Frame()
+        aos_frame.gen_frame_header(settings['craft_id'],
+                                   settings['cmd_channel_id'],
+                                   counters[settings['cmd_channel_id']], '0b0')
+        counters[settings['cmd_channel_id']] += 1  # 计数器自加
+        # 补充c0
+        if len(b_data) < 208:
+            while True:
+                b_data += b'\xC0'
+                if len(b_data) == 208:
+                    break
+        aos_frame.set_data_area(b_data)
+        # 发前KISS
+        k = KISS_Encoder_One_Frame()
+        send_data = k.encode(aos_frame.gen_frame())
+        self.cmd_queue.put(send_data)
 
     def run(self):
         while not self.__shutdown:
@@ -85,6 +81,9 @@ class KISS_frame(Thread):
                         self.force_full_buf()
                         self.sender_send()
                         self.timer_count = 0  # 清空计数器
+                elif not self.cmd_queue.empty():
+                    # 在发送文件空闲之余, 发送指令
+                    self.sender.send(self.cmd_queue.get())
 
     def put_in_buf(self, b_data):
         '''
