@@ -32,6 +32,9 @@ class KISS_frame(Thread):
         self.timer_count = 0  # 定时器计数, 当数据不来的时候就等来10ms, 并加1, 达到值之后强行发送
         self.cmd_queue = queue.Queue()
 
+    def return_shutdown_flag(self):
+        return self.__shutdown
+
     def set_sender(self, sender):
         # 设置发送器
         self.sender = sender
