@@ -10,6 +10,8 @@ from KISS import KISS_frame, AOS_Frame
 from shared import KISS_encode_queue
 
 kiss_frame = KISS_frame()
+kiss_frame.start()
+kiss_frame.setName("KISS frame Thread")
 
 client_socket = []
 shutdown_flag = [False]  # TODO may cause some errors!!! Where stop server!
@@ -65,22 +67,14 @@ class GRC_Handler(BaseRequestHandler):
         self.request.settimeout(1)
         client_socket.append(self.request)  # 保存套接字socket
         self.kiss_decoder = KISS_Decoder()
-
+        print('[GRC] Got connection from', self.client_address, end=' \n')
         # 打帧器
         self.KISS_frame = kiss_frame
         self.KISS_frame.set_sender(self.request)
-        if not self.KISS_frame.return_shutdown_flag():
-            self.KISS_frame.start()
-            self.KISS_frame.setName("KISS Thread")
-        else:
-            print('[DEBUG] start failed: KISS frame is running!')
-
         # 解帧器
         self.KISS_frame_decode = AOS_Frame()
 
     def handle(self):
-        print('[GRC] Got connection from', self.client_address, end=' \n')
-
         socketer_dict['to_GRC'] = self.request
         while not shutdown_flag[0]:
             try:
@@ -108,8 +102,7 @@ class GRC_Handler(BaseRequestHandler):
                 print(json.dumps(f_frame['frame_header'], indent=2))
 
     def finish(self):
-        # 结束打帧器线程
-        self.KISS_frame.shutdown()
+        self.KISS_frame.set_sender(None)
         print("client is disconnect!")
         client_socket.remove(self.request)
 

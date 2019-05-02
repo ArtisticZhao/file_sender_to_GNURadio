@@ -86,7 +86,10 @@ class KISS_frame(Thread):
                         self.timer_count = 0  # 清空计数器
                 elif not self.cmd_queue.empty():
                     # 在发送文件空闲之余, 发送指令
-                    self.sender.send(self.cmd_queue.get())
+                    if self.sender is not None:
+                        self.sender.send(self.cmd_queue.get())
+                    else:
+                        print("[ERROR]: no request")
 
     def put_in_buf(self, b_data):
         '''
@@ -124,7 +127,10 @@ class KISS_frame(Thread):
         aos_f.set_data_area(self.b_data)
         # 发前KISS
         k = KISS_Encoder_One_Frame()
-        self.sender.send(k.encode(aos_f.gen_frame()))
+        if self.sender is not None:
+            self.sender.send(k.encode(aos_f.gen_frame()))
+        else:
+            print("[ERROR]: no request")
 
         # 新的缓存区
         self.b_data = b''

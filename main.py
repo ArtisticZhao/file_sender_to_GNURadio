@@ -14,7 +14,7 @@ from file_send_ui import Ui_Dialog
 import functions
 import cmd_function
 
-from tcp_core import tcp_server
+from tcp_core import tcp_server, kiss_frame
 from call_c_lib import Call_C_Lib_Task
 from shared import settings
 
@@ -93,6 +93,7 @@ class MainWindow(QtWidgets.QWidget):
             self.ui.server_button.setDisabled(True)
             self.hcr_tcp_server.shutdown()
             self.grc_tcp_server.shutdown()
+            kiss_frame.shutdown()
             print("tcp server shutdown")
             self.ui.server_button.setText("Start Server")
             self.ui.server_button.setEnabled(True)
