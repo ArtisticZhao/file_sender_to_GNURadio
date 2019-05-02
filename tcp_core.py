@@ -8,6 +8,7 @@ import json
 from KISS import KISS_Decoder, KISS_Encoder_One_Frame
 from KISS import KISS_frame, AOS_Frame
 from shared import KISS_encode_queue
+from core_packet_protocol import AOS_Telemetry_Packet
 
 kiss_frame = KISS_frame()
 kiss_frame.start()
@@ -94,6 +95,16 @@ class GRC_Handler(BaseRequestHandler):
                 # 转发给HCR
                 if smsg is not None:
                     socketer_dict['to_HCR'].send(smsg)
+            elif f_frame['frame_header']['virtual_channel_id'] == 1:
+                # 遥测
+                kiss_decoder = KISS_Decoder()
+                packet = kiss_decoder.AppendStream(f_frame['data'])
+                if packet is not None:
+                    # 解析工参
+                    atp = AOS_Telemetry_Packet()
+                    print("[DEBUG] 工参 ------------>")
+                    print(json.dumps(atp.decode(packet[2:122]), indent=2))
+
             else:
                 print('[DEBUG] not for HCR')
                 print("[DEBUG] 原始数据 ---------->")
