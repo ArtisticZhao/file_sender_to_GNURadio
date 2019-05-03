@@ -13,6 +13,12 @@ settings = {
 cmd_code = {
     # 指令代码
     'reset': b'\x80',
+    'set_mod': b'\x82',
+    'sys_mod': {
+        'buf_mod': b'\x00',
+        'proxy_mod': b'\x55',
+        'data_mod': b'\xAA'
+    },
     # 信道代码
     'cmd_AB': 0,
     'cmd_A': 1,

@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>658</width>
+    <width>715</width>
     <height>540</height>
    </rect>
   </property>
@@ -276,7 +276,7 @@
   <widget class="QPushButton" name="reset_sys_btn">
    <property name="geometry">
     <rect>
-     <x>580</x>
+     <x>630</x>
      <y>20</y>
      <width>71</width>
      <height>27</height>
@@ -352,12 +352,12 @@
     <rect>
      <x>580</x>
      <y>80</y>
-     <width>71</width>
+     <width>121</width>
      <height>27</height>
     </rect>
    </property>
    <property name="text">
-    <string>设置文件</string>
+    <string>设置待操作文件</string>
    </property>
   </widget>
   <widget class="QLineEdit" name="file_path_3">
@@ -561,7 +561,7 @@
     <rect>
      <x>10</x>
      <y>310</y>
-     <width>641</width>
+     <width>691</width>
      <height>192</height>
     </rect>
    </property>
@@ -1004,7 +1004,7 @@
     <rect>
      <x>500</x>
      <y>20</y>
-     <width>78</width>
+     <width>121</width>
      <height>27</height>
     </rect>
    </property>

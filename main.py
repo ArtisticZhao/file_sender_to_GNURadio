@@ -48,6 +48,8 @@ class MainWindow(QtWidgets.QWidget):
         self.ui.send_button.clicked.connect(self.sending)
         self.ui.reset_sys_btn.clicked.connect(
             lambda: cmd_function.cmd_reset(self))
+        self.ui.set_mode_btn.clicked.connect(
+            lambda: cmd_function.cmd_set_mod(self))
 
         # checkbox functions
         self.ui.comboBox.currentTextChanged.connect(
