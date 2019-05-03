@@ -89,7 +89,8 @@ class KISS_frame(Thread):
                     if self.sender is not None:
                         self.sender.send(self.cmd_queue.get())
                     else:
-                        print("[ERROR]: no request")
+                        self.cmd_queue.get()
+                        print("[ERROR]: no request! drop data!!!")
 
     def put_in_buf(self, b_data):
         '''
@@ -130,7 +131,8 @@ class KISS_frame(Thread):
         if self.sender is not None:
             self.sender.send(k.encode(aos_f.gen_frame()))
         else:
-            print("[ERROR]: no request")
+            self.cmd_queue.get()
+            print("[ERROR]: no request! drop data!!!")
 
         # 新的缓存区
         self.b_data = b''

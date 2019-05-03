@@ -19,6 +19,9 @@ cmd_code = {
         'proxy_mod': b'\x55',
         'data_mod': b'\xAA'
     },
+    'set_prefile_no': b'\x83',
+    'del_file': b'\x84',
+    'set_nid': b'\x85',
     # 信道代码
     'cmd_AB': 0,
     'cmd_A': 1,

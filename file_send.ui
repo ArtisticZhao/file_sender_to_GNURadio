@@ -360,7 +360,7 @@
     <string>设置待操作文件</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="file_path_3">
+  <widget class="QLineEdit" name="prefile_no">
    <property name="geometry">
     <rect>
      <x>540</x>
@@ -383,7 +383,7 @@
     <string>文件序号</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="file_path_4">
+  <widget class="QLineEdit" name="del_file_no">
    <property name="geometry">
     <rect>
      <x>540</x>
@@ -445,7 +445,7 @@
     <string>目标nid</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="file_path_5">
+  <widget class="QLineEdit" name="nid">
    <property name="geometry">
     <rect>
      <x>540</x>
@@ -481,7 +481,7 @@
     <string>FTP结束传输</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="set_seed_btn_2">
+  <widget class="QPushButton" name="down_gongcan_btn">
    <property name="geometry">
     <rect>
      <x>580</x>
@@ -494,7 +494,7 @@
     <string>下传工参</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="set_seed_btn_3">
+  <widget class="QPushButton" name="set_ant_btn_3">
    <property name="geometry">
     <rect>
      <x>440</x>
@@ -507,7 +507,7 @@
     <string>切换天线至本机</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="Seed_2">
+  <widget class="QLineEdit" name="file_block">
    <property name="geometry">
     <rect>
      <x>440</x>
@@ -517,7 +517,7 @@
     </rect>
    </property>
   </widget>
-  <widget class="QPushButton" name="set_seed_btn_4">
+  <widget class="QPushButton" name="down_file_block_btn_4">
    <property name="geometry">
     <rect>
      <x>570</x>

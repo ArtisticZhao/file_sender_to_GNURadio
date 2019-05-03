@@ -50,6 +50,12 @@ class MainWindow(QtWidgets.QWidget):
             lambda: cmd_function.cmd_reset(self))
         self.ui.set_mode_btn.clicked.connect(
             lambda: cmd_function.cmd_set_mod(self))
+        self.ui.set_file_no_btn.clicked.connect(
+            lambda: cmd_function.cmd_set_pre_file(self))
+        self.ui.del_file_btn.clicked.connect(
+            lambda: cmd_function.cmd_del_file(self))
+        self.ui.set_nid_btn.clicked.connect(
+            lambda: cmd_function.cmd_set_nid(self))
 
         # checkbox functions
         self.ui.comboBox.currentTextChanged.connect(
