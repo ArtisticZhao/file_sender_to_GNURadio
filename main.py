@@ -163,11 +163,11 @@ class MainWindow(QtWidgets.QWidget):
         """ Initial output console length and buffer.
         """
         # Append text to the QTextEdit.
-        cursor = self.log_area.textCursor()
+        cursor = self.ui.log_area.textCursor()
         cursor.movePosition(QtGui.QTextCursor.End)
         cursor.insertText(text)
-        self.textEdit.setTextCursor(cursor)
-        self.textEdit.ensureCursorVisible()
+        self.ui.log_area.setTextCursor(cursor)
+        self.ui.log_area.ensureCursorVisible()
 
 
 class EmittingStream(QtCore.QObject):
