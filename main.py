@@ -17,6 +17,7 @@ import cmd_function
 from tcp_core import tcp_server, kiss_frame
 from call_c_lib import Call_C_Lib_Task
 from shared import settings
+from tcp_core import status_updater
 
 
 class MainWindow(QtWidgets.QWidget):
@@ -76,6 +77,12 @@ class MainWindow(QtWidgets.QWidget):
             lambda: functions.change_channel(self))
         self.ui.cmd_channel.currentTextChanged.connect(
             lambda: functions.cmd_change_channel(self))
+
+        # 设置工参更新器对象
+        status_updater.set_status_area(self.ui.tableWidget)
+        # 自动列宽
+        self.ui.tableWidget.horizontalHeader().setSectionResizeMode(
+            QtWidgets.QHeaderView.ResizeToContents)
 
     def closeEvent(self, event):
         # 窗口关闭事件

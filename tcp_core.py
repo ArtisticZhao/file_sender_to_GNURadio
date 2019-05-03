@@ -9,14 +9,17 @@ from KISS import KISS_Decoder, KISS_Encoder_One_Frame
 from KISS import KISS_frame, AOS_Frame
 from shared import KISS_encode_queue
 from core_packet_protocol import AOS_Telemetry_Packet
-
+from functions import StatusUpdater
+# 打帧器, 并且启动线程
 kiss_frame = KISS_frame()
 kiss_frame.start()
 kiss_frame.setName("KISS frame Thread")
+# 工参更新器
+status_updater = StatusUpdater()
 
+# tcp handle 存储区
 client_socket = []
 shutdown_flag = [False]  # TODO may cause some errors!!! Where stop server!
-
 socketer_dict = dict()
 '''
 流程说明:
@@ -102,8 +105,10 @@ class GRC_Handler(BaseRequestHandler):
                 if packet is not None:
                     # 解析工参
                     atp = AOS_Telemetry_Packet()
+                    status_dict = atp.decode(packet[2:122])
+                    status_updater.update_status(status_dict)
                     print("[DEBUG] 工参 ------------>")
-                    print(json.dumps(atp.decode(packet[2:122]), indent=2))
+                    print(json.dumps(status_dict, indent=2))
 
             else:
                 print('[DEBUG] not for HCR')
