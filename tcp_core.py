@@ -108,8 +108,6 @@ class GRC_Handler(BaseRequestHandler):
                         atp = AOS_Telemetry_Packet()
                         status_dict = atp.decode(packet[2:122])
                         status_updater.update_status(status_dict)
-                        print("[DEBUG] 工参 ------------>")
-                        print(json.dumps(status_dict, indent=2))
                     else:
                         print('[DEBUG] 不是工参! 丢弃!!!')
 

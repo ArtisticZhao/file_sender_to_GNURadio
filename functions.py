@@ -51,7 +51,6 @@ class StatusUpdater(object):
 
     def update_status(self, status_dict):
         # 更新工参
-        print(status_dict)
         for j in range(0, self.status_area.columnCount(), 2):
             for i in range(0, self.status_area.rowCount()):
                 val = status_dict.get(self.status_area.item(i, j).text())
