@@ -103,12 +103,15 @@ class GRC_Handler(BaseRequestHandler):
                 kiss_decoder = KISS_Decoder()
                 packet = kiss_decoder.AppendStream(f_frame['data'])
                 if packet is not None:
-                    # 解析工参
-                    atp = AOS_Telemetry_Packet()
-                    status_dict = atp.decode(packet[2:122])
-                    status_updater.update_status(status_dict)
-                    print("[DEBUG] 工参 ------------>")
-                    print(json.dumps(status_dict, indent=2))
+                    if packet[0] == 0x01:
+                        # 解析工参
+                        atp = AOS_Telemetry_Packet()
+                        status_dict = atp.decode(packet[2:122])
+                        status_updater.update_status(status_dict)
+                        print("[DEBUG] 工参 ------------>")
+                        print(json.dumps(status_dict, indent=2))
+                    else:
+                        print('[DEBUG] 不是工参! 丢弃!!!')
 
             else:
                 print('[DEBUG] not for HCR')
