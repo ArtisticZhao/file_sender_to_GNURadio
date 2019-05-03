@@ -77,6 +77,22 @@ class MainWindow(QtWidgets.QWidget):
         self.ui.cmd_channel.currentTextChanged.connect(
             lambda: functions.cmd_change_channel(self))
 
+    def closeEvent(self, event):
+        # 窗口关闭事件
+        if self.ui.server_button.text() == 'Start Server':
+            # 没有程序执行, 可以关闭!
+            event.accept()  # 关闭窗口
+        else:
+            reply = QtWidgets.QMessageBox.question(
+                self, u'警告', u'TCP Server已经启动, 确认退出?',
+                QtWidgets.QMessageBox.Yes, QtWidgets.QMessageBox.No)
+            if reply == QtWidgets.QMessageBox.Yes:
+                # 关闭服务器
+                self.start_stop_server()
+                event.accept()  # 关闭窗口
+            else:
+                event.ignore()  # 忽视点击X事件
+
     def timer_click(self):
         # if thread run out:
         if self.sender_lib_thread is not None:
