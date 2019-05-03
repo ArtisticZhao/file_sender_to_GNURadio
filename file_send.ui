@@ -55,7 +55,7 @@
      <x>10</x>
      <y>190</y>
      <width>411</width>
-     <height>87</height>
+     <height>121</height>
     </rect>
    </property>
   </widget>
@@ -289,7 +289,7 @@
   <widget class="QPushButton" name="set_mode_btn">
    <property name="geometry">
     <rect>
-     <x>580</x>
+     <x>630</x>
      <y>50</y>
      <width>71</width>
      <height>27</height>
@@ -302,9 +302,9 @@
   <widget class="QComboBox" name="comboBox_mode">
    <property name="geometry">
     <rect>
-     <x>437</x>
+     <x>500</x>
      <y>50</y>
-     <width>141</width>
+     <width>121</width>
      <height>27</height>
     </rect>
    </property>
@@ -324,20 +324,10 @@
     </property>
    </item>
   </widget>
-  <widget class="QLineEdit" name="Seed">
-   <property name="geometry">
-    <rect>
-     <x>440</x>
-     <y>190</y>
-     <width>141</width>
-     <height>27</height>
-    </rect>
-   </property>
-  </widget>
   <widget class="QPushButton" name="set_seed_btn">
    <property name="geometry">
     <rect>
-     <x>580</x>
+     <x>630</x>
      <y>190</y>
      <width>71</width>
      <height>27</height>
@@ -363,7 +353,7 @@
   <widget class="QLineEdit" name="prefile_no">
    <property name="geometry">
     <rect>
-     <x>540</x>
+     <x>530</x>
      <y>80</y>
      <width>41</width>
      <height>27</height>
@@ -386,7 +376,7 @@
   <widget class="QLineEdit" name="del_file_no">
    <property name="geometry">
     <rect>
-     <x>540</x>
+     <x>530</x>
      <y>106</y>
      <width>41</width>
      <height>27</height>
@@ -398,7 +388,7 @@
     <rect>
      <x>580</x>
      <y>106</y>
-     <width>71</width>
+     <width>121</width>
      <height>27</height>
     </rect>
    </property>
@@ -424,7 +414,7 @@
     <rect>
      <x>580</x>
      <y>130</y>
-     <width>71</width>
+     <width>121</width>
      <height>27</height>
     </rect>
    </property>
@@ -448,7 +438,7 @@
   <widget class="QLineEdit" name="nid">
    <property name="geometry">
     <rect>
-     <x>540</x>
+     <x>530</x>
      <y>130</y>
      <width>41</width>
      <height>27</height>
@@ -471,7 +461,7 @@
   <widget class="QPushButton" name="FTP_stop_btn">
    <property name="geometry">
     <rect>
-     <x>550</x>
+     <x>600</x>
      <y>160</y>
      <width>101</width>
      <height>27</height>
@@ -484,8 +474,8 @@
   <widget class="QPushButton" name="down_gongcan_btn">
    <property name="geometry">
     <rect>
-     <x>580</x>
-     <y>250</y>
+     <x>630</x>
+     <y>280</y>
      <width>71</width>
      <height>27</height>
     </rect>
@@ -498,7 +488,7 @@
    <property name="geometry">
     <rect>
      <x>440</x>
-     <y>250</y>
+     <y>280</y>
      <width>121</width>
      <height>27</height>
     </rect>
@@ -511,8 +501,8 @@
    <property name="geometry">
     <rect>
      <x>440</x>
-     <y>220</y>
-     <width>131</width>
+     <y>250</y>
+     <width>181</width>
      <height>27</height>
     </rect>
    </property>
@@ -520,8 +510,8 @@
   <widget class="QPushButton" name="down_file_block_btn_4">
    <property name="geometry">
     <rect>
-     <x>570</x>
-     <y>220</y>
+     <x>620</x>
+     <y>250</y>
      <width>81</width>
      <height>27</height>
     </rect>
@@ -547,7 +537,7 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>290</y>
+     <y>320</y>
      <width>101</width>
      <height>17</height>
     </rect>
@@ -560,7 +550,7 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>310</y>
+     <y>340</y>
      <width>691</width>
      <height>192</height>
     </rect>
@@ -967,7 +957,7 @@
    <property name="geometry">
     <rect>
      <x>130</x>
-     <y>290</y>
+     <y>320</y>
      <width>201</width>
      <height>22</height>
     </rect>
@@ -980,7 +970,7 @@
    <property name="geometry">
     <rect>
      <x>410</x>
-     <y>284</y>
+     <y>314</y>
      <width>181</width>
      <height>27</height>
     </rect>
@@ -990,7 +980,7 @@
    <property name="geometry">
     <rect>
      <x>340</x>
-     <y>290</y>
+     <y>320</y>
      <width>71</width>
      <height>21</height>
     </rect>
@@ -1023,6 +1013,29 @@
      <string>B机指令</string>
     </property>
    </item>
+  </widget>
+  <widget class="QLabel" name="label_14">
+   <property name="geometry">
+    <rect>
+     <x>440</x>
+     <y>54</y>
+     <width>71</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>工作模式</string>
+   </property>
+  </widget>
+  <widget class="QTextEdit" name="Seed">
+   <property name="geometry">
+    <rect>
+     <x>440</x>
+     <y>190</y>
+     <width>181</width>
+     <height>51</height>
+    </rect>
+   </property>
   </widget>
  </widget>
  <resources/>

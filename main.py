@@ -57,6 +57,20 @@ class MainWindow(QtWidgets.QWidget):
         self.ui.set_nid_btn.clicked.connect(
             lambda: cmd_function.cmd_set_nid(self))
 
+        self.ui.FTP_start_btn.clicked.connect(
+            lambda: cmd_function.cmd_ftp_start(self))
+        self.ui.FTP_stop_btn.clicked.connect(
+            lambda: cmd_function.cmd_ftp_stop(self))
+
+        self.ui.set_seed_btn.clicked.connect(
+            lambda: cmd_function.cmd_set_seed(self))
+        self.ui.down_file_block_btn_4.clicked.connect(
+            lambda: cmd_function.cmd_get_file_block(self))
+        self.ui.set_ant_btn_3.clicked.connect(
+            lambda: cmd_function.cmd_switch_antenna(self))
+        self.ui.down_gongcan_btn.clicked.connect(
+            lambda: cmd_function.cmd_get_status(self))
+
         # checkbox functions
         self.ui.comboBox.currentTextChanged.connect(
             lambda: functions.change_channel(self))

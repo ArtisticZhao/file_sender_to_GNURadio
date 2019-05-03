@@ -1,4 +1,5 @@
 # coding: utf-8
+import re
 from core_packet_protocol import AOS_Packet
 from shared import cmd_code
 from tcp_core import kiss_frame
@@ -99,6 +100,96 @@ def cmd_set_nid(parent):
 
     aos_packet = AOS_Packet()
     b_data = aos_packet.gen_packet(cmd_code['set_nid'], b'\x01', b)
+    # 发前KISS
+    k = KISS_Encoder_One_Frame()
+    b_data = k.encode(b_data)
+    # 发送
+    kiss_frame.presend_cmd(b_data)
+
+
+def cmd_ftp_start(parent):
+    '''
+    FTP 开始传输
+    '''
+    aos_packet = AOS_Packet()
+    b_data = aos_packet.gen_packet(cmd_code['ftp_start'], b'\x00', None)
+    # 发前KISS
+    k = KISS_Encoder_One_Frame()
+    b_data = k.encode(b_data)
+    # 发送
+    kiss_frame.presend_cmd(b_data)
+
+
+def cmd_ftp_stop(parent):
+    '''
+    FTP 停止传输
+    '''
+    aos_packet = AOS_Packet()
+    b_data = aos_packet.gen_packet(cmd_code['ftp_stop'], b'\x00', None)
+    # 发前KISS
+    k = KISS_Encoder_One_Frame()
+    b_data = k.encode(b_data)
+    # 发送
+    kiss_frame.presend_cmd(b_data)
+
+
+def cmd_set_seed(parent):
+    # 设置seed
+    seed = parent.ui.Seed.toPlainText()
+    seed = re.sub(r'\s+', '', seed)  # 去除空白字符
+    if len(seed) != 32:
+        QMessageBox.warning(parent, "Warning", "请输入16位hex的内容(可用空格分割)")
+        return
+    try:
+        b = BitArray(hex=seed).bytes
+    except CreationError:
+        QMessageBox.warning(parent, "Warning", "请输入16位hex的内容(可用空格分割)")
+
+    aos_packet = AOS_Packet()
+    b_data = aos_packet.gen_packet(cmd_code['set_seed'], b'\x10', b)
+    # 发前KISS
+    k = KISS_Encoder_One_Frame()
+    b_data = k.encode(b_data)
+    # 发送
+    kiss_frame.presend_cmd(b_data)
+
+
+def cmd_get_status(parent):
+    # 下传工参
+    aos_packet = AOS_Packet()
+    b_data = aos_packet.gen_packet(cmd_code['get_status'], b'\x00', None)
+    # 发前KISS
+    k = KISS_Encoder_One_Frame()
+    b_data = k.encode(b_data)
+    # 发送
+    kiss_frame.presend_cmd(b_data)
+
+
+def cmd_get_file_block(parent):
+    # 下传文件数据块
+    file_block = parent.ui.file_block.text()
+    file_block = re.sub(r'\s+', '', file_block)  # 去除空白字符
+    if len(file_block) != 16:
+        QMessageBox.warning(parent, "Warning", "请输入8位hex的内容(可用空格分割)")
+        return
+    try:
+        b = BitArray(hex=file_block).bytes
+    except CreationError:
+        QMessageBox.warning(parent, "Warning", "请输入8位hex的内容(可用空格分割)")
+
+    aos_packet = AOS_Packet()
+    b_data = aos_packet.gen_packet(cmd_code['get_file_block'], b'\x08', b)
+    # 发前KISS
+    k = KISS_Encoder_One_Frame()
+    b_data = k.encode(b_data)
+    # 发送
+    kiss_frame.presend_cmd(b_data)
+
+
+def cmd_switch_antenna(parent):
+    # 切换天线至本机
+    aos_packet = AOS_Packet()
+    b_data = aos_packet.gen_packet(cmd_code['switch_antenna'], b'\x00', None)
     # 发前KISS
     k = KISS_Encoder_One_Frame()
     b_data = k.encode(b_data)
