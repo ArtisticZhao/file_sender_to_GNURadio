@@ -6,7 +6,7 @@
 
 import sys
 
-from PyQt5 import QtWidgets, QtCore
+from PyQt5 import QtWidgets, QtCore, QtGui
 from PyQt5.QtCore import QTimer
 
 from file_send_ui import Ui_Dialog
@@ -81,6 +81,7 @@ class MainWindow(QtWidgets.QWidget):
         # 窗口关闭事件
         if self.ui.server_button.text() == 'Start Server':
             # 没有程序执行, 可以关闭!
+            kiss_frame.shutdown()
             event.accept()  # 关闭窗口
         else:
             reply = QtWidgets.QMessageBox.question(
@@ -162,17 +163,11 @@ class MainWindow(QtWidgets.QWidget):
         """ Initial output console length and buffer.
         """
         # Append text to the QTextEdit.
-        str_buf = self.ui.log_area.toPlainText()
-        str_buf = str_buf + text
-        length = len(str_buf)
-
-        # TODO 清空
-
-        self.ui.log_area.setText(str_buf)
-        textCursor = self.ui.log_area.textCursor()
-        self.ui.log_area.setText(str_buf)
-        textCursor.setPosition(length)
-        self.ui.log_area.setTextCursor(textCursor)
+        cursor = self.log_area.textCursor()
+        cursor.movePosition(QtGui.QTextCursor.End)
+        cursor.insertText(text)
+        self.textEdit.setTextCursor(cursor)
+        self.textEdit.ensureCursorVisible()
 
 
 class EmittingStream(QtCore.QObject):
@@ -183,6 +178,9 @@ class EmittingStream(QtCore.QObject):
 
     def write(self, text):
         self.textWritten.emit(str(text))
+
+    def flush(self):
+        pass
 
 
 if __name__ == "__main__":
