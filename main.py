@@ -17,8 +17,9 @@ import cmd_function
 
 from tcp_core import tcp_server, kiss_frame
 from call_c_lib import Call_C_Lib_Task
-from shared import settings
+from shared import settings, status
 from tcp_core import status_updater
+from LedIndicatorWidget import LedIndicator
 
 
 class MainWindow(QtWidgets.QWidget):
@@ -32,6 +33,17 @@ class MainWindow(QtWidgets.QWidget):
         # setup UI
         self.ui = Ui_Dialog()
         self.ui.setupUi(self)
+
+        # 设置状态指示灯控件
+        self.LED_sender = LedIndicator(self)
+        self.ui.horizontalLayout_Sender.addWidget(self.LED_sender)
+        self.LED_sender.setFixedSize(20, 20)
+        self.LED_sender.setDisabled(True)  # 禁止手动更改状态
+        self.LED_GRC = LedIndicator(self)
+        self.ui.horizontalLayout_GRC.addWidget(self.LED_GRC)
+        self.LED_GRC.setFixedSize(20, 20)
+        self.LED_GRC.setDisabled(True)  # 禁止手动更改状态
+
         # 设置禁止更改窗口大小
         self.setFixedSize(self.width(), self.height())
         # 设置只显示关闭按钮
@@ -86,14 +98,12 @@ class MainWindow(QtWidgets.QWidget):
         self.ui.cmd_channel.currentTextChanged.connect(
             lambda: functions.cmd_change_channel(self))
 
-        # 设置工参更新器对象
-        # status_updater.set_status_area(self.ui.tableWidget)
-
     def closeEvent(self, event):
         # 窗口关闭事件
         if self.ui.server_button.text() == 'Start Server':
             # 没有程序执行, 可以关闭!
             kiss_frame.shutdown()
+            self.status_window.close()
             event.accept()  # 关闭窗口
         else:
             reply = QtWidgets.QMessageBox.question(
@@ -102,6 +112,7 @@ class MainWindow(QtWidgets.QWidget):
             if reply == QtWidgets.QMessageBox.Yes:
                 # 关闭服务器
                 self.start_stop_server()
+                self.status_window.close()
                 event.accept()  # 关闭窗口
             else:
                 event.ignore()  # 忽视点击X事件
@@ -112,6 +123,9 @@ class MainWindow(QtWidgets.QWidget):
             if not self.sender_lib_thread.is_alive():
                 self.ui.send_button.setText("send")
                 self.sender_lib_thread = None
+        # 刷新状态
+        self.LED_sender.setChecked(status['HCR_Online'])
+        self.LED_GRC.setChecked(status['GRC_Online'])
 
     def refresh_status(self, str):
         self.ui.server_status.setText(str)
@@ -193,6 +207,13 @@ class StatusForm(QtWidgets.QWidget):
             QtWidgets.QHeaderView.ResizeToContents)
         # 设置工参更新器对象
         status_updater.set_status_area(self.ui.tableWidget)
+
+    def set_signal(self, obj):
+        # 槽
+        pass
+
+    def update_status(self, s_dict):
+        print(s_dict)
 
     def closeEvent(self, event):
         # 窗口关闭事件

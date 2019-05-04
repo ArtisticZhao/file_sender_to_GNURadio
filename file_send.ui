@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>715</width>
-    <height>351</height>
+    <height>323</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -55,34 +55,8 @@
      <x>10</x>
      <y>190</y>
      <width>411</width>
-     <height>151</height>
+     <height>117</height>
     </rect>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="server_port">
-   <property name="geometry">
-    <rect>
-     <x>90</x>
-     <y>116</y>
-     <width>51</width>
-     <height>27</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>52001</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_2">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>120</y>
-     <width>66</width>
-     <height>17</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>GRC Port</string>
    </property>
   </widget>
   <widget class="QPushButton" name="server_button">
@@ -96,32 +70,6 @@
    </property>
    <property name="text">
     <string>Start Server</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_3">
-   <property name="geometry">
-    <rect>
-     <x>150</x>
-     <y>121</y>
-     <width>51</width>
-     <height>17</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Status:</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="server_status">
-   <property name="geometry">
-    <rect>
-     <x>210</x>
-     <y>120</y>
-     <width>81</width>
-     <height>20</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>disconnect</string>
    </property>
   </widget>
   <widget class="QProgressBar" name="transfer_process">
@@ -153,39 +101,10 @@
     <string>Send...</string>
    </property>
   </widget>
-  <widget class="QLabel" name="label_4">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>84</y>
-     <width>81</width>
-     <height>17</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Sender Port</string>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="sender_port">
-   <property name="geometry">
-    <rect>
-     <x>90</x>
-     <y>80</y>
-     <width>51</width>
-     <height>27</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>5234</string>
-   </property>
-   <property name="placeholderText">
-    <string/>
-   </property>
-  </widget>
   <widget class="QLabel" name="label_5">
    <property name="geometry">
     <rect>
-     <x>150</x>
+     <x>190</x>
      <y>84</y>
      <width>51</width>
      <height>17</height>
@@ -198,9 +117,9 @@
   <widget class="QLineEdit" name="file_num">
    <property name="geometry">
     <rect>
-     <x>200</x>
+     <x>242</x>
      <y>80</y>
-     <width>143</width>
+     <width>101</width>
      <height>27</height>
     </rect>
    </property>
@@ -584,8 +503,8 @@
   <widget class="QPushButton" name="pushButton_childwindow">
    <property name="geometry">
     <rect>
-     <x>440</x>
-     <y>315</y>
+     <x>220</x>
+     <y>116</y>
      <width>97</width>
      <height>27</height>
     </rect>
@@ -593,6 +512,73 @@
    <property name="text">
     <string>显示工参</string>
    </property>
+  </widget>
+  <widget class="QWidget" name="">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>80</y>
+     <width>171</width>
+     <height>29</height>
+    </rect>
+   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout_Sender">
+    <item>
+     <widget class="QLabel" name="label_4">
+      <property name="text">
+       <string>Sender Port</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLineEdit" name="sender_port">
+      <property name="maximumSize">
+       <size>
+        <width>51</width>
+        <height>16777215</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>5234</string>
+      </property>
+      <property name="placeholderText">
+       <string/>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWidget" name="">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>116</y>
+     <width>171</width>
+     <height>29</height>
+    </rect>
+   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout_GRC">
+    <item>
+     <widget class="QLabel" name="label_2">
+      <property name="text">
+       <string>GRC Port</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLineEdit" name="server_port">
+      <property name="maximumSize">
+       <size>
+        <width>51</width>
+        <height>16777215</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>52001</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
   </widget>
  </widget>
  <resources/>

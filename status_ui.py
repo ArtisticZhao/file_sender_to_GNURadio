@@ -16,9 +16,9 @@ class Ui_Form(object):
         self.horizontalLayout_3.setObjectName("horizontalLayout_3")
         self.verticalLayout = QtWidgets.QVBoxLayout()
         self.verticalLayout.setObjectName("verticalLayout")
-        self.checkBox = QtWidgets.QCheckBox(Form)
-        self.checkBox.setObjectName("checkBox")
-        self.verticalLayout.addWidget(self.checkBox)
+        self.checkBox_realtime = QtWidgets.QCheckBox(Form)
+        self.checkBox_realtime.setObjectName("checkBox_realtime")
+        self.verticalLayout.addWidget(self.checkBox_realtime)
         self.horizontalLayout = QtWidgets.QHBoxLayout()
         self.horizontalLayout.setObjectName("horizontalLayout")
         spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
@@ -210,7 +210,7 @@ class Ui_Form(object):
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
         Form.setWindowTitle(_translate("Form", "01H工参"))
-        self.checkBox.setText(_translate("Form", "显示最新一包并实时更新"))
+        self.checkBox_realtime.setText(_translate("Form", "显示最新一包并实时更新"))
         self.label.setText(_translate("Form", "接收时间"))
         self.pushButton_refresh.setText(_translate("Form", "Refresh"))
         item = self.tableWidget.verticalHeaderItem(0)

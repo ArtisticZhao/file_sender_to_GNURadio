@@ -4,6 +4,8 @@ import queue
 # shared object
 KISS_encode_queue = queue.Queue()
 
+status = {'GRC_Online': False, 'HCR_Online': False}
+
 settings = {
     'craft_id': b'\x30',
     'virtual_channel_id': 1,

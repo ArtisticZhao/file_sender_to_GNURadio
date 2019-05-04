@@ -4,10 +4,11 @@ import socket
 import threading
 import time
 import json
+from PyQt5.QtCore import pyqtSignal
 
 from KISS import KISS_Decoder, KISS_Encoder_One_Frame
 from KISS import KISS_frame, AOS_Frame
-from shared import KISS_encode_queue
+from shared import KISS_encode_queue, status
 from core_packet_protocol import AOS_Telemetry_Packet
 from functions import StatusUpdater
 # 打帧器, 并且启动线程
@@ -38,6 +39,8 @@ class HCR_Handler(BaseRequestHandler):
         self.request.settimeout(1)
         client_socket.append(self.request)  # 保存套接字socket
         self.kiss_encoder = KISS_Encoder_One_Frame()
+        # 更新状态
+        status['HCR_Online'] = True
 
     def handle(self):
         print('[HCR] Got connection from', self.client_address, end=' \n')
@@ -58,6 +61,8 @@ class HCR_Handler(BaseRequestHandler):
 
     def finish(self):
         print("client is disconnect!")
+        # 更新状态
+        status['HCR_Online'] = False
         client_socket.remove(self.request)
 
 
@@ -65,6 +70,7 @@ class GRC_Handler(BaseRequestHandler):
     '''
     监听GNU Radio
     '''
+    sinOut = pyqtSignal(dict)
 
     def setup(self):
         # 这个timeout的设置非常有必要, 能够解决不能退出线程的问题
@@ -77,6 +83,7 @@ class GRC_Handler(BaseRequestHandler):
         self.KISS_frame.set_sender(self.request)
         # 解帧器
         self.KISS_frame_decode = AOS_Frame()
+        status['GRC_Online'] = True
 
     def handle(self):
         socketer_dict['to_GRC'] = self.request
@@ -107,6 +114,7 @@ class GRC_Handler(BaseRequestHandler):
                         # 解析工参
                         atp = AOS_Telemetry_Packet()
                         status_dict = atp.decode(packet[2:122])
+                        self.sinOut.emit(status_dict)  # 发射信号
                         status_updater.update_status(status_dict)
                     else:
                         print('[DEBUG] 不是工参! 丢弃!!!')
@@ -121,6 +129,7 @@ class GRC_Handler(BaseRequestHandler):
     def finish(self):
         self.KISS_frame.set_sender(None)
         print("client is disconnect!")
+        status['GRC_Online'] = False
         client_socket.remove(self.request)
 
 
