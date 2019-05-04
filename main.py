@@ -10,6 +10,7 @@ from PyQt5 import QtWidgets, QtCore, QtGui
 from PyQt5.QtCore import QTimer
 
 from file_send_ui import Ui_Dialog
+from status_ui import Ui_Form
 
 import functions
 import cmd_function
@@ -35,6 +36,11 @@ class MainWindow(QtWidgets.QWidget):
         self.setFixedSize(self.width(), self.height())
         # 设置只显示关闭按钮
         self.setWindowFlags(QtCore.Qt.WindowCloseButtonHint)
+
+        # child windows
+        self.status_window = StatusForm()
+        self.status_window.show()
+
         # a timer to update status
         self.timer = QTimer(self)  # 初始化一个定时器
         self.timer.timeout.connect(self.timer_click)  # 计时结束调用operate()方法
@@ -72,6 +78,8 @@ class MainWindow(QtWidgets.QWidget):
         self.ui.down_gongcan_btn.clicked.connect(
             lambda: cmd_function.cmd_get_status(self))
 
+        self.ui.pushButton_childwindow.clicked.connect(self.status_window.show)
+
         # checkbox functions
         self.ui.comboBox.currentTextChanged.connect(
             lambda: functions.change_channel(self))
@@ -79,10 +87,7 @@ class MainWindow(QtWidgets.QWidget):
             lambda: functions.cmd_change_channel(self))
 
         # 设置工参更新器对象
-        status_updater.set_status_area(self.ui.tableWidget)
-        # 自动列宽
-        self.ui.tableWidget.horizontalHeader().setSectionResizeMode(
-            QtWidgets.QHeaderView.ResizeToContents)
+        # status_updater.set_status_area(self.ui.tableWidget)
 
     def closeEvent(self, event):
         # 窗口关闭事件
@@ -175,6 +180,24 @@ class MainWindow(QtWidgets.QWidget):
         cursor.insertText(text)
         self.ui.log_area.setTextCursor(cursor)
         self.ui.log_area.ensureCursorVisible()
+
+
+class StatusForm(QtWidgets.QWidget):
+    def __init__(self, parent=None):
+        QtWidgets.QWidget.__init__(self, parent)
+        # setup UI
+        self.ui = Ui_Form()
+        self.ui.setupUi(self)
+        # 自动列宽
+        self.ui.tableWidget.horizontalHeader().setSectionResizeMode(
+            QtWidgets.QHeaderView.ResizeToContents)
+        # 设置工参更新器对象
+        status_updater.set_status_area(self.ui.tableWidget)
+
+    def closeEvent(self, event):
+        # 窗口关闭事件
+        self.hide()
+        event.ignore()  # 忽视点击X事件
 
 
 class EmittingStream(QtCore.QObject):
