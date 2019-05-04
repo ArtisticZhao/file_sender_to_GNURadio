@@ -17,7 +17,7 @@ import cmd_function
 
 from tcp_core import tcp_server, kiss_frame
 from call_c_lib import Call_C_Lib_Task
-from shared import settings, status
+from shared import settings, status, cmd_code
 from LedIndicatorWidget import LedIndicator
 
 
@@ -216,12 +216,40 @@ class StatusForm(QtWidgets.QWidget):
 
     @pyqtSlot(dict)
     def update_status(self, s_dict):
+        # 存储
+
         # 更新工参
-        for j in range(0, self.ui.tableWidget.columnCount(), 2):
-            for i in range(0, self.ui.tableWidget.rowCount()):
-                val = s_dict.get(self.ui.tableWidget.item(i, j).text())
-                self.ui.tableWidget.setItem(i, j + 1,
-                                            QtWidgets.QTableWidgetItem(val))
+        if self.ui.checkBox_realtime.isChecked():
+            # 更新时间
+            self.ui.comboBox_recv_time.addItem(s_dict['recv_time'])  # 添加
+            self.ui.comboBox_recv_time.setCurrentIndex(
+                self.ui.comboBox_recv_time.findText(s_dict['recv_time']))
+            if s_dict['sat'] == cmd_code['cmd_A']:
+                # A 星
+                self.ui.comboBox_sat.setCurrentIndex(0)
+                # 更新A B星不一样的内容
+                self.ui.tableWidget.setItem(
+                    7, 0, QtWidgets.QTableWidgetItem("+5V接收电压"))
+                self.ui.tableWidget.setItem(
+                    9, 0, QtWidgets.QTableWidgetItem("+5V发射电压"))
+                self.ui.tableWidget.setItem(
+                    11, 0, QtWidgets.QTableWidgetItem("+3.3V电压"))
+            else:
+                # B 星
+                self.ui.comboBox_sat.setCurrentIndex(1)
+                # 更新A B星不一样的内容
+                self.ui.tableWidget.setItem(
+                    7, 0, QtWidgets.QTableWidgetItem("+1V内核电压"))
+                self.ui.tableWidget.setItem(
+                    9, 0, QtWidgets.QTableWidgetItem("+1.8V IO电压"))
+                self.ui.tableWidget.setItem(
+                    11, 0, QtWidgets.QTableWidgetItem("+1.5V DDR3电压"))
+
+            for j in range(0, self.ui.tableWidget.columnCount(), 2):
+                for i in range(0, self.ui.tableWidget.rowCount()):
+                    val = s_dict.get(self.ui.tableWidget.item(i, j).text())
+                    self.ui.tableWidget.setItem(
+                        i, j + 1, QtWidgets.QTableWidgetItem(val))
 
     def closeEvent(self, event):
         # 窗口关闭事件

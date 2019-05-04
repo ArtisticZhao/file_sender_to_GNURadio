@@ -1,5 +1,7 @@
 # coding: utf-8
+import time
 from bitstring import BitArray
+from shared import cmd_code
 
 
 class AOS_Packet(object):
@@ -46,7 +48,7 @@ class AOS_Telemetry_Packet(object):
     def __init__(self):
         self.gongcan = dict()
 
-    def decode(self, b_data):
+    def decode(self, b_data, sat):
         assert isinstance(b_data, bytes), \
             "ERROR TYPE at: AOS_Telemetry_Packet.decode"
         assert len(b_data) == 120, \
@@ -67,17 +69,25 @@ class AOS_Telemetry_Packet(object):
         ba = BitArray(b_data[6:7])
         self.gongcan['+5V接收电流'] = str(ba.uint * 4) + 'mA'
         ba = BitArray(b_data[7:8])
-        self.gongcan['+5V接收电压'] = str(ba.uint / 32.0) + 'V'
+        if sat == cmd_code['cmd_A']:
+            self.gongcan['+5V接收电压'] = str(ba.uint / 32.0) + 'V'
+        else:
+            self.gongcan['+1V内核电压'] = str(ba.uint / 32.0) + 'V'
         ba = BitArray(b_data[8:9])
         self.gongcan['+5V发射电流'] = str(ba.uint * 4) + 'mA'
         ba = BitArray(b_data[9:10])
-        self.gongcan['+5V发射电压'] = str(ba.uint / 32.0) + 'V'
+        if sat == cmd_code['cmd_A']:
+            self.gongcan['+5V发射电压'] = str(ba.uint / 32.0) + 'V'
+        else:
+            self.gongcan['+1.8V IO电压'] = str(ba.uint / 32.0) + 'V'
 
         ba = BitArray(b_data[10:11])
         self.gongcan['+3.3V电流'] = str(ba.uint * 4) + 'mA'
         ba = BitArray(b_data[11:12])
-        self.gongcan['+3.3V电压'] = str(ba.uint / 32.0) + 'V'
-
+        if sat == cmd_code['cmd_A']:
+            self.gongcan['+3.3V电压'] = str(ba.uint / 32.0) + 'V'
+        else:
+            self.gongcan['+1.5V DDR3电压'] = str(ba.uint / 32.0) + 'V'
         ba = BitArray(b_data[12:16])
         self.gongcan['接收频偏1'] = str(ba.float) + 'Hz'
         ba = BitArray(b_data[16:20])
@@ -95,6 +105,11 @@ class AOS_Telemetry_Packet(object):
         self.gongcan['PCB温度1'] = str(ba.int) + '℃'
         ba = BitArray(b_data[30:31])
         self.gongcan['PCB温度2'] = str(ba.int) + '℃'
+
+        ba = BitArray(b_data[31:32])
+        self.gongcan['剩余存储空间'] = str(ba.int) + 'GB'
+        ba = BitArray(b_data[32:33])
+        self.gongcan['CPU占用率'] = str(ba.int) + '%'
 
         ba = BitArray(b_data[33:34])
         self.gongcan['CAN发送包计数'] = ba.hex
@@ -170,7 +185,11 @@ class AOS_Telemetry_Packet(object):
         self.gongcan['ARM运行时间'] = str(ba.uint) + 's'
         ba = BitArray(b_data[108:112])
         self.gongcan['AVR运行时间'] = str(ba.uint) + 's'
-
+        # 添加辅助信息
+        self.gongcan['recv_time'] = time.strftime("%Y-%m-%d %H:%M:%S",
+                                                  time.localtime())
+        self.gongcan['timestamp'] = int(time.time() * 1000)
+        self.gongcan['sat'] = sat
         return self.gongcan
 
 

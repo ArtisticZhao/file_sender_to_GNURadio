@@ -101,15 +101,20 @@ class GRC_Handler(BaseRequestHandler):
                 # 转发给HCR
                 if smsg is not None:
                     socketer_dict['to_HCR'].send(smsg)
-            elif f_frame['frame_header']['virtual_channel_id'] == 1:
+            elif (f_frame['frame_header']['virtual_channel_id'] == 1
+                  or f_frame['frame_header']['virtual_channel_id'] == 2):
                 # 遥测
                 kiss_decoder = KISS_Decoder()
                 packet = kiss_decoder.AppendStream(f_frame['data'])
                 if packet is not None:
                     if packet[0] == 0x01:
                         # 解析工参
+                        print("[DEBUG] 虚拟信道:" + str(f_frame['frame_header']
+                                                    ['virtual_channel_id']))
                         atp = AOS_Telemetry_Packet()
-                        status_dict = atp.decode(packet[2:122])
+                        status_dict = atp.decode(
+                            packet[2:122],
+                            f_frame['frame_header']['virtual_channel_id'])
                         self.server.qthread.dataChanged.emit(status_dict)
                     else:
                         print('[DEBUG] 不是工参! 丢弃!!!')
