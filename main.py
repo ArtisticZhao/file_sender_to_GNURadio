@@ -7,7 +7,7 @@
 import sys
 
 from PyQt5 import QtWidgets, QtCore, QtGui
-from PyQt5.QtCore import QTimer
+from PyQt5.QtCore import QTimer, pyqtSlot
 
 from file_send_ui import Ui_Dialog
 from status_ui import Ui_Form
@@ -18,7 +18,6 @@ import cmd_function
 from tcp_core import tcp_server, kiss_frame
 from call_c_lib import Call_C_Lib_Task
 from shared import settings, status
-from tcp_core import status_updater
 from LedIndicatorWidget import LedIndicator
 
 
@@ -97,6 +96,10 @@ class MainWindow(QtWidgets.QWidget):
             lambda: functions.change_channel(self))
         self.ui.cmd_channel.currentTextChanged.connect(
             lambda: functions.cmd_change_channel(self))
+
+        # GRC状态改变
+        self.LED_GRC.toggled.connect(
+            lambda: self.status_window.set_signal(self.grc_tcp_server))
 
     def closeEvent(self, event):
         # 窗口关闭事件
@@ -205,15 +208,20 @@ class StatusForm(QtWidgets.QWidget):
         # 自动列宽
         self.ui.tableWidget.horizontalHeader().setSectionResizeMode(
             QtWidgets.QHeaderView.ResizeToContents)
-        # 设置工参更新器对象
-        status_updater.set_status_area(self.ui.tableWidget)
 
     def set_signal(self, obj):
         # 槽
+        obj.dataChanged.connect(self.update_status)
         pass
 
+    @pyqtSlot(dict)
     def update_status(self, s_dict):
-        print(s_dict)
+        # 更新工参
+        for j in range(0, self.ui.tableWidget.columnCount(), 2):
+            for i in range(0, self.ui.tableWidget.rowCount()):
+                val = s_dict.get(self.ui.tableWidget.item(i, j).text())
+                self.ui.tableWidget.setItem(i, j + 1,
+                                            QtWidgets.QTableWidgetItem(val))
 
     def closeEvent(self, event):
         # 窗口关闭事件

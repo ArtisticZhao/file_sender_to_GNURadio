@@ -1,22 +1,18 @@
 # coding:utf-8
 from socketserver import BaseRequestHandler, ThreadingTCPServer
 import socket
-import threading
 import time
 import json
-from PyQt5.QtCore import pyqtSignal
+from PyQt5.QtCore import pyqtSignal, QThread
 
 from KISS import KISS_Decoder, KISS_Encoder_One_Frame
 from KISS import KISS_frame, AOS_Frame
 from shared import KISS_encode_queue, status
 from core_packet_protocol import AOS_Telemetry_Packet
-from functions import StatusUpdater
 # 打帧器, 并且启动线程
 kiss_frame = KISS_frame()
 kiss_frame.start()
 kiss_frame.setName("KISS frame Thread")
-# 工参更新器
-status_updater = StatusUpdater()
 
 # tcp handle 存储区
 client_socket = []
@@ -114,8 +110,7 @@ class GRC_Handler(BaseRequestHandler):
                         # 解析工参
                         atp = AOS_Telemetry_Packet()
                         status_dict = atp.decode(packet[2:122])
-                        self.sinOut.emit(status_dict)  # 发射信号
-                        status_updater.update_status(status_dict)
+                        self.server.qthread.dataChanged.emit(status_dict)
                     else:
                         print('[DEBUG] 不是工参! 丢弃!!!')
 
@@ -133,7 +128,9 @@ class GRC_Handler(BaseRequestHandler):
         client_socket.remove(self.request)
 
 
-class tcp_server(threading.Thread):
+class tcp_server(QThread):  # 为了Handle能够发送Qt信号 所以使用Qthread
+    dataChanged = pyqtSignal(dict)  # 自定义发送信号
+
     def __init__(self, port, mode):  # mode = 'grc' or 'hcr'
         super().__init__()
         self.serv = None
@@ -147,6 +144,7 @@ class tcp_server(threading.Thread):
             self.serv.socket.settimeout(0.1)  # 设置超时, 以便能够退出线程
             self.serv.socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR,
                                         True)  # 设置端口重用, 以便异常socket断开后的重建
+            self.serv.qthread = self  # 这里让Handle里面有信号的发射口
 
         elif self.mode == 'hcr':
             self.serv = ThreadingTCPServer(
@@ -159,7 +157,7 @@ class tcp_server(threading.Thread):
             print("error")
             return
         # Bind and activate
-        self.setName("tcp_server " + self.mode)
+        # self.setName("tcp_server " + self.mode)
         self.serv.server_bind()
         self.serv.server_activate()
         self.serv.serve_forever()
