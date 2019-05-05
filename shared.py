@@ -21,6 +21,11 @@ cmd_code = {
         'proxy_mod': b'\x55',
         'data_mod': b'\xAA'
     },
+    'set_speed': b'\xA1',
+    'sys_speed': {
+        '12kbps': b'\x55',
+        '100kbps': b'\xAA'
+    },
     'set_prefile_no': b'\x83',
     'del_file': b'\x84',
     'set_nid': b'\x85',

@@ -21,6 +21,27 @@ def cmd_reset(parent):
     kiss_frame.presend_cmd(b_data)
 
 
+def cmd_set_speed(parent):
+    '''
+    设置天线接收速率
+    '''
+    aos_packet = AOS_Packet()
+    index = parent.ui.comboBox_speed.currentIndex()
+    speed = None
+    if index == 0:
+        print('[DEBUG]: 12kbps')
+        speed = cmd_code['sys_speed']['12kbps']
+    else:
+        print('[DEBUG]: 100kbps')
+        speed = cmd_code['sys_speed']['100kbps']
+    b_data = aos_packet.gen_packet(cmd_code['set_speed'], b'\x01', speed)
+    # 发前KISS
+    k = KISS_Encoder_One_Frame()
+    b_data = k.encode(b_data)
+    # 发送
+    kiss_frame.presend_cmd(b_data)
+
+
 def cmd_set_mod(parent):
     '''
     设置工作模式

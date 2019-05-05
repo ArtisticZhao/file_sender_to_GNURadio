@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>715</width>
-    <height>323</height>
+    <height>344</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -55,7 +55,7 @@
      <x>10</x>
      <y>190</y>
      <width>411</width>
-     <height>117</height>
+     <height>147</height>
     </rect>
    </property>
   </widget>
@@ -394,7 +394,7 @@
    <property name="geometry">
     <rect>
      <x>630</x>
-     <y>280</y>
+     <y>310</y>
      <width>71</width>
      <height>27</height>
     </rect>
@@ -407,7 +407,7 @@
    <property name="geometry">
     <rect>
      <x>440</x>
-     <y>280</y>
+     <y>310</y>
      <width>121</width>
      <height>27</height>
     </rect>
@@ -513,7 +513,7 @@
     <string>显示工参</string>
    </property>
   </widget>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
      <x>10</x>
@@ -548,7 +548,7 @@
     </item>
    </layout>
   </widget>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
      <x>10</x>
@@ -579,6 +579,52 @@
      </widget>
     </item>
    </layout>
+  </widget>
+  <widget class="QComboBox" name="comboBox_speed">
+   <property name="geometry">
+    <rect>
+     <x>500</x>
+     <y>280</y>
+     <width>121</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <item>
+    <property name="text">
+     <string>12kbps</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>100kbps</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QPushButton" name="set_speed_btn">
+   <property name="geometry">
+    <rect>
+     <x>630</x>
+     <y>280</y>
+     <width>71</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>设置速率</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_15">
+   <property name="geometry">
+    <rect>
+     <x>440</x>
+     <y>284</y>
+     <width>71</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>接收速率</string>
+   </property>
   </widget>
  </widget>
  <resources/>

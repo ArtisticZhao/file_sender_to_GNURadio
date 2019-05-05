@@ -89,6 +89,8 @@ class MainWindow(QtWidgets.QWidget):
             lambda: cmd_function.cmd_switch_antenna(self))
         self.ui.down_gongcan_btn.clicked.connect(
             lambda: cmd_function.cmd_get_status(self))
+        self.ui.set_speed_btn.clicked.connect(
+            lambda: cmd_function.cmd_set_speed(self))
 
         self.ui.pushButton_childwindow.clicked.connect(self.status_window.show)
 
