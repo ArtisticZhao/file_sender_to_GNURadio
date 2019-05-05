@@ -91,33 +91,37 @@ class GRC_Handler(BaseRequestHandler):
             if not msg:
                 break
             # 解析帧格式
-            f_frame = self.KISS_frame_decode.decode_frame(msg)
-            # 如果是胡学姐的包
-            if (f_frame['frame_header']['virtual_channel_id'] == 3
-                    or f_frame['frame_header']['virtual_channel_id'] == 4):
-                # 处理KISS
-                smsg = self.kiss_decoder.AppendStream(f_frame['data'])
-                # print(smsg)
-                # 转发给HCR
-                if smsg is not None:
-                    socketer_dict['to_HCR'].send(smsg)
-            elif (f_frame['frame_header']['virtual_channel_id'] == 1
-                  or f_frame['frame_header']['virtual_channel_id'] == 2):
-                # 遥测
-                kiss_decoder = KISS_Decoder()
-                packet = kiss_decoder.AppendStream(f_frame['data'])
-                if packet is not None:
-                    if packet[0] == 0x01:
-                        # 解析工参
-                        print("[DEBUG] 虚拟信道:" + str(f_frame['frame_header']
-                                                    ['virtual_channel_id']))
-                        atp = AOS_Telemetry_Packet()
-                        status_dict = atp.decode(
-                            packet[2:122],
-                            f_frame['frame_header']['virtual_channel_id'])
-                        self.server.qthread.dataChanged.emit(status_dict)
-                    else:
-                        print('[DEBUG] 不是工参! 丢弃!!!')
+            try:
+                f_frame = self.KISS_frame_decode.decode_frame(msg)
+                # 如果是胡学姐的包
+                if (f_frame['frame_header']['virtual_channel_id'] == 3
+                        or f_frame['frame_header']['virtual_channel_id'] == 4):
+                    # 处理KISS
+                    smsg = self.kiss_decoder.AppendStream(f_frame['data'])
+                    # print(smsg)
+                    # 转发给HCR
+                    if smsg is not None:
+                        socketer_dict['to_HCR'].send(smsg)
+                elif (f_frame['frame_header']['virtual_channel_id'] == 1
+                      or f_frame['frame_header']['virtual_channel_id'] == 2):
+                    # 遥测
+                    kiss_decoder = KISS_Decoder()
+                    packet = kiss_decoder.AppendStream(f_frame['data'])
+                    if packet is not None:
+                        if packet[0] == 0x01:
+                            # 解析工参
+                            print("[DEBUG] 虚拟信道:" + str(
+                                f_frame['frame_header']['virtual_channel_id']))
+                            atp = AOS_Telemetry_Packet()
+                            status_dict = atp.decode(
+                                packet[2:122],
+                                f_frame['frame_header']['virtual_channel_id'])
+                            self.server.qthread.dataChanged.emit(status_dict)
+                        else:
+                            print('[DEBUG] 不是工参! 丢弃!!!')
+            except AssertionError as e:
+                print('[ERROR] ERROR data!')
+                print(e)
 
             else:
                 print('[DEBUG] not for HCR')
