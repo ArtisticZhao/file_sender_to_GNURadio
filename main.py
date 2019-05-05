@@ -127,6 +127,10 @@ class MainWindow(QtWidgets.QWidget):
             if not self.sender_lib_thread.is_alive():
                 self.ui.send_button.setText("send")
                 self.sender_lib_thread = None
+            else:
+                # 刷新进度
+                fprocess = self.sender_lib_thread.libc.process()
+                self.ui.transfer_process.setValue(fprocess)
         # 刷新状态
         self.LED_sender.setChecked(status['HCR_Online'])
         self.LED_GRC.setChecked(status['GRC_Online'])
@@ -169,9 +173,14 @@ class MainWindow(QtWidgets.QWidget):
 
     def sending(self, parameter_list):
         # do input check
-
+        if self.ui.file_path.text() == '':
+            print("[ERROR] please SELECT a file")
+            return
         # call lib
         if self.sender_lib_thread is None:
+            if not status['GRC_Online']:
+                print("[ERROR] GRC is NOT Online!")
+                return
             self.sender_lib_thread = Call_C_Lib_Task(
                 self.ui.file_path.text(), int(self.ui.sender_port.text()),
                 int(self.ui.file_num.text()), int(self.ui.delay_us.text()))
