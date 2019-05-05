@@ -19,6 +19,7 @@ from tcp_core import tcp_server, kiss_frame
 from call_c_lib import Call_C_Lib_Task
 from shared import settings, status, cmd_code
 from LedIndicatorWidget import LedIndicator
+from db_handler import DBHandle
 
 
 class MainWindow(QtWidgets.QWidget):
@@ -208,23 +209,71 @@ class StatusForm(QtWidgets.QWidget):
         # 自动列宽
         self.ui.tableWidget.horizontalHeader().setSectionResizeMode(
             QtWidgets.QHeaderView.ResizeToContents)
+        self.db_handler = DBHandle()
+
+        self.ui.pushButton_refresh.clicked.connect(self.refresh_db_list)
+        self.ui.comboBox_recv_time.currentTextChanged.connect(
+            self.refresh_status)
 
     def set_signal(self, obj):
         # 槽
         obj.dataChanged.connect(self.update_status)
-        pass
+
+    def refresh_db_list(self):
+        if self.ui.comboBox_sat.currentText() == 'A机':
+            rlist = self.db_handler.get_all('A_status')
+        else:
+            rlist = self.db_handler.get_all('B_status')
+        self.ui.comboBox_recv_time.clear()
+        for each in rlist:
+            self.ui.comboBox_recv_time.addItem(each[0])
+
+    def refresh_status(self):
+        if self.ui.comboBox_sat.currentText() == 'A机':
+            table_name = 'A_status'
+            # 更新A B星不一样的内容
+            self.ui.tableWidget.setItem(7, 0,
+                                        QtWidgets.QTableWidgetItem("+5V接收电压"))
+            self.ui.tableWidget.setItem(9, 0,
+                                        QtWidgets.QTableWidgetItem("+5V发射电压"))
+            self.ui.tableWidget.setItem(11, 0,
+                                        QtWidgets.QTableWidgetItem("+3.3V电压"))
+        else:
+            table_name = 'B_status'
+            # 更新A B星不一样的内容
+            self.ui.tableWidget.setItem(7, 0,
+                                        QtWidgets.QTableWidgetItem("+1V内核电压"))
+            self.ui.tableWidget.setItem(
+                9, 0, QtWidgets.QTableWidgetItem("+1.8V IO电压"))
+            self.ui.tableWidget.setItem(
+                11, 0, QtWidgets.QTableWidgetItem("+1.5V DDR3电压"))
+        d_status = self.db_handler.get_a_log(
+            table_name, self.ui.comboBox_recv_time.currentText())
+
+        # 根据查询结果更新内容
+        for j in range(0, self.ui.tableWidget.columnCount(), 2):
+            for i in range(0, self.ui.tableWidget.rowCount()):
+                val = d_status.get(self.ui.tableWidget.item(i, j).text())
+                self.ui.tableWidget.setItem(i, j + 1,
+                                            QtWidgets.QTableWidgetItem(val))
 
     @pyqtSlot(dict)
     def update_status(self, s_dict):
+        sat = s_dict.pop('sat')  # 辅助内容, 只在此函数中左右, 删除防止存储
         # 存储
-
+        if sat == cmd_code['cmd_A']:
+            # A 星
+            self.db_handler.insert_a_log('A_status', s_dict)
+        else:
+            # B 星
+            self.db_handler.insert_a_log('B_status', s_dict)
         # 更新工参
         if self.ui.checkBox_realtime.isChecked():
             # 更新时间
             self.ui.comboBox_recv_time.addItem(s_dict['recv_time'])  # 添加
             self.ui.comboBox_recv_time.setCurrentIndex(
                 self.ui.comboBox_recv_time.findText(s_dict['recv_time']))
-            if s_dict['sat'] == cmd_code['cmd_A']:
+            if sat == cmd_code['cmd_A']:
                 # A 星
                 self.ui.comboBox_sat.setCurrentIndex(0)
                 # 更新A B星不一样的内容

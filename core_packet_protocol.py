@@ -1,5 +1,6 @@
 # coding: utf-8
 import time
+import datetime
 from bitstring import BitArray
 from shared import cmd_code
 
@@ -186,8 +187,8 @@ class AOS_Telemetry_Packet(object):
         ba = BitArray(b_data[108:112])
         self.gongcan['AVR运行时间'] = str(ba.uint) + 's'
         # 添加辅助信息
-        self.gongcan['recv_time'] = time.strftime("%Y-%m-%d %H:%M:%S",
-                                                  time.localtime())
+        self.gongcan['recv_time'] = datetime.datetime.now().strftime(
+            '%Y-%m-%d %H:%M:%S.%f')
         self.gongcan['timestamp'] = int(time.time() * 1000)
         self.gongcan['sat'] = sat
         return self.gongcan
