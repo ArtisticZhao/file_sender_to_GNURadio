@@ -2,6 +2,7 @@
 from socketserver import BaseRequestHandler, ThreadingTCPServer
 import socket
 import time
+import datetime
 import json
 from PyQt5.QtCore import pyqtSignal, QThread
 
@@ -110,6 +111,8 @@ class GRC_Handler(BaseRequestHandler):
                     if packet is not None:
                         if packet[0] == 0x01:
                             # 解析工参
+                            print("收到工参---->" + str(datetime.datetime.now().strftime(
+                                    '%Y-%m-%d %H:%M:%S.%f')))
                             print("[DEBUG] 工参接收虚拟信道:" + str(
                                 f_frame['frame_header']['virtual_channel_id']))
                             atp = AOS_Telemetry_Packet()
