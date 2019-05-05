@@ -22,9 +22,11 @@ class DBHandle(object):
         ans = None
         for each in cursor:
             ans = each
-        cursor = self.cursor.execute('PRAGMA table_info([' + table_name + '])')
-        for index, val in enumerate(cursor):
-            d_status[val[1]] = ans[index]
+        if ans is not None:
+            cursor = self.cursor.execute(
+                'PRAGMA table_info([' + table_name + '])')
+            for index, val in enumerate(cursor):
+                d_status[val[1]] = ans[index]
         return d_status
 
     def insert_a_log(self, table_name, data_dict):
