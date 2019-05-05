@@ -110,7 +110,7 @@ class GRC_Handler(BaseRequestHandler):
                     if packet is not None:
                         if packet[0] == 0x01:
                             # 解析工参
-                            print("[DEBUG] 虚拟信道:" + str(
+                            print("[DEBUG] 工参接收虚拟信道:" + str(
                                 f_frame['frame_header']['virtual_channel_id']))
                             atp = AOS_Telemetry_Packet()
                             status_dict = atp.decode(
@@ -119,12 +119,15 @@ class GRC_Handler(BaseRequestHandler):
                             self.server.qthread.dataChanged.emit(status_dict)
                         else:
                             print('[DEBUG] 不是工参! 丢弃!!!')
+                else:
+                    print('[DEBUG] not for HCR')
+                    print("[DEBUG] 原始数据 ---------->")
+                    print(" ".join(["{:02x}".format(x) for x in msg]))
+                    print("[DEBUG] 解析头 ------------>")
+                    print(json.dumps(f_frame['frame_header'], indent=2))
             except AssertionError as e:
                 print('[ERROR] ERROR data!')
                 print(e)
-
-            else:
-                print('[DEBUG] not for HCR')
                 print("[DEBUG] 原始数据 ---------->")
                 print(" ".join(["{:02x}".format(x) for x in msg]))
                 print("[DEBUG] 解析头 ------------>")
