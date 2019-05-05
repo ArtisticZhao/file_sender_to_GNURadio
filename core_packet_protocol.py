@@ -108,7 +108,7 @@ class AOS_Telemetry_Packet(object):
         self.gongcan['PCB温度2'] = str(ba.int) + '℃'
 
         ba = BitArray(b_data[31:32])
-        self.gongcan['剩余存储空间'] = str(ba.int) + 'GB'
+        self.gongcan['剩余存储空间'] = str(ba.int/32) + 'GB'
         ba = BitArray(b_data[32:33])
         self.gongcan['CPU占用率'] = str(ba.int) + '%'
 
