@@ -15,7 +15,7 @@ from status_ui import Ui_Form
 import functions
 import cmd_function
 
-from tcp_core import tcp_server, kiss_frame
+from tcp_core import tcp_server, kiss_frame, shutdown_flag
 from call_c_lib import Call_C_Lib_Task
 from shared import settings, status, cmd_code
 from LedIndicatorWidget import LedIndicator
@@ -153,6 +153,8 @@ class MainWindow(QtWidgets.QWidget):
                   str(settings['virtual_channel_id']))
             # 启动server
             self.ui.server_button.setDisabled(True)
+            # TODO 如果不加这句在stopserver之后再起启动线程将无法同意客户端的连接  应该优化到类内部
+            shutdown_flag[0] = False
             # hcr server start!
             self.hcr_tcp_server = tcp_server(
                 int(self.ui.sender_port.text()), 'hcr')
