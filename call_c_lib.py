@@ -26,6 +26,30 @@ def stop_thread(thread):
 '''
 
 
+class AES_C_Lib(object):
+    def __init__(self):
+        work_path = os.getcwd()
+        self.libc = cdll.LoadLibrary(os.path.join(work_path, "aes.so"))
+
+    def encrypt(self, b_data):
+        assert isinstance(b_data, bytes), \
+            "TYPE ERROR at AES_C_Lib.encrypt"
+        d_len = len(b_data)
+        b_out = bytes(208)
+        self.libc.encrypt_cbc(c_char_p(b_out), c_char_p(b_data), d_len)
+        print('[DEBUG] encrypt len is ' + str(d_len))
+        return b_out
+
+    def decrypt(self, b_data):
+        assert isinstance(b_data, bytes), \
+            "TYPE ERROR at AES_C_Lib.encrypt"
+        d_len = len(b_data)
+        b_out = bytes(208)
+        self.libc.decrypt_cbc(c_char_p(b_out), c_char_p(b_data), d_len)
+        print('[DEBUG] decrypt len is ' + str(d_len))
+        return b_out
+
+
 class Call_C_Lib_Task(threading.Thread):
     def __init__(self, path, port, file_no, d_time):
         super().__init__()

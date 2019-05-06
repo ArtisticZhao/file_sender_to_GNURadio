@@ -98,7 +98,6 @@ class GRC_Handler(BaseRequestHandler):
                         or f_frame['frame_header']['virtual_channel_id'] == 4):
                     # 处理KISS
                     smsg = self.kiss_decoder.AppendStream(f_frame['data'])
-                    # print(smsg)
                     # 转发给HCR
                     if smsg is not None:
                         socketer_dict['to_HCR'].send(smsg)

@@ -44,10 +44,10 @@ class Ui_Dialog(object):
         self.file_num.setPlaceholderText("")
         self.file_num.setObjectName("file_num")
         self.label_6 = QtWidgets.QLabel(Dialog)
-        self.label_6.setGeometry(QtCore.QRect(250, 54, 51, 17))
+        self.label_6.setGeometry(QtCore.QRect(190, 54, 51, 17))
         self.label_6.setObjectName("label_6")
         self.delay_us = QtWidgets.QLineEdit(Dialog)
-        self.delay_us.setGeometry(QtCore.QRect(292, 50, 51, 27))
+        self.delay_us.setGeometry(QtCore.QRect(242, 50, 51, 27))
         self.delay_us.setPlaceholderText("")
         self.delay_us.setObjectName("delay_us")
         self.comboBox = QtWidgets.QComboBox(Dialog)
@@ -174,6 +174,9 @@ class Ui_Dialog(object):
         self.label_15 = QtWidgets.QLabel(Dialog)
         self.label_15.setGeometry(QtCore.QRect(440, 284, 71, 17))
         self.label_15.setObjectName("label_15")
+        self.checkBox_encrypt = QtWidgets.QCheckBox(Dialog)
+        self.checkBox_encrypt.setGeometry(QtCore.QRect(294, 53, 131, 22))
+        self.checkBox_encrypt.setObjectName("checkBox_encrypt")
 
         self.retranslateUi(Dialog)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
@@ -222,4 +225,5 @@ class Ui_Dialog(object):
         self.comboBox_speed.setItemText(1, _translate("Dialog", "100kbps"))
         self.set_speed_btn.setText(_translate("Dialog", "设置速率"))
         self.label_15.setText(_translate("Dialog", "接收速率"))
+        self.checkBox_encrypt.setText(_translate("Dialog", "FTP与指令加密"))
 

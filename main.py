@@ -94,11 +94,15 @@ class MainWindow(QtWidgets.QWidget):
 
         self.ui.pushButton_childwindow.clicked.connect(self.status_window.show)
 
-        # checkbox functions
+        # comboBox functions
         self.ui.comboBox.currentTextChanged.connect(
             lambda: functions.change_channel(self))
         self.ui.cmd_channel.currentTextChanged.connect(
             lambda: functions.cmd_change_channel(self))
+
+        # checkbox functions
+        self.ui.checkBox_encrypt.stateChanged.connect(
+            lambda: functions.encrypt_status_changed(self))
 
         # GRC状态改变
         self.LED_GRC.toggled.connect(

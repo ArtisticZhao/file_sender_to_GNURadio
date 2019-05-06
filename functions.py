@@ -40,3 +40,12 @@ def cmd_change_channel(parent):
     elif parent.ui.cmd_channel.currentIndex() == 2:
         settings['cmd_channel_id'] = cmd_code['cmd_B']
     print('[DEBUG] cmd channel id is ' + str(settings['cmd_channel_id']))
+
+
+def encrypt_status_changed(parent):
+    if parent.ui.checkBox_encrypt.isChecked():
+        print('[DEBUG] encrypt on')
+        settings['is_encrypt'] = True
+    else:
+        print('[DEBUG] encrypt off')
+        settings['is_encrypt'] = False

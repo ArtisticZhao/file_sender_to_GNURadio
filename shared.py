@@ -10,6 +10,7 @@ settings = {
     'craft_id': b'\x30',
     'virtual_channel_id': 1,
     'cmd_channel_id': 0,
+    'is_encrypt': False,
 }
 
 cmd_code = {

@@ -133,7 +133,7 @@
   <widget class="QLabel" name="label_6">
    <property name="geometry">
     <rect>
-     <x>250</x>
+     <x>190</x>
      <y>54</y>
      <width>51</width>
      <height>17</height>
@@ -146,7 +146,7 @@
   <widget class="QLineEdit" name="delay_us">
    <property name="geometry">
     <rect>
-     <x>292</x>
+     <x>242</x>
      <y>50</y>
      <width>51</width>
      <height>27</height>
@@ -624,6 +624,19 @@
    </property>
    <property name="text">
     <string>接收速率</string>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="checkBox_encrypt">
+   <property name="geometry">
+    <rect>
+     <x>294</x>
+     <y>53</y>
+     <width>131</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>FTP与指令加密</string>
    </property>
   </widget>
  </widget>
