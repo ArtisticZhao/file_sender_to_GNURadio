@@ -45,7 +45,7 @@ def cmd_change_channel(parent):
 def encrypt_status_changed(parent):
     if parent.ui.checkBox_encrypt.isChecked():
         print('[DEBUG] encrypt on')
-        settings['is_encrypt'] = True
+        settings['is_encrypt'] = '0b1'
     else:
         print('[DEBUG] encrypt off')
-        settings['is_encrypt'] = False
+        settings['is_encrypt'] = '0b0'

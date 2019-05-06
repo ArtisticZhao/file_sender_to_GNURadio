@@ -45,9 +45,9 @@ class KISS_frame(Thread):
         '''
         # 文件没有发送, 直接发送指令
         aos_frame = AOS_Frame()
-        aos_frame.gen_frame_header(settings['craft_id'],
-                                   settings['cmd_channel_id'],
-                                   counters[settings['cmd_channel_id']], '0b0')
+        aos_frame.gen_frame_header(
+            settings['craft_id'], settings['cmd_channel_id'],
+            counters[settings['cmd_channel_id']], settings['is_encrypt'])
         counters[settings['cmd_channel_id']] += 1  # 计数器自加
         # 补充c0
         if len(b_data) < 208:
@@ -121,9 +121,9 @@ class KISS_frame(Thread):
         assert len(self.b_data) == 208, "len ERROR at sender_send"
         # 满包发送
         aos_f = AOS_Frame()
-        aos_f.gen_frame_header(settings['craft_id'],
-                               settings['virtual_channel_id'],
-                               counters[settings['virtual_channel_id']], '0b0')
+        aos_f.gen_frame_header(
+            settings['craft_id'], settings['virtual_channel_id'],
+            counters[settings['virtual_channel_id']], settings['is_encrypt'])
         counters[settings['virtual_channel_id']] += 1
         aos_f.set_data_area(self.b_data)
         # 发前KISS
