@@ -276,7 +276,6 @@ class StatusForm(QtWidgets.QWidget):
 
     @pyqtSlot(dict)
     def update_status(self, s_dict):
-        print(s_dict)
         sat = s_dict.pop('sat')  # 辅助内容, 只在此函数中左右, 删除防止存储
         # 存储
         if sat == cmd_code['cmd_A']:
