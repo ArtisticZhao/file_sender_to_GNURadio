@@ -67,7 +67,6 @@ class GRC_Handler(BaseRequestHandler):
     '''
     监听GNU Radio
     '''
-    sinOut = pyqtSignal(dict)
 
     def setup(self):
         # 这个timeout的设置非常有必要, 能够解决不能退出线程的问题
@@ -97,6 +96,8 @@ class GRC_Handler(BaseRequestHandler):
                 # 如果是胡学姐的包
                 if (f_frame['frame_header']['virtual_channel_id'] == 3
                         or f_frame['frame_header']['virtual_channel_id'] == 4):
+                    print("SEND to HCR:->")
+                    print(f_frame['frame_header'])
                     # 处理KISS
                     smsg = self.kiss_decoder.AppendStream(f_frame['data'])
                     # 转发给HCR
@@ -104,6 +105,8 @@ class GRC_Handler(BaseRequestHandler):
                         socketer_dict['to_HCR'].send(smsg)
                 elif (f_frame['frame_header']['virtual_channel_id'] == 1
                       or f_frame['frame_header']['virtual_channel_id'] == 2):
+                    print("SEND to Telemetry decoder:->")
+                    print(f_frame['frame_header'])
                     # 遥测
                     kiss_decoder = KISS_Decoder()
                     packet = kiss_decoder.AppendStream(f_frame['data'])
@@ -122,7 +125,7 @@ class GRC_Handler(BaseRequestHandler):
                         else:
                             print('[DEBUG] 不是工参! 丢弃!!!')
                 else:
-                    print('[DEBUG] not for HCR')
+                    print('[DEBUG] not for HCR or Telemetry')
                     print("[DEBUG] 原始数据 ---------->")
                     print(" ".join(["{:02x}".format(x) for x in msg]))
                     print("[DEBUG] 解析头 ------------>")
