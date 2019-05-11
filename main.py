@@ -104,6 +104,9 @@ class MainWindow(QtWidgets.QWidget):
         self.ui.checkBox_encrypt.stateChanged.connect(
             lambda: functions.encrypt_status_changed(self))
 
+        self.ui.delay_us.textChanged.connect(
+            lambda: functions.change_timeout(self))
+
         # GRC状态改变
         self.LED_GRC.toggled.connect(
             lambda: self.status_window.set_signal(self.grc_tcp_server))
@@ -191,7 +194,7 @@ class MainWindow(QtWidgets.QWidget):
                 return
             self.sender_lib_thread = Call_C_Lib_Task(
                 self.ui.file_path.text(), int(self.ui.sender_port.text()),
-                int(self.ui.file_num.text()), int(self.ui.delay_us.text()))
+                int(self.ui.file_num.text(), 16), int(self.ui.delay_us.text()))
             self.sender_lib_thread.start()
 
             self.ui.send_button.setText("cancel")

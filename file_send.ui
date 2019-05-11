@@ -106,20 +106,20 @@
     <rect>
      <x>190</x>
      <y>84</y>
-     <width>51</width>
+     <width>91</width>
      <height>17</height>
     </rect>
    </property>
    <property name="text">
-    <string>File No.</string>
+    <string>File No. HEX</string>
    </property>
   </widget>
   <widget class="QLineEdit" name="file_num">
    <property name="geometry">
     <rect>
-     <x>242</x>
+     <x>272</x>
      <y>80</y>
-     <width>101</width>
+     <width>71</width>
      <height>27</height>
     </rect>
    </property>
@@ -133,10 +133,10 @@
   <widget class="QLabel" name="label_6">
    <property name="geometry">
     <rect>
-     <x>190</x>
+     <x>170</x>
      <y>54</y>
      <width>51</width>
-     <height>17</height>
+     <height>20</height>
     </rect>
    </property>
    <property name="text">
@@ -146,14 +146,14 @@
   <widget class="QLineEdit" name="delay_us">
    <property name="geometry">
     <rect>
-     <x>242</x>
+     <x>210</x>
      <y>50</y>
      <width>51</width>
      <height>27</height>
     </rect>
    </property>
    <property name="text">
-    <string>20000</string>
+    <string>200</string>
    </property>
    <property name="placeholderText">
     <string/>
@@ -637,6 +637,19 @@
    </property>
    <property name="text">
     <string>FTP与指令加密</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_12">
+   <property name="geometry">
+    <rect>
+     <x>262</x>
+     <y>54</y>
+     <width>21</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>ms</string>
    </property>
   </widget>
  </widget>

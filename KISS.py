@@ -78,7 +78,7 @@ class KISS_frame(Thread):
                 self.put_in_buf(b)
             else:
                 if len(self.b_data) > 0:  # 缓冲区中有数据
-                    time.sleep(0.01)  # 等待10ms
+                    time.sleep(settings['timeout'] / 20)  # 按照需求等待, 因为要等待20次
                     self.timer_count += 1
                     if (self.timer_count == 20):
                         self.force_full_buf()

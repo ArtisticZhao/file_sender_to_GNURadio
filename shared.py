@@ -11,6 +11,7 @@ settings = {
     'virtual_channel_id': 1,
     'cmd_channel_id': 0,
     'is_encrypt': '0b0',
+    'timeout': 0.01,  # 10ms
 }
 
 cmd_code = {

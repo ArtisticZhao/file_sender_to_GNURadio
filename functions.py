@@ -18,7 +18,7 @@ def open_file(parent):
     #     slice(opened_file, 20, 0xc0)
     with open(file_path, 'rb') as f:
         crc_code = crc32(f.read())
-    parent.ui.file_num.setText(str(crc_code))
+    parent.ui.file_num.setText(str(str(hex(crc_code))[2:]))  # HEX display
     parent.ui.file_path.setText(file_path)  # 更新显示信息
 
 
@@ -29,6 +29,12 @@ def change_channel(parent):
         settings['virtual_channel_id'] = 3
     elif parent.ui.comboBox.currentText() == 'B FTP':
         settings['virtual_channel_id'] = 4
+
+
+def change_timeout(parent):
+    timeout = int(parent.ui.delay_us.text())
+    settings['timeout'] = timeout * 1.5 / 1000
+    print('timeout changed: ' + str(settings['timeout']) + 's')
 
 
 def cmd_change_channel(parent):
