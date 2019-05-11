@@ -51,12 +51,14 @@ class AES_C_Lib(object):
 
 
 class Call_C_Lib_Task(threading.Thread):
-    def __init__(self, path, port, file_no, d_time):
+    def __init__(self, path, port, file_no, d_time, b_num, timeout):
         super().__init__()
         self.path = path
         self.port = port
         self.file_no = file_no
         self.d_time = d_time
+        self.b_num = b_num
+        self.timeout = timeout
         self.libc = None
 
     def run(self):
@@ -65,7 +67,7 @@ class Call_C_Lib_Task(threading.Thread):
         try:
             self.libc.lib_entry(
                 c_char_p(bytes(self.path, 'utf8')), self.port, self.file_no,
-                self.d_time)
+                self.d_time, self.timeout, self.b_num)
         except Exception as e:
             print(e)
 

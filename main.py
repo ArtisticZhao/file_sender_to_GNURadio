@@ -104,8 +104,8 @@ class MainWindow(QtWidgets.QWidget):
         self.ui.checkBox_encrypt.stateChanged.connect(
             lambda: functions.encrypt_status_changed(self))
 
-        self.ui.delay_us.textChanged.connect(
-            lambda: functions.change_timeout(self))
+        # self.ui.delay_us.textChanged.connect(
+        #     lambda: functions.change_timeout(self))
 
         # GRC状态改变
         self.LED_GRC.toggled.connect(
@@ -187,14 +187,23 @@ class MainWindow(QtWidgets.QWidget):
         if self.ui.file_path.text() == '':
             print("[ERROR] please SELECT a file")
             return
+        # update timeout value
+        timeout = int(self.ui.delay_us.text())
+        settings['timeout'] = timeout * 1.5 / 1000
+        print('timeout changed: ' + str(settings['timeout']) + 's')
         # call lib
         if self.sender_lib_thread is None:
             if not status['GRC_Online']:
                 print("[ERROR] GRC is NOT Online!")
                 return
+            print('[DEBUG] 块超时时间(ms)' + self.ui.block_timeout.text())
+            print('[DEBUG] 块包数:' + self.ui.block_num.text())
+            print('[DEBUG] 包间隔(ms):' + self.ui.delay_us.text())
             self.sender_lib_thread = Call_C_Lib_Task(
                 self.ui.file_path.text(), int(self.ui.sender_port.text()),
-                int(self.ui.file_num.text(), 16), int(self.ui.delay_us.text()))
+                int(self.ui.file_num.text(), 16), int(self.ui.delay_us.text()),
+                int(self.ui.block_num.text()), int(
+                    self.ui.block_timeout.text()))
             self.sender_lib_thread.start()
 
             self.ui.send_button.setText("cancel")
