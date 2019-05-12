@@ -11,8 +11,8 @@ bdata = b'\x0c\x01\x00\x00\x03\x00\xc0\x01\x78\x00\x00\x00\x00\x00\x00\x00\x20\x
 tcpClient = socket(AF_INET,SOCK_STREAM) # 这里的参数和UDP不一样。
 tcpClient.connect(addr) #由于tcp三次握手机制，需要先连接
 while True:
-    data  = input('>>> ')
-    if data == 'y':
+    data  = tcpClient.recv(1024)
+    if data != '':
         print('send test data')
         tcpClient.send(bdata)
     else:

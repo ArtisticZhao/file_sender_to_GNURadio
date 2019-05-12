@@ -116,7 +116,10 @@ class MainWindow(QtWidgets.QWidget):
         if self.ui.server_button.text() == 'Start Server':
             # 没有程序执行, 可以关闭!
             kiss_frame.shutdown()
+            self.status_window.db_handler.commit_all()  # 输入数据库
             self.status_window.close()
+            # 存储数据库
+
             event.accept()  # 关闭窗口
         else:
             reply = QtWidgets.QMessageBox.question(
@@ -125,6 +128,7 @@ class MainWindow(QtWidgets.QWidget):
             if reply == QtWidgets.QMessageBox.Yes:
                 # 关闭服务器
                 self.start_stop_server()
+                self.status_window.db_handler.commit_all()  # 输入数据库
                 self.status_window.close()
                 event.accept()  # 关闭窗口
             else:
@@ -238,6 +242,7 @@ class StatusForm(QtWidgets.QWidget):
         # 自动列宽
         self.ui.tableWidget.horizontalHeader().setSectionResizeMode(
             QtWidgets.QHeaderView.ResizeToContents)
+        # 创建数据库链接
         self.db_handler = DBHandle()
 
         self.ui.pushButton_refresh.clicked.connect(self.refresh_db_list)
@@ -249,6 +254,8 @@ class StatusForm(QtWidgets.QWidget):
         obj.dataChanged.connect(self.update_status)
 
     def refresh_db_list(self):
+        # 先存数据库
+        self.db_handler.commit_all()
         if self.ui.comboBox_sat.currentText() == 'A机':
             rlist = self.db_handler.get_all('A_status')
         else:
@@ -258,6 +265,8 @@ class StatusForm(QtWidgets.QWidget):
             self.ui.comboBox_recv_time.addItem(each[0])
 
     def refresh_status(self):
+        if not self.isVisible:  # 当窗口隐藏的时候不刷新
+            return
         if self.ui.comboBox_sat.currentText() == 'A机':
             table_name = 'A_status'
             # 更新A B星不一样的内容

@@ -6,6 +6,8 @@ class DBHandle(object):
     def __init__(self):
         self.conn = sqlite3.connect('sys_status.db')
         self.cursor = self.conn.cursor()
+        self.A_log_in_memory = list()
+        self.B_log_in_memory = list()
 
     def __del__(self):
         self.conn.close()
@@ -30,10 +32,21 @@ class DBHandle(object):
         return d_status
 
     def insert_a_log(self, table_name, data_dict):
-        self.cursor.execute(
-            "INSERT INTO " + table_name + " " + str(tuple(data_dict.keys())) +
-            " VALUES " + str(tuple(data_dict.values())))
+        if table_name == 'A_status':
+            self.A_log_in_memory.append(data_dict)
+        else:
+            self.B_log_in_memory.append(data_dict)
+
+    def commit_all(self):
+        for each in self.A_log_in_memory:
+            self.conn.execute("INSERT INTO " + 'A_status' + " " + str(
+                tuple(each.keys())) + " VALUES " + str(tuple(each.values())))
+        for each in self.B_log_in_memory:
+            self.conn.execute("INSERT INTO " + 'B_status' + " " + str(
+                tuple(each.keys())) + " VALUES " + str(tuple(each.values())))
         self.conn.commit()
+        self.A_log_in_memory.clear()
+        self.B_log_in_memory.clear()
 
 
 if __name__ == '__main__':
