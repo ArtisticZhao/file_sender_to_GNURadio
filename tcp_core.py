@@ -135,8 +135,7 @@ class GRC_Handler(BaseRequestHandler):
                 print(e)
                 print("[DEBUG] 原始数据 ---------->")
                 print(" ".join(["{:02x}".format(x) for x in msg]))
-                print("[DEBUG] 解析头 ------------>")
-                print(json.dumps(f_frame['frame_header'], indent=2))
+                # 原始数据可能无法解析头 不能打印
 
     def finish(self):
         self.KISS_frame.set_sender(None)
