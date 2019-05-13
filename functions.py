@@ -31,6 +31,13 @@ def change_channel(parent):
         settings['virtual_channel_id'] = 4
 
 
+def change_craft_id(parent):
+    craft_id = parent.ui.craft_id.text()
+    craft_id = int(craft_id, 16)
+    settings['craft_id'] = bytes([craft_id])
+    print('[DEBUG] craft_id change to ' + settings['craft_id'].hex())
+
+
 def change_timeout(parent):
     timeout = int(parent.ui.delay_us.text())
     settings['timeout'] = timeout * 1.5 / 1000

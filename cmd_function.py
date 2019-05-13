@@ -128,6 +128,22 @@ def cmd_set_nid(parent):
     kiss_frame.presend_cmd(b_data)
 
 
+def cmd_set_sat_block_num(parent):
+    block_num = parent.ui.sat_block_num.text()
+    try:
+        block_num = int(block_num)
+        b = BitArray(uint=block_num, length=16).bytes
+    except (CreationError, ValueError):
+        QMessageBox.warning(parent, "Warning", "请输入0~65535之间的内容")
+    aos_packet = AOS_Packet()
+    b_data = aos_packet.gen_packet(cmd_code['set_block_num'], b'\x02', b)
+    # 发前KISS
+    k = KISS_Encoder_One_Frame()
+    b_data = k.encode(b_data)
+    # 发送
+    kiss_frame.presend_cmd(b_data)
+
+
 def cmd_ftp_start(parent):
     '''
     FTP 开始传输

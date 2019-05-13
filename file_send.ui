@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>715</width>
-    <height>344</height>
+    <height>366</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -162,7 +162,7 @@
   <widget class="QComboBox" name="comboBox">
    <property name="geometry">
     <rect>
-     <x>70</x>
+     <x>210</x>
      <y>10</y>
      <width>78</width>
      <height>27</height>
@@ -182,7 +182,7 @@
   <widget class="QLabel" name="label_7">
    <property name="geometry">
     <rect>
-     <x>10</x>
+     <x>150</x>
      <y>15</y>
      <width>71</width>
      <height>17</height>
@@ -247,7 +247,7 @@
    <property name="geometry">
     <rect>
      <x>630</x>
-     <y>180</y>
+     <y>206</y>
      <width>71</width>
      <height>27</height>
     </rect>
@@ -260,7 +260,7 @@
    <property name="geometry">
     <rect>
      <x>580</x>
-     <y>70</y>
+     <y>71</y>
      <width>121</width>
      <height>27</height>
     </rect>
@@ -273,7 +273,7 @@
    <property name="geometry">
     <rect>
      <x>530</x>
-     <y>70</y>
+     <y>71</y>
      <width>41</width>
      <height>27</height>
     </rect>
@@ -332,7 +332,7 @@
    <property name="geometry">
     <rect>
      <x>580</x>
-     <y>120</y>
+     <y>121</y>
      <width>121</width>
      <height>27</height>
     </rect>
@@ -368,7 +368,7 @@
    <property name="geometry">
     <rect>
      <x>440</x>
-     <y>150</y>
+     <y>176</y>
      <width>101</width>
      <height>27</height>
     </rect>
@@ -381,7 +381,7 @@
    <property name="geometry">
     <rect>
      <x>600</x>
-     <y>150</y>
+     <y>176</y>
      <width>101</width>
      <height>27</height>
     </rect>
@@ -394,7 +394,7 @@
    <property name="geometry">
     <rect>
      <x>630</x>
-     <y>300</y>
+     <y>326</y>
      <width>71</width>
      <height>27</height>
     </rect>
@@ -407,7 +407,7 @@
    <property name="geometry">
     <rect>
      <x>440</x>
-     <y>300</y>
+     <y>326</y>
      <width>121</width>
      <height>27</height>
     </rect>
@@ -420,7 +420,7 @@
    <property name="geometry">
     <rect>
      <x>440</x>
-     <y>240</y>
+     <y>266</y>
      <width>181</width>
      <height>27</height>
     </rect>
@@ -430,7 +430,7 @@
    <property name="geometry">
     <rect>
      <x>620</x>
-     <y>240</y>
+     <y>266</y>
      <width>81</width>
      <height>27</height>
     </rect>
@@ -494,7 +494,7 @@
    <property name="geometry">
     <rect>
      <x>440</x>
-     <y>180</y>
+     <y>206</y>
      <width>181</width>
      <height>51</height>
     </rect>
@@ -584,7 +584,7 @@
    <property name="geometry">
     <rect>
      <x>500</x>
-     <y>270</y>
+     <y>296</y>
      <width>121</width>
      <height>27</height>
     </rect>
@@ -604,7 +604,7 @@
    <property name="geometry">
     <rect>
      <x>630</x>
-     <y>270</y>
+     <y>296</y>
      <width>71</width>
      <height>27</height>
     </rect>
@@ -617,7 +617,7 @@
    <property name="geometry">
     <rect>
      <x>440</x>
-     <y>274</y>
+     <y>300</y>
      <width>71</width>
      <height>17</height>
     </rect>
@@ -721,6 +721,71 @@
    </property>
    <property name="placeholderText">
     <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_18">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>15</y>
+     <width>101</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>航天器ID(HEX)</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="craft_id">
+   <property name="geometry">
+    <rect>
+     <x>110</x>
+     <y>10</y>
+     <width>29</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>30</string>
+   </property>
+   <property name="placeholderText">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_19">
+   <property name="geometry">
+    <rect>
+     <x>440</x>
+     <y>150</y>
+     <width>71</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>星上包数</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="sat_block_num">
+   <property name="geometry">
+    <rect>
+     <x>530</x>
+     <y>145</y>
+     <width>41</width>
+     <height>27</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="set_sat_block">
+   <property name="geometry">
+    <rect>
+     <x>580</x>
+     <y>146</y>
+     <width>121</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>设置星上包数</string>
    </property>
   </widget>
  </widget>

@@ -31,12 +31,14 @@ cmd_code = {
     'set_prefile_no': b'\x83',
     'del_file': b'\x84',
     'set_nid': b'\x85',
+    'set_block_num': b'\x8A',
     'ftp_start': b'\x87',
     'ftp_stop': b'\x88',
     'set_seed': b'\x89',
     'get_status': b'\x91',
     'get_file_block': b'\x94',
     'switch_antenna': b'\xA0',
+
     # 信道代码
     'cmd_AB': 0,
     'cmd_A': 1,

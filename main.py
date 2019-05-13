@@ -91,6 +91,8 @@ class MainWindow(QtWidgets.QWidget):
             lambda: cmd_function.cmd_get_status(self))
         self.ui.set_speed_btn.clicked.connect(
             lambda: cmd_function.cmd_set_speed(self))
+        self.ui.set_sat_block.clicked.connect(
+            lambda: cmd_function.cmd_set_sat_block_num(self))
 
         self.ui.pushButton_childwindow.clicked.connect(self.status_window.show)
 
@@ -104,8 +106,11 @@ class MainWindow(QtWidgets.QWidget):
         self.ui.checkBox_encrypt.stateChanged.connect(
             lambda: functions.encrypt_status_changed(self))
 
+        # lineedit functions
         # self.ui.delay_us.textChanged.connect(
         #     lambda: functions.change_timeout(self))
+        self.ui.craft_id.editingFinished.connect(
+            lambda: functions.change_craft_id(self))
 
         # GRC状态改变
         self.LED_GRC.toggled.connect(
