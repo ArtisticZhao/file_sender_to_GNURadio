@@ -6,7 +6,6 @@ KISS 协议 数据包以C0开头 ，以C0结尾
 当数据中有DB时， 以 DB DD替换
 '''
 
-import time
 import queue
 from copy import deepcopy
 from threading import Thread
@@ -29,7 +28,6 @@ class KISS_frame(Thread):
         self.b_data = b''  # 起始一个标识符
         self.sender = None
         self.temp = None
-        self.timer_count = 0  # 定时器计数, 当数据不来的时候就等来10ms, 并加1, 达到值之后强行发送
         self.cmd_queue = queue.Queue()
 
     def return_shutdown_flag(self):
@@ -65,25 +63,17 @@ class KISS_frame(Thread):
         while not self.__shutdown:
             if not KISS_encode_queue.empty():
                 self.timer_count = 0  # 清空计数器
+
+            try:
                 # 得到一个新Byte
-                b = KISS_encode_queue.get()
-                '''# 判断是否需要转换
-                if b == 0xC0:
-                    b = b'\xDB\xDC'
-                elif b == 0xDB:
-                    b = b'\xDB\xDD'
-                else:'''
+                b = KISS_encode_queue.get(timeout=settings['timeout'])
                 b = bytes([b])  # convert to bytes
                 # 插入到发送队列中
                 self.put_in_buf(b)
-            else:
+            except queue.Empty:
                 if len(self.b_data) > 0:  # 缓冲区中有数据
-                    time.sleep(settings['timeout'] / 20)  # 按照需求等待, 因为要等待20次
-                    self.timer_count += 1
-                    if (self.timer_count == 20):
-                        self.force_full_buf()
-                        self.sender_send()
-                        self.timer_count = 0  # 清空计数器
+                    self.force_full_buf()
+                    self.sender_send()
                 elif not self.cmd_queue.empty():
                     # 在发送文件空闲之余, 发送指令
                     if self.sender is not None:

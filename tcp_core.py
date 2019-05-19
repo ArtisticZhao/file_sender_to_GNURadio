@@ -113,8 +113,8 @@ class GRC_Handler(BaseRequestHandler):
                     if packet is not None:
                         if packet[0] == 0x01:
                             # 解析工参
-                            print("收到工参---->" + str(datetime.datetime.now().strftime(
-                                    '%Y-%m-%d %H:%M:%S.%f')))
+                            print("收到工参---->" + str(datetime.datetime.now(
+                            ).strftime('%Y-%m-%d %H:%M:%S.%f')))
                             print("[DEBUG] 工参接收虚拟信道:" + str(
                                 f_frame['frame_header']['virtual_channel_id']))
                             atp = AOS_Telemetry_Packet()
@@ -157,7 +157,7 @@ class tcp_server(QThread):  # 为了Handle能够发送Qt信号 所以使用Qthre
         if self.mode == 'grc':
             self.serv = ThreadingTCPServer(
                 ('', self.port), GRC_Handler, bind_and_activate=False)
-            self.serv.socket.settimeout(0.1)  # 设置超时, 以便能够退出线程
+            self.serv.socket.settimeout(1)  # 设置超时, 以便能够退出线程
             self.serv.socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR,
                                         True)  # 设置端口重用, 以便异常socket断开后的重建
             self.serv.qthread = self  # 这里让Handle里面有信号的发射口
@@ -165,7 +165,7 @@ class tcp_server(QThread):  # 为了Handle能够发送Qt信号 所以使用Qthre
         elif self.mode == 'hcr':
             self.serv = ThreadingTCPServer(
                 ('', self.port), HCR_Handler, bind_and_activate=False)
-            self.serv.socket.settimeout(0.1)  # 设置超时, 以便能够退出线程
+            self.serv.socket.settimeout(1)  # 设置超时, 以便能够退出线程
             self.serv.socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR,
                                         True)  # 设置端口重用, 以便异常socket断开后的重建
 
