@@ -5,6 +5,7 @@
 ###################################
 
 import sys
+from math import isnan
 
 from PyQt5 import QtWidgets, QtCore, QtGui
 from PyQt5.QtCore import QTimer, pyqtSlot
@@ -149,6 +150,8 @@ class MainWindow(QtWidgets.QWidget):
             else:
                 # 刷新进度
                 fprocess = self.sender_lib_thread.libc.process()
+                if isnan(fprocess):
+                    fprocess = 0
                 self.ui.transfer_process.setValue(int(fprocess * 100))
         # 刷新状态
         self.LED_sender.setChecked(status['HCR_Online'])
