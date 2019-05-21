@@ -1,7 +1,8 @@
 # coding: utf-8
 import os
-import threading
-from ctypes import cdll, c_char_p, c_float
+from ctypes import cdll, c_char_p, c_float, c_int
+
+from PyQt5.QtCore import pyqtSignal, QThread
 '''
 import inspect
 import ctypes
@@ -50,7 +51,9 @@ class AES_C_Lib(object):
         return b_out
 
 
-class Call_C_Lib_Task(threading.Thread):
+class Call_C_Lib_Task(QThread):
+    file_send_ok = pyqtSignal(int)  # 成功发送文件的信号
+
     def __init__(self, path, port, file_no, d_time, b_num, timeout):
         super().__init__()
         self.path = path
@@ -65,10 +68,14 @@ class Call_C_Lib_Task(threading.Thread):
         work_path = os.getcwd()
         self.libc = cdll.LoadLibrary(os.path.join(work_path, "upload_lib.so"))
         try:
+            # 设置函数返回值类型
+            self.libc.lib_entry.restype = c_int
             self.libc.process.restype = c_float
-            self.libc.lib_entry(
+            res = self.libc.lib_entry(
                 c_char_p(bytes(self.path, 'utf8')), self.port, self.file_no,
                 self.d_time, self.timeout, self.b_num)
+            self.file_send_ok.emit(res)
+
         except Exception as e:
             print(e)
 

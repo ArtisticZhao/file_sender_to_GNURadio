@@ -143,14 +143,14 @@ class MainWindow(QtWidgets.QWidget):
     def timer_click(self):
         # if thread run out:
         if self.sender_lib_thread is not None:
-            if not self.sender_lib_thread.is_alive():
+            if not self.sender_lib_thread.isRunning():
                 self.ui.send_button.setText("send")
                 self.sender_lib_thread = None
                 self.ui.transfer_process.setValue(100)
             else:
                 # 刷新进度
                 fprocess = self.sender_lib_thread.libc.process()
-                if isnan(fprocess):
+                if isnan(fprocess):  # 胡学姐的程序里面最开始的时候会返回nan
                     fprocess = 0
                 self.ui.transfer_process.setValue(int(fprocess * 100))
         # 刷新状态
@@ -218,18 +218,32 @@ class MainWindow(QtWidgets.QWidget):
                 int(self.ui.block_num.text()), int(
                     self.ui.block_timeout.text()))
             self.sender_lib_thread.start()
-
+            # connect slot
+            self.sender_lib_thread.file_send_ok.connect(self.file_send_res)
             self.ui.send_button.setText("cancel")
         else:
-            if self.sender_lib_thread.is_alive():
+            if self.sender_lib_thread.isRunning():
                 print("running! to kill it!!!")
                 self.sender_lib_thread.libc.close_socketfd()
-                while self.sender_lib_thread.is_alive():
+                while self.sender_lib_thread.isRunning():
                     continue
                 self.ui.send_button.setText("send")
+                # 解除槽链接
+                self.sender_lib_thread.file_send_ok.disconnect(
+                    self.file_send_res)
                 self.sender_lib_thread = None
             else:
                 print("not running")
+
+    @pyqtSlot(int)
+    def file_send_res(self, res):
+        if res == 0:
+            # send OK!
+            QtWidgets.QMessageBox.information(self, "文件传输结果", "文件传输成功!")
+        elif res == 2:
+            QtWidgets.QMessageBox.information(self, "文件传输结果", "传输已取消!")
+        else:
+            QtWidgets.QMessageBox.information(self, "文件传输结果", "文件传输失败!")
 
     def normal_output_written(self, text):
         """ Initial output console length and buffer.
