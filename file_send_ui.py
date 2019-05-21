@@ -265,7 +265,7 @@ class Ui_Dialog(object):
         self.label_12.setText(_translate("Dialog", "ms"))
         self.label_13.setText(_translate("Dialog", "块超时:"))
         self.label_16.setText(_translate("Dialog", "ms"))
-        self.block_timeout.setText(_translate("Dialog", "200"))
+        self.block_timeout.setText(_translate("Dialog", "5000"))
         self.label_17.setText(_translate("Dialog", "块包数:"))
         self.block_num.setText(_translate("Dialog", "200"))
         self.label_18.setText(_translate("Dialog", "航天器ID(HEX)"))

@@ -688,7 +688,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>200</string>
+    <string>5000</string>
    </property>
    <property name="placeholderText">
     <string/>

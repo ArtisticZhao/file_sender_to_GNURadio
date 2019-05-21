@@ -148,6 +148,7 @@ class MainWindow(QtWidgets.QWidget):
             else:
                 # 刷新进度
                 fprocess = self.sender_lib_thread.libc.process()
+                print('[DEBUG] fprocess is: ' + str(fprocess))
                 self.ui.transfer_process.setValue(fprocess)
         # 刷新状态
         self.LED_sender.setChecked(status['HCR_Online'])
@@ -302,7 +303,11 @@ class StatusForm(QtWidgets.QWidget):
 
     @pyqtSlot(dict)
     def update_status(self, s_dict):
-        sat = s_dict.pop('sat')  # 辅助内容, 只在此函数中左右, 删除防止存储
+        try:
+            sat = s_dict.pop('sat')  # 辅助内容, 只在此函数中左右, 删除防止存储
+        except KeyError:
+            print('[DEBUG] no sat')
+            sat = None
         # 存储
         if sat == cmd_code['cmd_A']:
             # A 星
