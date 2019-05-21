@@ -145,10 +145,10 @@ class MainWindow(QtWidgets.QWidget):
             if not self.sender_lib_thread.is_alive():
                 self.ui.send_button.setText("send")
                 self.sender_lib_thread = None
+                self.ui.transfer_process.setValue(100)
             else:
                 # 刷新进度
                 fprocess = self.sender_lib_thread.libc.process()
-                print('[DEBUG] fprocess is: ' + str(fprocess))
                 self.ui.transfer_process.setValue(int(fprocess * 100))
         # 刷新状态
         self.LED_sender.setChecked(status['HCR_Online'])
