@@ -324,7 +324,6 @@ class StatusForm(QtWidgets.QWidget):
             sat = s_dict.pop('sat')  # 辅助内容, 只在此函数中左右, 删除防止存储
         except KeyError:
             print('[DEBUG] no sat')
-            sat = None
         # 存储
         if sat == cmd_code['cmd_A']:
             # A 星
