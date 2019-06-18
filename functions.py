@@ -7,6 +7,19 @@ from zlib import crc32
 from shared import settings, cmd_code
 
 
+# 保存AES密钥信息
+def save_aes_key(parent):
+    with open("data/aes.key", 'w') as f:
+        f.write(parent.ui.Seed.toPlainText())
+
+
+# 打开AES密钥信息
+def open_aes_key(parent):
+    with open("data/aes.key", 'r') as f:
+        key = f.read()
+        parent.ui.Seed.setPlainText(key)
+
+
 def open_file(parent):
 
     file_path, filetype = QFileDialog.getOpenFileName(

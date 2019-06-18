@@ -10,7 +10,7 @@ import queue
 from copy import deepcopy
 from threading import Thread
 
-from core_frame_protocol import AOS_Frame
+from protocol.core_frame_protocol import AOS_Frame
 
 from shared import KISS_encode_queue
 from shared import settings, counters

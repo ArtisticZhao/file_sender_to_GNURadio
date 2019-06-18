@@ -30,7 +30,7 @@ def stop_thread(thread):
 class AES_C_Lib(object):
     def __init__(self):
         work_path = os.getcwd()
-        self.libc = cdll.LoadLibrary(os.path.join(work_path, "aes.so"))
+        self.libc = cdll.LoadLibrary(os.path.join(work_path, "c_lib/aes.so"))
 
     def encrypt(self, b_data):
         assert isinstance(b_data, bytes), \
@@ -66,7 +66,7 @@ class Call_C_Lib_Task(QThread):
 
     def run(self):
         work_path = os.getcwd()
-        self.libc = cdll.LoadLibrary(os.path.join(work_path, "upload_lib.so"))
+        self.libc = cdll.LoadLibrary(os.path.join(work_path, "c_lib/upload_lib.so"))
         try:
             # 设置函数返回值类型
             self.libc.lib_entry.restype = c_int

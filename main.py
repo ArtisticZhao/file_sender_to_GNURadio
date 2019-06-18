@@ -10,16 +10,16 @@ from math import isnan
 from PyQt5 import QtWidgets, QtCore, QtGui
 from PyQt5.QtCore import QTimer, pyqtSlot
 
-from file_send_ui import Ui_Dialog
-from status_ui import Ui_Form
+from ui.file_send_ui import Ui_Dialog
+from ui.status_ui import Ui_Form
 
 import functions
 import cmd_function
 
 from tcp_core import tcp_server, kiss_frame, shutdown_flag
-from call_c_lib import Call_C_Lib_Task
+from c_lib.call_c_lib import Call_C_Lib_Task
 from shared import settings, status, cmd_code
-from LedIndicatorWidget import LedIndicator
+from ui.LedIndicatorWidget import LedIndicator
 from db_handler import DBHandle
 
 
@@ -116,6 +116,9 @@ class MainWindow(QtWidgets.QWidget):
         # GRC状态改变
         self.LED_GRC.toggled.connect(
             lambda: self.status_window.set_signal(self.grc_tcp_server))
+
+        # 读取AES_key
+        functions.open_aes_key(self)
 
     def closeEvent(self, event):
         # 窗口关闭事件

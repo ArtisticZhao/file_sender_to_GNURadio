@@ -4,7 +4,7 @@
 需求: bitstring
 '''
 from bitstring import BitArray
-from call_c_lib import AES_C_Lib
+from c_lib.call_c_lib import AES_C_Lib
 
 
 class AOS_Frame(object):

@@ -6,10 +6,10 @@ import datetime
 import json
 from PyQt5.QtCore import pyqtSignal, QThread
 
-from KISS import KISS_Decoder, KISS_Encoder_One_Frame
-from KISS import KISS_frame, AOS_Frame
+from protocol.KISS import KISS_Decoder, KISS_Encoder_One_Frame
+from protocol.KISS import KISS_frame, AOS_Frame
 from shared import KISS_encode_queue, status
-from core_packet_protocol import AOS_Telemetry_Packet
+from protocol.core_packet_protocol import AOS_Telemetry_Packet
 # 打帧器, 并且启动线程
 kiss_frame = KISS_frame()
 kiss_frame.start()

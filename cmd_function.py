@@ -1,11 +1,12 @@
 # coding: utf-8
 import re
-from core_packet_protocol import AOS_Packet
+from protocol.core_packet_protocol import AOS_Packet
 from shared import cmd_code
 from tcp_core import kiss_frame
-from KISS import KISS_Encoder_One_Frame
+from protocol.KISS import KISS_Encoder_One_Frame
 from PyQt5.QtWidgets import QMessageBox
 from bitstring import BitArray, CreationError
+from functions import save_aes_key
 
 
 def cmd_reset(parent):
@@ -181,7 +182,8 @@ def cmd_set_seed(parent):
         b = BitArray(hex=seed).bytes
     except CreationError:
         QMessageBox.warning(parent, "Warning", "请输入16位hex的内容(可用空格分割)")
-
+    # save seed
+    save_aes_key(parent)
     aos_packet = AOS_Packet()
     b_data = aos_packet.gen_packet(cmd_code['set_seed'], b'\x10', b)
     # 发前KISS

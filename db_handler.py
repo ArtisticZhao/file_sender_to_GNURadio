@@ -4,7 +4,7 @@ import sqlite3
 
 class DBHandle(object):
     def __init__(self):
-        self.conn = sqlite3.connect('sys_status.db')
+        self.conn = sqlite3.connect('data/sys_status.db')
         self.cursor = self.conn.cursor()
         self.A_log_in_memory = list()
         self.B_log_in_memory = list()
