@@ -6,12 +6,14 @@ KISS_encode_queue = queue.Queue()
 
 status = {'GRC_Online': False, 'HCR_Online': False}
 
+
 settings = {
     'craft_id': b'\x30',
     'virtual_channel_id': 1,
     'cmd_channel_id': 0,
     'is_encrypt': '0b0',
     'timeout': 0.01,  # 10ms
+    'aes_seed': b'',
 }
 
 cmd_code = {

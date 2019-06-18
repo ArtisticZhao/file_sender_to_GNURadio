@@ -1,7 +1,7 @@
 # coding: utf-8
 import re
 from protocol.core_packet_protocol import AOS_Packet
-from shared import cmd_code
+from shared import cmd_code, settings
 from tcp_core import kiss_frame
 from protocol.KISS import KISS_Encoder_One_Frame
 from PyQt5.QtWidgets import QMessageBox
@@ -184,6 +184,8 @@ def cmd_set_seed(parent):
         QMessageBox.warning(parent, "Warning", "请输入16位hex的内容(可用空格分割)")
     # save seed
     save_aes_key(parent)
+    # update seed
+    settings['aes_seed'] = b
     aos_packet = AOS_Packet()
     b_data = aos_packet.gen_packet(cmd_code['set_seed'], b'\x10', b)
     # 发前KISS

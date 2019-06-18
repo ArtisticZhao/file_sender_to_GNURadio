@@ -3,6 +3,7 @@ import os
 from ctypes import cdll, c_char_p, c_float, c_int
 
 from PyQt5.QtCore import pyqtSignal, QThread
+from shared import settings
 '''
 import inspect
 import ctypes
@@ -37,7 +38,7 @@ class AES_C_Lib(object):
             "TYPE ERROR at AES_C_Lib.encrypt"
         d_len = len(b_data)
         b_out = bytes(208)
-        self.libc.encrypt_cbc(c_char_p(b_out), c_char_p(b_data), d_len)
+        self.libc.encrypt_cbc(c_char_p(b_out), c_char_p(b_data), d_len, c_char_p(settings['aes_seed']), 16)
         print('[DEBUG] encrypt len is ' + str(d_len))
         return b_out
 
@@ -46,7 +47,7 @@ class AES_C_Lib(object):
             "TYPE ERROR at AES_C_Lib.encrypt"
         d_len = len(b_data)
         b_out = bytes(208)
-        self.libc.decrypt_cbc(c_char_p(b_out), c_char_p(b_data), d_len)
+        self.libc.decrypt_cbc(c_char_p(b_out), c_char_p(b_data), d_len, c_char_p(settings['aes_seed']), 16)
         print('[DEBUG] decrypt len is ' + str(d_len))
         return b_out
 

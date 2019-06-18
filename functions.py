@@ -2,6 +2,8 @@
 '''
 定义按钮等功能
 '''
+import re
+from bitstring import BitArray
 from PyQt5.QtWidgets import QFileDialog
 from zlib import crc32
 from shared import settings, cmd_code
@@ -18,6 +20,9 @@ def open_aes_key(parent):
     with open("data/aes.key", 'r') as f:
         key = f.read()
         parent.ui.Seed.setPlainText(key)
+        # load to system
+        seed = re.sub(r'\s+', '', key)  # 去除空白字符
+        settings['aes_seed'] = BitArray(hex=seed).bytes
 
 
 def open_file(parent):
