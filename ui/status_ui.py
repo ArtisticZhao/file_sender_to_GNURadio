@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'status.ui'
 #
-# Created by: PyQt5 UI code generator 5.11.2
+# Created by: PyQt5 UI code generator 5.9.2
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -11,7 +11,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_Form(object):
     def setupUi(self, Form):
         Form.setObjectName("Form")
-        Form.resize(400, 300)
+        Form.resize(400, 314)
         self.verticalLayout = QtWidgets.QVBoxLayout(Form)
         self.verticalLayout.setObjectName("verticalLayout")
         self.horizontalLayout_2 = QtWidgets.QHBoxLayout()
@@ -20,6 +20,19 @@ class Ui_Form(object):
         self.checkBox_realtime.setChecked(True)
         self.checkBox_realtime.setObjectName("checkBox_realtime")
         self.horizontalLayout_2.addWidget(self.checkBox_realtime)
+        self.label_2 = QtWidgets.QLabel(Form)
+        self.label_2.setObjectName("label_2")
+        self.horizontalLayout_2.addWidget(self.label_2)
+        self.lineEdit = QtWidgets.QLineEdit(Form)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Maximum, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.lineEdit.sizePolicy().hasHeightForWidth())
+        self.lineEdit.setSizePolicy(sizePolicy)
+        self.lineEdit.setMaximumSize(QtCore.QSize(50, 50))
+        self.lineEdit.setReadOnly(True)
+        self.lineEdit.setObjectName("lineEdit")
+        self.horizontalLayout_2.addWidget(self.lineEdit)
         spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout_2.addItem(spacerItem)
         self.comboBox_sat = QtWidgets.QComboBox(Form)
@@ -219,6 +232,7 @@ class Ui_Form(object):
         _translate = QtCore.QCoreApplication.translate
         Form.setWindowTitle(_translate("Form", "01H工参"))
         self.checkBox_realtime.setText(_translate("Form", "显示最新一包并实时更新"))
+        self.label_2.setText(_translate("Form", "航天器ID"))
         self.comboBox_sat.setItemText(0, _translate("Form", "A机"))
         self.comboBox_sat.setItemText(1, _translate("Form", "B机"))
         self.label.setText(_translate("Form", "接收时间"))
