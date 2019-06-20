@@ -268,6 +268,8 @@ class StatusForm(QtWidgets.QWidget):
         # 自动列宽
         self.ui.tableWidget.horizontalHeader().setSectionResizeMode(
             QtWidgets.QHeaderView.ResizeToContents)
+        self.ui.tableWidget_2.horizontalHeader().setSectionResizeMode(
+            QtWidgets.QHeaderView.ResizeToContents)
         # 创建数据库链接
         self.db_handler = DBHandle()
 
@@ -295,31 +297,19 @@ class StatusForm(QtWidgets.QWidget):
             return
         if self.ui.comboBox_sat.currentText() == 'A机':
             table_name = 'A_status'
-            # 更新A B星不一样的内容
-            self.ui.tableWidget.setItem(7, 0,
-                                        QtWidgets.QTableWidgetItem("+5V接收电压"))
-            self.ui.tableWidget.setItem(9, 0,
-                                        QtWidgets.QTableWidgetItem("+5V发射电压"))
-            self.ui.tableWidget.setItem(11, 0,
-                                        QtWidgets.QTableWidgetItem("+3.3V电压"))
         else:
             table_name = 'B_status'
-            # 更新A B星不一样的内容
-            self.ui.tableWidget.setItem(7, 0,
-                                        QtWidgets.QTableWidgetItem("+1V内核电压"))
-            self.ui.tableWidget.setItem(
-                9, 0, QtWidgets.QTableWidgetItem("+1.8V IO电压"))
-            self.ui.tableWidget.setItem(
-                11, 0, QtWidgets.QTableWidgetItem("+1.5V DDR3电压"))
         d_status = self.db_handler.get_a_log(
             table_name, self.ui.comboBox_recv_time.currentText())
-
+        if table_name == 'A_status':
+            table = self.ui.tableWidget
+        else:
+            table = self.ui.tableWidget_2
         # 根据查询结果更新内容
-        for j in range(0, self.ui.tableWidget.columnCount(), 2):
-            for i in range(0, self.ui.tableWidget.rowCount()):
-                val = d_status.get(self.ui.tableWidget.item(i, j).text())
-                self.ui.tableWidget.setItem(i, j + 1,
-                                            QtWidgets.QTableWidgetItem(val))
+        for j in range(0, table.columnCount(), 2):
+            for i in range(0, table.rowCount()):
+                val = d_status.get(table.item(i, j).text())
+                table.setItem(i, j + 1, QtWidgets.QTableWidgetItem(val))
 
     @pyqtSlot(dict)
     def update_status(self, s_dict):
@@ -334,8 +324,9 @@ class StatusForm(QtWidgets.QWidget):
         else:
             # B 星
             self.db_handler.insert_a_log('B_status', s_dict)
-        # 更新工参
+        # 更新航天器ID
         self.ui.lineEdit.setText(str(s_dict['craft_id']))
+        # 更新工参
         if self.ui.checkBox_realtime.isChecked():
             # 更新时间
             self.ui.comboBox_recv_time.addItem(s_dict['recv_time'])  # 添加
@@ -344,28 +335,17 @@ class StatusForm(QtWidgets.QWidget):
             if sat == cmd_code['cmd_A']:
                 # A 星
                 self.ui.comboBox_sat.setCurrentIndex(0)
-                # 更新A B星不一样的内容
-                self.ui.tableWidget.setItem(
-                    7, 0, QtWidgets.QTableWidgetItem("+5V接收电压"))
-                self.ui.tableWidget.setItem(
-                    9, 0, QtWidgets.QTableWidgetItem("+5V发射电压"))
-                self.ui.tableWidget.setItem(
-                    11, 0, QtWidgets.QTableWidgetItem("+3.3V电压"))
             else:
                 # B 星
                 self.ui.comboBox_sat.setCurrentIndex(1)
-                # 更新A B星不一样的内容
-                self.ui.tableWidget.setItem(
-                    7, 0, QtWidgets.QTableWidgetItem("+1V内核电压"))
-                self.ui.tableWidget.setItem(
-                    9, 0, QtWidgets.QTableWidgetItem("+1.8V IO电压"))
-                self.ui.tableWidget.setItem(
-                    11, 0, QtWidgets.QTableWidgetItem("+1.5V DDR3电压"))
-
-            for j in range(0, self.ui.tableWidget.columnCount(), 2):
-                for i in range(0, self.ui.tableWidget.rowCount()):
-                    val = s_dict.get(self.ui.tableWidget.item(i, j).text())
-                    self.ui.tableWidget.setItem(
+            if sat == cmd_code['cmd_A']:
+                table = self.ui.tableWidget
+            else:
+                table = self.ui.tableWidget_2
+            for j in range(0, table.columnCount(), 2):
+                for i in range(0, table.rowCount()):
+                    val = s_dict.get(table.item(i, j).text())
+                    table.setItem(
                         i, j + 1, QtWidgets.QTableWidgetItem(val))
 
     def closeEvent(self, event):
