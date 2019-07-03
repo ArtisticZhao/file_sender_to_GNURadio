@@ -2,16 +2,17 @@
 
 # Form implementation generated from reading ui file 'status.ui'
 #
-# Created by: PyQt5 UI code generator 5.9.2
+# Created by: PyQt5 UI code generator 5.12.2
 #
 # WARNING! All changes made in this file will be lost!
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
+
 class Ui_Form(object):
     def setupUi(self, Form):
         Form.setObjectName("Form")
-        Form.resize(400, 314)
+        Form.resize(667, 483)
         self.verticalLayout = QtWidgets.QVBoxLayout(Form)
         self.verticalLayout.setObjectName("verticalLayout")
         self.horizontalLayout_2 = QtWidgets.QHBoxLayout()
@@ -57,10 +58,13 @@ class Ui_Form(object):
         self.pushButton_refresh.setObjectName("pushButton_refresh")
         self.horizontalLayout.addWidget(self.pushButton_refresh)
         self.verticalLayout.addLayout(self.horizontalLayout)
-        self.label_3 = QtWidgets.QLabel(Form)
-        self.label_3.setObjectName("label_3")
-        self.verticalLayout.addWidget(self.label_3)
-        self.tableWidget = QtWidgets.QTableWidget(Form)
+        self.tabWidget = QtWidgets.QTabWidget(Form)
+        self.tabWidget.setObjectName("tabWidget")
+        self.tab = QtWidgets.QWidget()
+        self.tab.setObjectName("tab")
+        self.verticalLayout_3 = QtWidgets.QVBoxLayout(self.tab)
+        self.verticalLayout_3.setObjectName("verticalLayout_3")
+        self.tableWidget = QtWidgets.QTableWidget(self.tab)
         self.tableWidget.setObjectName("tableWidget")
         self.tableWidget.setColumnCount(8)
         self.tableWidget.setRowCount(14)
@@ -220,17 +224,19 @@ class Ui_Form(object):
         self.tableWidget.setItem(13, 4, item)
         item = QtWidgets.QTableWidgetItem()
         self.tableWidget.setItem(13, 6, item)
-        self.tableWidget.horizontalHeader().setVisible(True)
+        self.tableWidget.horizontalHeader().setVisible(False)
         self.tableWidget.horizontalHeader().setCascadingSectionResizes(False)
         self.tableWidget.horizontalHeader().setHighlightSections(True)
         self.tableWidget.verticalHeader().setVisible(False)
         self.tableWidget.verticalHeader().setCascadingSectionResizes(False)
         self.tableWidget.verticalHeader().setHighlightSections(True)
-        self.verticalLayout.addWidget(self.tableWidget)
-        self.label_4 = QtWidgets.QLabel(Form)
-        self.label_4.setObjectName("label_4")
-        self.verticalLayout.addWidget(self.label_4)
-        self.tableWidget_2 = QtWidgets.QTableWidget(Form)
+        self.verticalLayout_3.addWidget(self.tableWidget)
+        self.tabWidget.addTab(self.tab, "")
+        self.tab_2 = QtWidgets.QWidget()
+        self.tab_2.setObjectName("tab_2")
+        self.verticalLayout_2 = QtWidgets.QVBoxLayout(self.tab_2)
+        self.verticalLayout_2.setObjectName("verticalLayout_2")
+        self.tableWidget_2 = QtWidgets.QTableWidget(self.tab_2)
         self.tableWidget_2.setObjectName("tableWidget_2")
         self.tableWidget_2.setColumnCount(8)
         self.tableWidget_2.setRowCount(14)
@@ -390,15 +396,18 @@ class Ui_Form(object):
         self.tableWidget_2.setItem(13, 4, item)
         item = QtWidgets.QTableWidgetItem()
         self.tableWidget_2.setItem(13, 6, item)
-        self.tableWidget_2.horizontalHeader().setVisible(True)
+        self.tableWidget_2.horizontalHeader().setVisible(False)
         self.tableWidget_2.horizontalHeader().setCascadingSectionResizes(False)
         self.tableWidget_2.horizontalHeader().setHighlightSections(True)
         self.tableWidget_2.verticalHeader().setVisible(False)
         self.tableWidget_2.verticalHeader().setCascadingSectionResizes(False)
         self.tableWidget_2.verticalHeader().setHighlightSections(True)
-        self.verticalLayout.addWidget(self.tableWidget_2)
+        self.verticalLayout_2.addWidget(self.tableWidget_2)
+        self.tabWidget.addTab(self.tab_2, "")
+        self.verticalLayout.addWidget(self.tabWidget)
 
         self.retranslateUi(Form)
+        self.tabWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(Form)
 
     def retranslateUi(self, Form):
@@ -410,7 +419,6 @@ class Ui_Form(object):
         self.comboBox_sat.setItemText(1, _translate("Form", "B机"))
         self.label.setText(_translate("Form", "接收时间"))
         self.pushButton_refresh.setText(_translate("Form", "Refresh"))
-        self.label_3.setText(_translate("Form", "A机"))
         item = self.tableWidget.verticalHeaderItem(0)
         item.setText(_translate("Form", "1"))
         item = self.tableWidget.verticalHeaderItem(1)
@@ -570,7 +578,7 @@ class Ui_Form(object):
         item = self.tableWidget.item(13, 6)
         item.setText(_translate("Form", "保留"))
         self.tableWidget.setSortingEnabled(__sortingEnabled)
-        self.label_4.setText(_translate("Form", "B机"))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), _translate("Form", "A机"))
         item = self.tableWidget_2.verticalHeaderItem(0)
         item.setText(_translate("Form", "1"))
         item = self.tableWidget_2.verticalHeaderItem(1)
@@ -730,4 +738,6 @@ class Ui_Form(object):
         item = self.tableWidget_2.item(13, 6)
         item.setText(_translate("Form", "保留"))
         self.tableWidget_2.setSortingEnabled(__sortingEnabled)
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), _translate("Form", "B机"))
+
 
