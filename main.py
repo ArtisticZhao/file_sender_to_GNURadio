@@ -325,7 +325,7 @@ class StatusForm(QtWidgets.QWidget):
             # B 星
             self.db_handler.insert_a_log('B_status', s_dict)
         # 更新航天器ID
-        self.ui.lineEdit.setText(str(s_dict['craft_id']))
+        self.ui.lineEdit.setText(str(hex(s_dict['craft_id'])))
         # 更新工参
         if self.ui.checkBox_realtime.isChecked():
             # 更新时间
