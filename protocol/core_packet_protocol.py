@@ -172,7 +172,7 @@ class AOS_Telemetry_Packet(object):
         ba = BitArray(b_data[49:51])
         self.gongcan['FTP连续传输包数'] = ba.hex
         ba = BitArray(b_data[51:55])
-        self.gongcan['FTP当前接收文件编号'] = ba.hex
+        self.gongcan['FTP当前接收文件序号'] = ba.hex
         ba = BitArray(b_data[55:59])
         self.gongcan['FTP当前接收文件长度'] = str(ba.uint)
         ba = BitArray(b_data[59:63])
