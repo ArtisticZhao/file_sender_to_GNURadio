@@ -277,8 +277,7 @@ class StatusForm(QtWidgets.QWidget):
         self.db_handler = DBHandle()
 
         self.ui.pushButton_refresh.clicked.connect(self.refresh_db_list)
-        # self.ui.comboBox_recv_time.currentTextChanged.connect(
-        #    self.refresh_status)
+        self.ui.pushButton_inquire.clicked.connect(self.refresh_status)
 
     def set_signal(self, obj):
         # 槽
