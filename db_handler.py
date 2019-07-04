@@ -1,9 +1,76 @@
 # coding:utf-8
 import sqlite3
+import os
 
 
 class DBHandle(object):
     def __init__(self):
+        # 检查文件是否存在, 如果不存在数据库的话则创建
+        if not (os.path.exists('data/sys_status.db')):
+            print('[INFO] Creating DataBase!')
+            conn = sqlite3.connect('data/sys_status.db')
+            c = conn.cursor()
+            c.execute('''CREATE TABLE [A_status]
+            ( [timestamp] DEC PRIMARY KEY DESC NOT NULL UNIQUE,
+            [recv_time] BLOB, [配置状态] BLOB,
+            [工作模式] BLOB, [通道状态标识1] BLOB,
+            [通道状态标识2] BLOB, [通道状态标识3] BLOB,
+            [通道状态标识4] BLOB, [+5V接收电流] BLOB,
+            [+5V接收电压] BLOB, [+5V发射电流] BLOB,
+            [+5V发射电压] BLOB, [+3.3V电流] BLOB,
+            [+3.3V电压] BLOB, [接收频偏1] BLOB,
+            [接收频偏2] BLOB, [数字信号强度指示1] BLOB,
+            [数字信号强度指示2] BLOB, [模拟信号强度指示] BLOB,
+            [PCB温度1] BLOB, [PCB温度2] BLOB,
+            [剩余存储空间] BLOB, [CPU占用率] BLOB,
+            [CAN发送包计数] BLOB, [CAN接收包计数] BLOB,
+            [CAN错误包计数] BLOB, [CAN执行错误计数] BLOB,
+            [CAN最近一条指令] BLOB, [CAN指令执行情况] BLOB,
+            [RF发送包计数] BLOB, [RF发送抛弃包计数] BLOB,
+            [RF接收包计数] BLOB, [RF接收错误包计数] BLOB,
+            [RF接收执行错误计数] BLOB, [RF接收纠错失败计数] BLOB,
+            [RF最近一条指令] BLOB, [RF指令执行情况] BLOB,
+            [FTP当前接收文件序号] BLOB, [FTP当前接收文件长度] BLOB,
+            [FTP当前接收文件校验值] BLOB, [FTP接收数据块大小] BLOB,
+            [FTP接收成功包数] BLOB, [FTP接收缺失包数] BLOB,
+            [目标CAN节点地址] BLOB, [当前发送文件序号] BLOB,
+            [当前发送文件长度] BLOB, [当前发送文件校验值] BLOB,
+            [FTP发送数据块大小] BLOB, [FTP发送成功包数] BLOB,
+            [FTP发送缺失包数] BLOB, [读取数据包计数] BLOB,
+            [注入数据计数] BLOB, [复位计数] BLOB,
+            [复位标识] BLOB, [系统状态标识] BLOB
+            [ARM运行时间] BLOB, [AVR运行时间] BLOB) WITHOUT ROWID''')
+            c.execute('''CREATE TABLE [B_status]
+            ( [timestamp] DEC PRIMARY KEY DESC,
+            [recv_time] BLOB, [配置状态] BLOB,
+            [工作模式] BLOB, [通道状态标识1] BLOB,
+            [通道状态标识2] BLOB, [通道状态标识3] BLOB,
+            [通道状态标识4] BLOB, [+5V接收电流] BLOB,
+            [+1V内核电压] BLOB, [+5V发射电流] BLOB,
+            [+1.8V IO电压] BLOB, [+3.3V电流] BLOB,
+            [+1.5V DDR3电压] BLOB, [接收频偏1] BLOB,
+            [接收频偏2] BLOB, [数字信号强度指示1] BLOB,
+            [数字信号强度指示2] BLOB, [模拟信号强度指示] BLOB,
+            [PCB温度1] BLOB, [PCB温度2] BLOB,
+            [剩余存储空间] BLOB, [CPU占用率] BLOB,
+            [CAN发送包计数] BLOB, [CAN接收包计数] BLOB,
+            [CAN错误包计数] BLOB, [CAN执行错误计数] BLOB,
+            [CAN最近一条指令] BLOB, [CAN指令执行情况] BLOB,
+            [RF发送包计数] BLOB, [RF发送抛弃包计数] BLOB,
+            [RF接收包计数] BLOB, [RF接收错误包计数] BLOB,
+            [RF接收执行错误计数] BLOB, [RF接收纠错失败计数] BLOB,
+            [RF最近一条指令] BLOB, [RF指令执行情况] BLOB,
+            [FTP当前接收文件序号] BLOB, [FTP当前接收文件长度] BLOB,
+            [FTP当前接收文件校验值] BLOB, [FTP接收数据块大小] BLOB,
+            [FTP接收成功包数] BLOB, [FTP接收缺失包数] BLOB,
+            [目标CAN节点地址] BLOB, [当前发送文件序号] BLOB,
+            [当前发送文件长度] BLOB, [当前发送文件校验值] BLOB,
+            [FTP发送数据块大小] BLOB, [FTP发送成功包数] BLOB,
+            [FTP发送缺失包数] BLOB, [读取数据包计数] BLOB,
+            [注入数据计数] BLOB, [复位计数] BLOB,
+            [复位标识] BLOB, [系统状态标识] BLOB,
+            [ARM运行时间] BLOB, [AVR运行时间] BLOB)''')
+            conn.commit()
         self.conn = sqlite3.connect('data/sys_status.db')
         self.cursor = self.conn.cursor()
         self.A_log_in_memory = list()
