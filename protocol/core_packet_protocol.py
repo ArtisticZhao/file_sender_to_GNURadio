@@ -64,7 +64,7 @@ class AOS_Telemetry_Packet(object):
         if sat == cmd_code['cmd_A']:
             self.gongcan['通道状态标识2'] = ba.hex
         else:
-            self.gongcan['保留'] = ba.hex
+            pass
         ba = BitArray(b_data[4:5])
         if sat == cmd_code['cmd_A']:
             self.gongcan['发射增益高字节'] = ba.hex
@@ -74,12 +74,12 @@ class AOS_Telemetry_Packet(object):
         if sat == cmd_code['cmd_A']:
             self.gongcan['发射增益低字节'] = ba.hex
         else:
-            self.gongcan['保留1'] = ba.hex
+            pass
         ba = BitArray(b_data[6:7])
         if sat == cmd_code['cmd_A']:
             self.gongcan['+5V接收电流'] = str(ba.uint * 4) + 'mA'
         else:
-            self.gongcan['保留2'] = ba.hex
+            pass
         ba = BitArray(b_data[7:8])
         if sat == cmd_code['cmd_A']:
             self.gongcan['+5V接收电压'] = str(ba.uint / 32.0) + 'V'
@@ -89,7 +89,7 @@ class AOS_Telemetry_Packet(object):
         if sat == cmd_code['cmd_A']:
             self.gongcan['+5V发射电流'] = str(ba.uint * 4) + 'mA'
         else:
-            self.gongcan['保留3'] = ba.hex
+            pass
         ba = BitArray(b_data[9:10])
         if sat == cmd_code['cmd_A']:
             self.gongcan['+5V发射电压'] = str(ba.uint / 32.0) + 'V'
@@ -100,7 +100,7 @@ class AOS_Telemetry_Packet(object):
         if sat == cmd_code['cmd_A']:
             self.gongcan['+3.3V电流'] = str(ba.uint * 4) + 'mA'
         else:
-            self.gongcan['保留4'] = ba.hex
+            pass
         ba = BitArray(b_data[11:12])
         if sat == cmd_code['cmd_A']:
             self.gongcan['+3.3V电压'] = str(ba.uint / 32.0) + 'V'
@@ -120,22 +120,22 @@ class AOS_Telemetry_Packet(object):
         if sat == cmd_code['cmd_A']:
             self.gongcan['模拟信号强度指示'] = ba.hex
         else:
-            self.gongcan['保留5'] = ba.hex
+            pass
         ba = BitArray(b_data[29:30])
         self.gongcan['PCB温度1'] = str(ba.int) + '℃'
         ba = BitArray(b_data[30:31])
         if sat == cmd_code['cmd_A']:
             self.gongcan['PCB温度2'] = str(ba.int) + '℃'
         else:
-            self.gongcan['保留6'] = ba.hex
+            pass
         ba = BitArray(b_data[31:32])
         if sat == cmd_code['cmd_A']:
-            self.gongcan['保留'] = ba.hex
+            pass
         else:
             self.gongcan['剩余存储空间'] = str(ba.int/32) + 'GB'
         ba = BitArray(b_data[32:33])
         if sat == cmd_code['cmd_A']:
-            self.gongcan['保留'] = ba.hex
+            pass
         else:
             self.gongcan['CPU占用率'] = str(ba.int) + '%'
 
@@ -165,8 +165,6 @@ class AOS_Telemetry_Packet(object):
         ba = BitArray(b_data[44:45])
         if sat == cmd_code['cmd_A']:
             self.gongcan['RF接收纠错失败计数'] = ba.hex
-        else:
-            self.gongcan['保留7'] = ba.hex
         ba = BitArray(b_data[45:46])
         self.gongcan['RF最近一条指令'] = ba.hex
         ba = BitArray(b_data[46:47])
@@ -174,7 +172,7 @@ class AOS_Telemetry_Packet(object):
         ba = BitArray(b_data[49:51])
         self.gongcan['FTP连续传输包数'] = ba.hex
         ba = BitArray(b_data[51:55])
-        self.gongcan['FTP当前接收文件编号号'] = ba.hex
+        self.gongcan['FTP当前接收文件编号'] = ba.hex
         ba = BitArray(b_data[55:59])
         self.gongcan['FTP当前接收文件长度'] = str(ba.uint)
         ba = BitArray(b_data[59:63])
@@ -219,7 +217,7 @@ class AOS_Telemetry_Packet(object):
         if sat == cmd_code['cmd_A']:
             self.gongcan['AVR运行时间'] = str(ba.uint) + 's'
         else:
-            self.gongcan['保留7'] = ba.hex
+            pass
         # 添加辅助信息
         self.gongcan['recv_time'] = datetime.datetime.now().strftime(
             '%Y-%m-%d %H:%M:%S.%f')
