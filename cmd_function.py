@@ -236,3 +236,19 @@ def cmd_switch_antenna(parent):
     b_data = k.encode(b_data)
     # 发送
     kiss_frame.presend_cmd(b_data)
+
+
+def cmd_gongcan_download_time(parent):
+    # 30s工参下传
+    aos_packet = AOS_Packet()
+    if parent.ui.gongcan_download_time.isChecked():
+        b_data = aos_packet.gen_packet(
+            cmd_code['set_gongcan_download_time'], b'\x01', cmd_code['gongcan_download_time']['open'])
+    else:
+        b_data = aos_packet.gen_packet(
+            cmd_code['set_gongcan_download_time'], b'\x01', cmd_code['gongcan_download_time']['close'])
+    # 发前KISS
+    k = KISS_Encoder_One_Frame()
+    b_data = k.encode(b_data)
+    # 发送
+    kiss_frame.presend_cmd(b_data)

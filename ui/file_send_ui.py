@@ -2,16 +2,17 @@
 
 # Form implementation generated from reading ui file 'file_send.ui'
 #
-# Created by: PyQt5 UI code generator 5.11.2
+# Created by: PyQt5 UI code generator 5.12.2
 #
 # WARNING! All changes made in this file will be lost!
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
+
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
-        Dialog.resize(715, 366)
+        Dialog.resize(715, 392)
         self.open_file_button = QtWidgets.QPushButton(Dialog)
         self.open_file_button.setGeometry(QtCore.QRect(350, 40, 71, 27))
         self.open_file_button.setObjectName("open_file_button")
@@ -22,7 +23,7 @@ class Ui_Dialog(object):
         self.label.setGeometry(QtCore.QRect(10, 44, 66, 17))
         self.label.setObjectName("label")
         self.log_area = QtWidgets.QTextEdit(Dialog)
-        self.log_area.setGeometry(QtCore.QRect(10, 206, 411, 121))
+        self.log_area.setGeometry(QtCore.QRect(10, 206, 411, 171))
         self.log_area.setObjectName("log_area")
         self.server_button = QtWidgets.QPushButton(Dialog)
         self.server_button.setGeometry(QtCore.QRect(320, 136, 101, 27))
@@ -213,6 +214,9 @@ class Ui_Dialog(object):
         self.set_sat_block = QtWidgets.QPushButton(Dialog)
         self.set_sat_block.setGeometry(QtCore.QRect(580, 146, 121, 27))
         self.set_sat_block.setObjectName("set_sat_block")
+        self.gongcan_download_time = QtWidgets.QCheckBox(Dialog)
+        self.gongcan_download_time.setGeometry(QtCore.QRect(440, 360, 111, 23))
+        self.gongcan_download_time.setObjectName("gongcan_download_time")
 
         self.retranslateUi(Dialog)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
@@ -272,4 +276,6 @@ class Ui_Dialog(object):
         self.craft_id.setText(_translate("Dialog", "30"))
         self.label_19.setText(_translate("Dialog", "星上包数"))
         self.set_sat_block.setText(_translate("Dialog", "设置星上包数"))
+        self.gongcan_download_time.setText(_translate("Dialog", "30s工参下传"))
+
 

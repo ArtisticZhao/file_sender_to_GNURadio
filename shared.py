@@ -40,6 +40,11 @@ cmd_code = {
     'get_status': b'\x91',
     'get_file_block': b'\x94',
     'switch_antenna': b'\xA0',
+    'set_gongcan_download_time': b'\x92',
+    'gongcan_download_time': {
+        'open': b'\xAA',
+        'close': b'\x00'
+    },
 
     # 信道代码
     'cmd_AB': 0,

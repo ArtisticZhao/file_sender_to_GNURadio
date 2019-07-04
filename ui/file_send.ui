@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>715</width>
-    <height>366</height>
+    <height>392</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -55,7 +55,7 @@
      <x>10</x>
      <y>206</y>
      <width>411</width>
-     <height>121</height>
+     <height>171</height>
     </rect>
    </property>
   </widget>
@@ -786,6 +786,19 @@
    </property>
    <property name="text">
     <string>设置星上包数</string>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="gongcan_download_time">
+   <property name="geometry">
+    <rect>
+     <x>440</x>
+     <y>360</y>
+     <width>111</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>30s工参下传</string>
    </property>
   </widget>
  </widget>
