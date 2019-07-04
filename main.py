@@ -315,7 +315,7 @@ class StatusForm(QtWidgets.QWidget):
     def update_status(self, s_dict):
         try:
             sat = s_dict.pop('sat')  # 辅助内容, 只在此函数中作用, 删除防止存储
-            s_dict.pop('is_encrypt')  # 删除防止存储
+            craft_id = s_dict.pop('craft_id')  # 删除防止存储
         except KeyError:
             print('[DEBUG] no sat')
         # 存储
@@ -326,7 +326,7 @@ class StatusForm(QtWidgets.QWidget):
             # B 星
             self.db_handler.insert_a_log('B_status', s_dict)
         # 更新航天器ID
-        self.ui.lineEdit.setText(str(hex(s_dict['craft_id'])))
+        self.ui.lineEdit.setText(str(hex(craft_id)))
         # 更新工参
         if self.ui.checkBox_realtime.isChecked():
             # 更新时间

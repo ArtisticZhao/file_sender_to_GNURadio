@@ -122,7 +122,7 @@ class GRC_Handler(BaseRequestHandler):
                                 packet[2:122],
                                 f_frame['frame_header']['virtual_channel_id'])
                             # 添加帧头数据
-                            status_dict.update(f_frame['frame_header'])
+                            status_dict['craft_id'] = f_frame['frame_header']['craft_id']
                             # 发送显示
                             self.server.qthread.dataChanged.emit(status_dict)
                         else:
