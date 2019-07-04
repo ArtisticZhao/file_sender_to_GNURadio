@@ -312,7 +312,7 @@
          </item>
          <item row="0" column="6">
           <property name="text">
-           <string>当前发送文件序号</string>
+           <string>目标CAN节点地址</string>
           </property>
          </item>
          <item row="1" column="0">
@@ -332,7 +332,7 @@
          </item>
          <item row="1" column="6">
           <property name="text">
-           <string>当前发送文件长度</string>
+           <string>当前发送文件序号</string>
           </property>
          </item>
          <item row="2" column="0">
@@ -352,7 +352,7 @@
          </item>
          <item row="2" column="6">
           <property name="text">
-           <string>当前发送文件校验值</string>
+           <string>当前发送文件长度</string>
           </property>
          </item>
          <item row="3" column="0">
@@ -372,12 +372,12 @@
          </item>
          <item row="3" column="6">
           <property name="text">
-           <string>FTP发送数据块大小</string>
+           <string>当前发送文件校验值</string>
           </property>
          </item>
          <item row="4" column="0">
           <property name="text">
-           <string>通道状态标识3</string>
+           <string>发射增益高字节</string>
           </property>
          </item>
          <item row="4" column="2">
@@ -392,17 +392,17 @@
          </item>
          <item row="4" column="6">
           <property name="text">
-           <string>FTP发送成功包数</string>
+           <string>FTP发送数据块大小</string>
           </property>
          </item>
          <item row="5" column="0">
           <property name="text">
-           <string>通道状态标识4</string>
+           <string>发射增益低字节</string>
           </property>
          </item>
          <item row="5" column="2">
           <property name="text">
-           <string>剩余存储空间</string>
+           <string>保留</string>
           </property>
          </item>
          <item row="5" column="4">
@@ -412,7 +412,7 @@
          </item>
          <item row="5" column="6">
           <property name="text">
-           <string>FTP发送缺失包数</string>
+           <string>FTP发送成功包数</string>
           </property>
          </item>
          <item row="6" column="0">
@@ -422,7 +422,7 @@
          </item>
          <item row="6" column="2">
           <property name="text">
-           <string>CPU占用率</string>
+           <string>保留1</string>
           </property>
          </item>
          <item row="6" column="4">
@@ -432,7 +432,7 @@
          </item>
          <item row="6" column="6">
           <property name="text">
-           <string>读取数据包计数</string>
+           <string>FTP发送缺失包数</string>
           </property>
          </item>
          <item row="7" column="0">
@@ -447,12 +447,12 @@
          </item>
          <item row="7" column="4">
           <property name="text">
-           <string>FTP当前接收文件序号</string>
+           <string>FTP连续传输包数</string>
           </property>
          </item>
          <item row="7" column="6">
           <property name="text">
-           <string>注入数据计数</string>
+           <string>读取数据包计数</string>
           </property>
          </item>
          <item row="8" column="0">
@@ -467,7 +467,7 @@
          </item>
          <item row="8" column="4">
           <property name="text">
-           <string>FTP当前接收文件长度</string>
+           <string>FTP当前接收文件编号</string>
           </property>
          </item>
          <item row="8" column="6">
@@ -487,7 +487,7 @@
          </item>
          <item row="9" column="4">
           <property name="text">
-           <string>FTP当前接收文件校验值</string>
+           <string>FTP当前接收文件长度</string>
           </property>
          </item>
          <item row="9" column="6">
@@ -507,12 +507,12 @@
          </item>
          <item row="10" column="4">
           <property name="text">
-           <string>FTP接收数据块大小</string>
+           <string>FTP当前接收文件校验值</string>
           </property>
          </item>
          <item row="10" column="6">
           <property name="text">
-           <string>系统状态标识</string>
+           <string>保留3</string>
           </property>
          </item>
          <item row="11" column="0">
@@ -527,7 +527,7 @@
          </item>
          <item row="11" column="4">
           <property name="text">
-           <string>FTP接收成功包数</string>
+           <string>FTP接收数据块大小</string>
           </property>
          </item>
          <item row="11" column="6">
@@ -547,7 +547,7 @@
          </item>
          <item row="12" column="4">
           <property name="text">
-           <string>FTP接收缺失包数</string>
+           <string>FTP接收成功包数</string>
           </property>
          </item>
          <item row="12" column="6">
@@ -567,12 +567,12 @@
          </item>
          <item row="13" column="4">
           <property name="text">
-           <string>目标CAN节点地址</string>
+           <string>FTP接收缺失包数</string>
           </property>
          </item>
          <item row="13" column="6">
           <property name="text">
-           <string>保留</string>
+           <string/>
           </property>
          </item>
         </widget>
@@ -761,7 +761,7 @@
          </item>
          <item row="2" column="2">
           <property name="text">
-           <string>模拟信号强度指示</string>
+           <string>保留5</string>
           </property>
          </item>
          <item row="2" column="4">
@@ -776,7 +776,7 @@
          </item>
          <item row="3" column="0">
           <property name="text">
-           <string>通道状态标识2</string>
+           <string>保留</string>
           </property>
          </item>
          <item row="3" column="2">
@@ -796,17 +796,17 @@
          </item>
          <item row="4" column="0">
           <property name="text">
-           <string>通道状态标识3</string>
+           <string>接收速率</string>
           </property>
          </item>
          <item row="4" column="2">
           <property name="text">
-           <string>PCB温度2</string>
+           <string>保留6</string>
           </property>
          </item>
          <item row="4" column="4">
           <property name="text">
-           <string>RF接收纠错失败计数</string>
+           <string>RF最近一条指令</string>
           </property>
          </item>
          <item row="4" column="6">
@@ -816,7 +816,7 @@
          </item>
          <item row="5" column="0">
           <property name="text">
-           <string>通道状态标识4</string>
+           <string>保留1</string>
           </property>
          </item>
          <item row="5" column="2">
@@ -826,7 +826,7 @@
          </item>
          <item row="5" column="4">
           <property name="text">
-           <string>RF最近一条指令</string>
+           <string>RF指令执行情况</string>
           </property>
          </item>
          <item row="5" column="6">
@@ -836,7 +836,7 @@
          </item>
          <item row="6" column="0">
           <property name="text">
-           <string>+5V接收电流</string>
+           <string>保留2</string>
           </property>
          </item>
          <item row="6" column="2">
@@ -844,9 +844,14 @@
            <string>CPU占用率</string>
           </property>
          </item>
+         <item row="6" column="3">
+          <property name="text">
+           <string/>
+          </property>
+         </item>
          <item row="6" column="4">
           <property name="text">
-           <string>RF指令执行情况</string>
+           <string>FTP连续传输包数</string>
           </property>
          </item>
          <item row="6" column="6">
@@ -866,17 +871,22 @@
          </item>
          <item row="7" column="4">
           <property name="text">
-           <string>FTP当前接收文件序号</string>
+           <string>FTP当前接收文件编号</string>
           </property>
          </item>
          <item row="7" column="6">
           <property name="text">
-           <string>注入数据计数</string>
+           <string>保留</string>
+          </property>
+         </item>
+         <item row="7" column="7">
+          <property name="text">
+           <string/>
           </property>
          </item>
          <item row="8" column="0">
           <property name="text">
-           <string>+5V发射电流</string>
+           <string>保留3</string>
           </property>
          </item>
          <item row="8" column="2">
@@ -916,7 +926,7 @@
          </item>
          <item row="10" column="0">
           <property name="text">
-           <string>+3.3V电流</string>
+           <string>保留4</string>
           </property>
          </item>
          <item row="10" column="2">
@@ -971,7 +981,7 @@
          </item>
          <item row="12" column="6">
           <property name="text">
-           <string>AVR运行时间</string>
+           <string/>
           </property>
          </item>
          <item row="13" column="0">
@@ -991,7 +1001,7 @@
          </item>
          <item row="13" column="6">
           <property name="text">
-           <string>保留</string>
+           <string/>
           </property>
          </item>
         </widget>
