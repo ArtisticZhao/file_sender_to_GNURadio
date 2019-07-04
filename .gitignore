@@ -9,7 +9,7 @@ can_2025/
 bin/
 # Prerequisites
 *.d
-
+*.db
 # Object files
 *.o
 *.ko
