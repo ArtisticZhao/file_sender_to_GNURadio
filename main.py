@@ -293,7 +293,6 @@ class StatusForm(QtWidgets.QWidget):
             self.ui.comboBox_recv_time.addItem(each[0])
 
     def refresh_status(self):
-        print("in refresh status")
         if not self.isVisible:  # 当窗口隐藏的时候不刷新
             return
         if self.ui.comboBox_sat.currentText() == 'A机':
@@ -315,7 +314,8 @@ class StatusForm(QtWidgets.QWidget):
     @pyqtSlot(dict)
     def update_status(self, s_dict):
         try:
-            sat = s_dict.get('sat')  # 辅助内容, 只在此函数中左右, 删除防止存储
+            sat = s_dict.pop('sat')  # 辅助内容, 只在此函数中作用, 删除防止存储
+            s_dict.pop('is_encrypt')  # 删除防止存储
         except KeyError:
             print('[DEBUG] no sat')
         # 存储
@@ -343,8 +343,6 @@ class StatusForm(QtWidgets.QWidget):
                 table = self.ui.tableWidget
             else:
                 table = self.ui.tableWidget_2
-            print("refresh table: ")
-            print(table)
             for j in range(0, table.columnCount(), 2):
                 for i in range(0, table.rowCount()):
                     val = s_dict.get(table.item(i, j).text())
