@@ -48,7 +48,7 @@ class DBHandle(object):
             [+1.8V IO电压] BLOB,
             [+1.5V DDR3电压] BLOB, [接收频偏1] BLOB,
             [接收频偏2] BLOB, [数字信号强度指示1] BLOB,
-            [数字信号强度指示2] BLOB, [PCB温度2] BLOB,
+            [数字信号强度指示2] BLOB, [PCB温度1] BLOB,
             [剩余存储空间] BLOB, [CPU占用率] BLOB,
             [CAN发送包计数] BLOB, [CAN接收包计数] BLOB,
             [CAN错误包计数] BLOB, [CAN执行错误计数] BLOB,
