@@ -132,7 +132,7 @@ class AOS_Telemetry_Packet(object):
         if sat == cmd_code['cmd_A']:
             pass
         else:
-            self.gongcan['剩余存储空间'] = str(ba.int/32) + 'GB'
+            self.gongcan['剩余存储空间'] = str(ba.int/128) + 'GB'
         ba = BitArray(b_data[32:33])
         if sat == cmd_code['cmd_A']:
             pass
