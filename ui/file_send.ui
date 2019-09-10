@@ -800,6 +800,9 @@
    <property name="text">
     <string>30s工参下传</string>
    </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
   </widget>
  </widget>
  <resources/>
