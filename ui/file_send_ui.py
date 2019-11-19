@@ -216,6 +216,7 @@ class Ui_Dialog(object):
         self.set_sat_block.setObjectName("set_sat_block")
         self.gongcan_download_time = QtWidgets.QCheckBox(Dialog)
         self.gongcan_download_time.setGeometry(QtCore.QRect(440, 360, 111, 23))
+        self.gongcan_download_time.setChecked(True)
         self.gongcan_download_time.setObjectName("gongcan_download_time")
 
         self.retranslateUi(Dialog)
