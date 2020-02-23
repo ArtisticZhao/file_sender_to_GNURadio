@@ -1,0 +1,9 @@
+FUZHOU
+lat	26.025
+lon	119.407
+alt	100
+
+JINGHE
+lat	44.56
+lon	82.865
+alt	300
