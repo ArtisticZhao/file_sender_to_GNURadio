@@ -7,6 +7,8 @@
 import sys
 from math import isnan
 
+import configparser
+
 from PyQt5 import QtWidgets, QtCore, QtGui
 from PyQt5.QtCore import QTimer, pyqtSlot
 
@@ -45,6 +47,7 @@ class MainWindow(QtWidgets.QWidget):
         self.LED_GRC.setFixedSize(20, 20)
         self.LED_GRC.setDisabled(True)  # 禁止手动更改状态
 
+        self.load_ini()
         # 设置禁止更改窗口大小
         self.setFixedSize(self.width(), self.height())
         # 设置只显示关闭按钮
@@ -162,6 +165,22 @@ class MainWindow(QtWidgets.QWidget):
         # 刷新状态
         self.LED_sender.setChecked(status['HCR_Online'])
         self.LED_GRC.setChecked(status['GRC_Online'])
+
+    def load_ini(self):
+        cf = configparser.ConfigParser()
+        cf.read("data/config.ini")
+        self.ui.craft_id.setText(cf.get("init", "ID"))
+        self.ui.delay_us.setText(cf.get("init", "PacketTime"))
+        self.ui.file_path.setText(cf.get("init", "Path"))
+        self.ui.block_timeout.setText(cf.get("init", "BlockTime"))
+        self.ui.block_num.setText(cf.get("init", "BlockNum"))
+        self.ui.sender_port.setText(cf.get("init", "SenderPort"))
+        self.ui.server_port.setText(cf.get("init", "GrcPort"))
+        self.ui.prefile_no.setText(cf.get("init", "PrefileNo"))
+        self.ui.del_file_no.setText(cf.get("init", "DelFileNo"))
+        self.ui.nid.setText(cf.get("init", "NID"))
+        self.ui.sat_block_num.setText(cf.get("init", "SatBlockNum"))
+        self.ui.file_block.setText(cf.get("init", "FileBlock"))
 
     def refresh_status(self, str):
         self.ui.server_status.setText(str)
