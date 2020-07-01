@@ -195,6 +195,25 @@ def cmd_set_seed(parent):
     kiss_frame.presend_cmd(b_data)
 
 
+def cmd_send_hex(parent):
+    # 这里利用了seed窗口进行hex发送, hex数据不经过数据包 直接进入数据帧
+    # 设置seed
+    seed = parent.ui.Seed.toPlainText()
+    seed = re.sub(r'\s+', '', seed)  # 去除空白字符
+    if len(seed) != 32:
+        QMessageBox.warning(parent, "Warning", "请输入16位hex的内容(可用空格分割)")
+        return
+    try:
+        b = BitArray(hex=seed).bytes
+    except CreationError:
+        QMessageBox.warning(parent, "Warning", "请输入16位hex的内容(可用空格分割)")
+    # 发前KISS
+    k = KISS_Encoder_One_Frame()
+    b_data = k.encode(b)
+    # 发送
+    kiss_frame.presend_cmd(b_data)
+
+
 def cmd_get_status(parent):
     # 下传工参
     aos_packet = AOS_Packet()

@@ -50,6 +50,7 @@ cmd_code = {
     'cmd_AB': 0,
     'cmd_A': 1,
     'cmd_B': 2,
+    'cmd_C': 6,
 }
 
 # 不同信道的计数器

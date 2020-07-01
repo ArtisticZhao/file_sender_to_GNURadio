@@ -7,6 +7,7 @@ can_2025/
 
 # dgr edition
 bin/
+*.db
 # Prerequisites
 *.d
 *.db

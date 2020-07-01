@@ -429,9 +429,9 @@
   <widget class="QPushButton" name="down_file_block_btn_4">
    <property name="geometry">
     <rect>
-     <x>620</x>
+     <x>630</x>
      <y>266</y>
-     <width>81</width>
+     <width>71</width>
      <height>27</height>
     </rect>
    </property>
@@ -463,17 +463,22 @@
    </property>
    <item>
     <property name="text">
-     <string>AB机均执行</string>
+     <string>0-AB机均执行</string>
     </property>
    </item>
    <item>
     <property name="text">
-     <string>A机指令</string>
+     <string>1-A机指令</string>
     </property>
    </item>
    <item>
     <property name="text">
-     <string>B机指令</string>
+     <string>2-B机指令</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>6-星务指令</string>
     </property>
    </item>
   </widget>
@@ -802,6 +807,19 @@
    </property>
    <property name="checked">
     <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="set_hex_btn">
+   <property name="geometry">
+    <rect>
+     <x>630</x>
+     <y>234</y>
+     <width>71</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Send Hex</string>
    </property>
   </widget>
  </widget>

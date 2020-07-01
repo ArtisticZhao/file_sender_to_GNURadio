@@ -70,6 +70,8 @@ def cmd_change_channel(parent):
         settings['cmd_channel_id'] = cmd_code['cmd_A']
     elif parent.ui.cmd_channel.currentIndex() == 2:
         settings['cmd_channel_id'] = cmd_code['cmd_B']
+    elif parent.ui.cmd_channel.currentIndex() == 3:
+        settings['cmd_channel_id'] = cmd_code['cmd_C']
     print('[DEBUG] cmd channel id is ' + str(settings['cmd_channel_id']))
 
 
