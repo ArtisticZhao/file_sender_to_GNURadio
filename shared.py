@@ -45,6 +45,7 @@ cmd_code = {
         'open': b'\xAA',
         'close': b'\x00'
     },
+    'rf_ch_close': b'\xA2',
 
     # 信道代码
     'cmd_AB': 0,

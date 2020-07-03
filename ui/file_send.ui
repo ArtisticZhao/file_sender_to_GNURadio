@@ -793,22 +793,6 @@
     <string>设置星上包数</string>
    </property>
   </widget>
-  <widget class="QCheckBox" name="gongcan_download_time">
-   <property name="geometry">
-    <rect>
-     <x>440</x>
-     <y>360</y>
-     <width>111</width>
-     <height>23</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>30s工参下传</string>
-   </property>
-   <property name="checked">
-    <bool>true</bool>
-   </property>
-  </widget>
   <widget class="QPushButton" name="set_hex_btn">
    <property name="geometry">
     <rect>
@@ -821,6 +805,44 @@
    <property name="text">
     <string>Send Hex</string>
    </property>
+  </widget>
+  <widget class="QPushButton" name="rf_gongcan_btn">
+   <property name="geometry">
+    <rect>
+     <x>630</x>
+     <y>360</y>
+     <width>71</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>发送指令</string>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="gongcan_download_time_cb">
+   <property name="geometry">
+    <rect>
+     <x>440</x>
+     <y>360</y>
+     <width>131</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <item>
+    <property name="text">
+     <string>30s工参下传-开</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>30s工参下传-关</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>射频通道关闭</string>
+    </property>
+   </item>
   </widget>
  </widget>
  <resources/>

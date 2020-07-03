@@ -97,8 +97,10 @@ class MainWindow(QtWidgets.QWidget):
             lambda: cmd_function.cmd_set_speed(self))
         self.ui.set_sat_block.clicked.connect(
             lambda: cmd_function.cmd_set_sat_block_num(self))
-        self.ui.gongcan_download_time.stateChanged.connect(
-            lambda: cmd_function.cmd_gongcan_download_time(self)
+        self.ui.rf_gongcan_btn.clicked.connect(
+            lambda: cmd_function.cmd_gongcan_download_time(self))
+        self.ui.set_hex_btn.clicked.connect(
+            lambda: cmd_function.cmd_send_hex(self)
         )
 
         self.ui.pushButton_childwindow.clicked.connect(self.status_window.show)
