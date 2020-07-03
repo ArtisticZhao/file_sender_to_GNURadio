@@ -57,7 +57,13 @@ class AOS_Telemetry_Packet(object):
         ba = BitArray(b_data[0:1])
         self.gongcan['配置状态'] = ba.hex
         ba = BitArray(b_data[1:2])
-        self.gongcan['工作模式'] = ba.hex
+        if sat == cmd_code['cmd_A']:
+            pass
+        else:
+            if ba.int == 1:
+                self.gongcan['射频通道开关'] = '开'
+            else:
+                self.gongcan['射频通道开关'] = '关'
         ba = BitArray(b_data[2:3])
         self.gongcan['通道状态标识1'] = ba.hex
         ba = BitArray(b_data[3:4])
@@ -169,10 +175,18 @@ class AOS_Telemetry_Packet(object):
         self.gongcan['RF最近一条指令'] = ba.hex
         ba = BitArray(b_data[46:47])
         self.gongcan['RF指令执行情况'] = ba.hex
-        ba = BitArray(b_data[49:51])
-        self.gongcan['FTP连续传输包数'] = ba.hex
+        if sat == cmd_code['cmd_A']:
+            ba = BitArray(b_data[47:51])
+            self.gongcan['AGC寄存器'] = ba.uint
+        else:
+            ba = BitArray(b_data[47:49])
+            self.gongcan['连续传输包数'] = ba.uint
+            ba = BitArray(b_data[49:50])
+            self.gongcan['信标使能标识'] = ba.uint
+            ba = BitArray(b_data[50:51])
+            self.gongcan['FTP当前接收文件号'] = ba.uint
         ba = BitArray(b_data[51:55])
-        self.gongcan['FTP当前接收文件序号'] = ba.hex
+        self.gongcan['FTP当前接收文件ID'] = ba.hex
         ba = BitArray(b_data[55:59])
         self.gongcan['FTP当前接收文件长度'] = str(ba.uint)
         ba = BitArray(b_data[59:63])
@@ -208,8 +222,11 @@ class AOS_Telemetry_Packet(object):
         self.gongcan['复位计数'] = str(ba.uint)
         ba = BitArray(b_data[102:103])
         self.gongcan['复位标识'] = ba.hex
-        # ba = BitArray(b_data[103:104])
-        # self.gongcan['系统状态标识'] = ba.hex
+        if sat == cmd_code['cmd_A']:
+            pass
+        else:
+            ba = BitArray(b_data[103:104])
+            self.gongcan['接收文件备份状态'] = ba.hex
 
         ba = BitArray(b_data[104:108])
         self.gongcan['ARM运行时间'] = str(ba.uint) + 's'

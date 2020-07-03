@@ -158,7 +158,7 @@
    <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="tab">
       <attribute name="title">
@@ -317,7 +317,7 @@
          </item>
          <item row="1" column="0">
           <property name="text">
-           <string>工作模式</string>
+           <string>保留</string>
           </property>
          </item>
          <item row="1" column="2">
@@ -447,7 +447,7 @@
          </item>
          <item row="7" column="4">
           <property name="text">
-           <string>FTP连续传输包数</string>
+           <string>AGC寄存器</string>
           </property>
          </item>
          <item row="7" column="6">
@@ -467,7 +467,7 @@
          </item>
          <item row="8" column="4">
           <property name="text">
-           <string>FTP当前接收文件序号</string>
+           <string>FTP当前接收文件ID</string>
           </property>
          </item>
          <item row="8" column="6">
@@ -731,12 +731,12 @@
          </item>
          <item row="0" column="6">
           <property name="text">
-           <string>当前发送文件序号</string>
+           <string>FTP接收成功包数</string>
           </property>
          </item>
          <item row="1" column="0">
           <property name="text">
-           <string>工作模式</string>
+           <string>射频通道开关</string>
           </property>
          </item>
          <item row="1" column="2">
@@ -751,7 +751,7 @@
          </item>
          <item row="1" column="6">
           <property name="text">
-           <string>当前发送文件长度</string>
+           <string>FTP接收缺失包数</string>
           </property>
          </item>
          <item row="2" column="0">
@@ -771,7 +771,7 @@
          </item>
          <item row="2" column="6">
           <property name="text">
-           <string>当前发送文件校验值</string>
+           <string>目标CAN节点地址</string>
           </property>
          </item>
          <item row="3" column="0">
@@ -791,7 +791,7 @@
          </item>
          <item row="3" column="6">
           <property name="text">
-           <string>FTP发送数据块大小</string>
+           <string>当前发送文件序号</string>
           </property>
          </item>
          <item row="4" column="0">
@@ -811,7 +811,7 @@
          </item>
          <item row="4" column="6">
           <property name="text">
-           <string>FTP发送成功包数</string>
+           <string>当前发送文件长度</string>
           </property>
          </item>
          <item row="5" column="0">
@@ -831,7 +831,7 @@
          </item>
          <item row="5" column="6">
           <property name="text">
-           <string>FTP发送缺失包数</string>
+           <string>当前发送文件校验值</string>
           </property>
          </item>
          <item row="6" column="0">
@@ -851,12 +851,12 @@
          </item>
          <item row="6" column="4">
           <property name="text">
-           <string>FTP连续传输包数</string>
+           <string>连续传输包数</string>
           </property>
          </item>
          <item row="6" column="6">
           <property name="text">
-           <string>读取数据包计数</string>
+           <string>FTP发送数据块大小</string>
           </property>
          </item>
          <item row="7" column="0">
@@ -871,12 +871,12 @@
          </item>
          <item row="7" column="4">
           <property name="text">
-           <string>FTP当前接收文件序号</string>
+           <string>信标使能标识</string>
           </property>
          </item>
          <item row="7" column="6">
           <property name="text">
-           <string>保留</string>
+           <string>FTP发送成功包数</string>
           </property>
          </item>
          <item row="7" column="7">
@@ -896,12 +896,12 @@
          </item>
          <item row="8" column="4">
           <property name="text">
-           <string>FTP当前接收文件长度</string>
+           <string>FTP当前接收文件号</string>
           </property>
          </item>
          <item row="8" column="6">
           <property name="text">
-           <string>复位计数</string>
+           <string>FTP发送缺失包数</string>
           </property>
          </item>
          <item row="9" column="0">
@@ -916,12 +916,12 @@
          </item>
          <item row="9" column="4">
           <property name="text">
-           <string>FTP当前接收文件校验值</string>
+           <string>保留</string>
           </property>
          </item>
          <item row="9" column="6">
           <property name="text">
-           <string>复位标识</string>
+           <string>读取数据包计数</string>
           </property>
          </item>
          <item row="10" column="0">
@@ -936,12 +936,12 @@
          </item>
          <item row="10" column="4">
           <property name="text">
-           <string>FTP接收数据块大小</string>
+           <string>FTP当前接收文件ID</string>
           </property>
          </item>
          <item row="10" column="6">
           <property name="text">
-           <string>ARM运行时间</string>
+           <string>复位计数</string>
           </property>
          </item>
          <item row="11" column="0">
@@ -956,12 +956,12 @@
          </item>
          <item row="11" column="4">
           <property name="text">
-           <string>FTP接收成功包数</string>
+           <string>FTP当前接收文件长度</string>
           </property>
          </item>
          <item row="11" column="6">
           <property name="text">
-           <string/>
+           <string>复位标识</string>
           </property>
          </item>
          <item row="12" column="0">
@@ -976,10 +976,15 @@
          </item>
          <item row="12" column="4">
           <property name="text">
-           <string>FTP接收缺失包数</string>
+           <string>FTP当前接收文件校验值</string>
           </property>
          </item>
          <item row="12" column="6">
+          <property name="text">
+           <string>接收文件备份状态</string>
+          </property>
+         </item>
+         <item row="12" column="7">
           <property name="text">
            <string/>
           </property>
@@ -996,10 +1001,15 @@
          </item>
          <item row="13" column="4">
           <property name="text">
-           <string>目标CAN节点地址</string>
+           <string>FTP接收数据块大小</string>
           </property>
          </item>
          <item row="13" column="6">
+          <property name="text">
+           <string>ARM运行时间</string>
+          </property>
+         </item>
+         <item row="13" column="7">
           <property name="text">
            <string/>
           </property>
